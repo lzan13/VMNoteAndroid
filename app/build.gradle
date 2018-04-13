@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "com.vmloft.develop.app.vnotes"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName '0.1.0'
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
+    implementation 'com.android.support:design:27.1.1'
+
+    // ButterKnife 注解库
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // Glide 图片加载库
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+
+    // json 数据解析库
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    // Retrofit 网络请求库
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager/vmtools
+    compile project(':vmtools')
+}

@@ -1,0 +1,87 @@
+<resources>
+
+    <!-- 应用基础主题 -->
+    <style name="AppTheme" parent="VMTheme">
+        <!-- 在这里自定义自己的主题 -->
+        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- 深一些的主要色，一般是状态栏等颜色 -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--设置状态栏为透明-->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <!-- 默认主题 -->
+    <style name="AppTheme.Default"></style>
+
+    <!--启动时的主题样式-->
+    <style name="AppTheme.Launcher">
+        <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
+        <item name="android:windowBackground">@drawable/bg_launcher_splash</item>
+        <!--颜色背景-->
+        <!--<item name="android:colorBackground">@color/colorPrimaryDark</item>-->
+    </style>
+
+    <!--透明主题-->
+    <style name="AppTheme.Transparent">
+        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
+        <item name="colorPrimary">@color/vm_transparent</item>
+        <!-- 深一些的主要色，一般是状态栏等颜色 -->
+        <item name="colorPrimaryDark">@color/vm_transparent</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--设置状态栏颜色为透明-->
+        <item name="android:statusBarColor">@color/vm_black_38</item>
+        <!--设置导航栏背景色-->
+        <item name="android:navigationBarColor">@color/vm_black_38</item>
+    </style>
+
+    <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--Appbar 控制器颜色-->
+        <item name="colorControlNormal">@color/vm_white_100</item>
+        <!--Appbar 标题颜色-->
+        <item name="android:textColor">@color/vm_white_100</item>
+        <!--Appbar 标题大小-->
+        <item name="android:textSize">@dimen/vm_size_16</item>
+        <!--Appbar 标题样式-->
+        <item name="android:textStyle">normal</item>
+        <!--更改菜单按钮样式 此菜单直的是当 action过多显示不全，会有三个小点儿样式-->
+        <!--<item name="android:actionOverflowButtonStyle">@style/AppTheme.ActionBarOverflow</item>-->
+    </style>
+
+    <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
+    <style name="AppTheme.ToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--Toolbar 控制器颜色-->
+        <item name="colorControlNormal">@color/vm_white_100</item>
+        <!--Toolbar 上文字颜色-->
+        <item name="android:textColor">@color/vm_white_100</item>
+        <!--Toolbar 文字大小-->
+        <item name="android:textSize">@dimen/vm_size_16</item>
+        <!--Toolbar 文字样式-->
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
+    <style name="AppTheme.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light">
+        <!--设置菜单项文字的背景-->
+        <!--<item name="android:background">@drawable/vm_popup_backaground</item>-->
+        <!--弹出菜单背景颜色-->
+        <!--<item name="android:colorBackground">@color/vm_white_87</item>-->
+        <!--弹出菜单项的背景设置 主要是为了添加点击效果-->
+        <!--<item name="android:itemBackground">@drawable/ripple_rectangle_white</item>-->
+        <!--设置弹出 PopupWindow 背景 这里使用了系统的资源 好像无效-->
+        <!--<item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>-->
+        <!--弹出菜单的文字颜色和大小-->
+        <item name="android:textColor">@color/vm_black_87</item>
+        <item name="android:textSize">@dimen/vm_size_16</item>
+    </style>
+
+</resources>
