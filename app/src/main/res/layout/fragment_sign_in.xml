@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/layout_sign_in_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/vm_dimen_24"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/vm_dimen_36">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vm_dimen_24"
+                android:text="@string/sign_in"
+                android:textColor="@color/vm_black_87"
+                android:textSize="@dimen/vm_size_display_1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/vm_black_87"
+                    android:textColorHint="@color/vm_black_38">
+
+                    <EditText
+                        android:id="@+id/edit_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/user"
+                        android:inputType="textImeMultiLine"
+                        android:textColor="@color/vm_black_87"
+                        android:textColorHint="@color/vm_black_38"
+                        android:textSize="@dimen/vm_size_subhead" />
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_clear_account"
+                    android:layout_width="@dimen/vm_dimen_36"
+                    android:layout_height="@dimen/vm_dimen_36"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/vm_dimen_8"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/vm_ic_close_24dp"
+                    android:tint="@color/vm_black_54"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/vm_black_87"
+                    android:textColorHint="@color/vm_black_38">
+
+                    <EditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword|textImeMultiLine"
+                        android:textColor="@color/vm_black_87"
+                        android:textColorHint="@color/vm_black_38"
+                        android:textSize="@dimen/vm_size_subhead" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <ImageButton
+                    android:id="@+id/btn_show_password"
+                    android:layout_width="@dimen/vm_dimen_36"
+                    android:layout_height="@dimen/vm_dimen_36"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/vm_dimen_8"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_visibility_off_24dp"
+                    android:tint="@color/vm_black_54"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_48"
+                android:layout_marginTop="@dimen/vm_dimen_8"
+                android:alpha="0.5"
+                android:enabled="false"
+                android:text="@string/sign_in"
+                android:textAllCaps="false"
+                android:theme="@style/VMBtn.Red" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/vm_dimen_8"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@color/vm_black_54"
+                    android:textSize="@dimen/vm_size_14" />
+
+                <Button
+                    android:id="@+id/btn_sign_up_go"
+                    style="@style/VMBtn.Transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/vm_btn_height_normal"
+                    android:layout_margin="@dimen/vm_dimen_0"
+                    android:padding="@dimen/vm_dimen_0"
+                    android:text="@string/sign_up_go"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vm_blue_87"
+                    android:theme="@style/VMBtn.Transparent" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

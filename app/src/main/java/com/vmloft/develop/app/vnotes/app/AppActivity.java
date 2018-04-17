@@ -1,9 +1,10 @@
-package com.vmloft.develop.app.vnotes;
+package com.vmloft.develop.app.vnotes.app;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.vmloft.develop.app.vnotes.R;
 import com.vmloft.develop.library.tools.VMActivity;
 
 /**

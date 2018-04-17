@@ -15,7 +15,9 @@
         <!--设置状态栏为透明-->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--半透明状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <!-- 默认主题 -->
@@ -30,6 +32,20 @@
     </style>
 
     <!--透明主题-->
+    <style name="AppTheme.Sign">
+        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
+        <item name="colorPrimary">@color/vm_transparent</item>
+        <!-- 深一些的主要色，一般是状态栏等颜色 -->
+        <item name="colorPrimaryDark">@color/vm_transparent</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--设置状态栏颜色为透明-->
+        <item name="android:statusBarColor">@color/vm_black_12</item>
+        <!--设置导航栏背景色-->
+        <item name="android:navigationBarColor">@color/vm_black_38</item>
+    </style>
+
+    <!--透明主题-->
     <style name="AppTheme.Transparent">
         <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
         <item name="colorPrimary">@color/vm_transparent</item>
@@ -38,9 +54,9 @@
         <!--设置导航栏半透明效果-->
         <item name="android:windowTranslucentNavigation">true</item>
         <!--设置状态栏颜色为透明-->
-        <item name="android:statusBarColor">@color/vm_black_38</item>
+        <item name="android:statusBarColor">@color/vm_transparent</item>
         <!--设置导航栏背景色-->
-        <item name="android:navigationBarColor">@color/vm_black_38</item>
+        <item name="android:navigationBarColor">@color/vm_black_12</item>
     </style>
 
     <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->

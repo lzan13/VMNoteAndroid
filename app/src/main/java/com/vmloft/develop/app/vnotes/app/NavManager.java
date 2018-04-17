@@ -1,10 +1,11 @@
-package com.vmloft.develop.app.vnotes.manager;
+package com.vmloft.develop.app.vnotes.app;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.vmloft.develop.app.vnotes.sign.SignInActivity;
+import com.vmloft.develop.app.vnotes.home.MainActivity;
+import com.vmloft.develop.app.vnotes.sign.SignActivity;
 
 /**
  * Created by lzan13 on 2017/11/23.
@@ -13,18 +14,23 @@ import com.vmloft.develop.app.vnotes.sign.SignInActivity;
  */
 public class NavManager {
 
-    public static void signIn(Context context) {
-        forward(context, SignInActivity.class);
+    public static void goMain(Context context) {
+        forward(context, MainActivity.class);
     }
 
-    public static void signUp(Context context) {
+
+    public static void goSignIn(Context context) {
+        forward(context, SignActivity.class);
+    }
+
+    public static void goSignUp(Context context) {
 
     }
 
     /**
      * 向前跳转
      *
-     * @param context     上下文对象
+     * @param context 上下文对象
      * @param targetClass 目标
      */
     private static void forward(Context context, Class<? extends Activity> targetClass) {

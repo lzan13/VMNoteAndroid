@@ -9,19 +9,25 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-import com.vmloft.develop.app.vnotes.AppActivity;
-import com.vmloft.develop.app.vnotes.manager.NavManager;
+import com.vmloft.develop.app.vnotes.app.AppActivity;
+import com.vmloft.develop.app.vnotes.app.NavManager;
 import com.vmloft.develop.app.vnotes.R;
-import com.vmloft.develop.app.vnotes.manager.VSPManager;
+import com.vmloft.develop.app.vnotes.app.SPManager;
+import com.vmloft.develop.library.tools.VMActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+/**
+ * 主界面
+ */
 public class MainActivity extends AppActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +35,9 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
         // 将主题设置为正常主题
         setTheme(R.style.AppTheme_Default);
         // 判断是否登录，否则跳转到登录界面
-        String token = VSPManager.getInstance().getToken();
+        String token = SPManager.getInstance().getToken();
         if (TextUtils.isEmpty(token)) {
-            NavManager.signIn(activity);
+            NavManager.goSignIn(activity);
         }
         setContentView(R.layout.activity_main);
 
@@ -42,9 +48,8 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
 
 
     private void initView() {
-        setSupportActionBar(toolbar);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        setSupportActionBar(getToolbar());
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -52,12 +57,32 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @OnClick({R.id.btn_sign_out})
+    public void onClick(View view) {
+        switch (view.getId()) {
+        case R.id.btn_sign_out:
+            signOut();
+            break;
+        }
+    }
+
+    private void signOut() {
+        SPManager.getInstance().putToken("");
+        NavManager.goSignIn(activity);
+    }
+
+    /**
+     * 菜单布局
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * 菜单事件
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -75,15 +100,13 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_notes) {
-            // Handle the camera action
-        } else if (id == R.id.nav_notes_books) {
+        if (id == R.id.nav_note_all) {
+
+        } else if (id == R.id.nav_note_books) {
+
+        } else if (id == R.id.nav_note_tags) {
 
         } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
         drawer.closeDrawer(GravityCompat.START);
