@@ -5,8 +5,15 @@ package com.vmloft.develop.app.vnotes.bean;
  * 对数据解析的封装，这里主要解析公共参数
  */
 public class BaseResult<T> {
+    // 请求结果错误码 为 0 则无错误
     private int code;
+    // 请求结果描述
     private String message;
+    // 请求符合条件的总条数
+    private int totalCount;
+    // 当前返回的条数
+    private int resultCount;
+    // 请求数据，泛型，根据传入的类型进行解析
     private T data;
 
     public int getCode() {
@@ -23,6 +30,22 @@ public class BaseResult<T> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public int getResultCount() {
+        return resultCount;
+    }
+
+    public void setResultCount(int resultCount) {
+        this.resultCount = resultCount;
     }
 
     public T getData() {

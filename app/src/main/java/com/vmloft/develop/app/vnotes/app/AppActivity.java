@@ -1,6 +1,5 @@
 package com.vmloft.develop.app.vnotes.app;
 
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -18,8 +17,6 @@ public class AppActivity extends VMActivity {
 
     // Toolbar
     private Toolbar toolbar;
-
-    protected AlertDialog.Builder dialog;
 
     @Override
     protected void onStart() {

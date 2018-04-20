@@ -19,12 +19,10 @@
             android:padding="@dimen/vm_dimen_36">
 
             <TextView
+                style="@style/VMText.Display1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/vm_dimen_24"
-                android:text="@string/sign_up"
-                android:textColor="@color/vm_black_87"
-                android:textSize="@dimen/vm_size_display_1" />
+                android:text="@string/sign_up" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -33,19 +31,12 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/vm_black_87"
-                    android:textColorHint="@color/vm_black_38">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/edit_account"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/user"
-                        android:inputType="textImeMultiLine"
-                        android:textColor="@color/vm_black_87"
-                        android:textColorHint="@color/vm_black_38"
-                        android:textSize="@dimen/vm_size_subhead" />
+                        style="@style/VMEdit"
+                        android:hint="@string/user" />
                 </android.support.design.widget.TextInputLayout>
 
                 <ImageButton
@@ -68,19 +59,13 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/vm_black_87"
-                    android:textColorHint="@color/vm_black_38">
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/edit_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/VMEdit"
                         android:hint="@string/password"
-                        android:inputType="textPassword|textImeMultiLine"
-                        android:textColor="@color/vm_black_87"
-                        android:textColorHint="@color/vm_black_38"
-                        android:textSize="@dimen/vm_size_subhead" />
+                        android:inputType="textPassword|textImeMultiLine" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -99,41 +84,29 @@
 
             <Button
                 android:id="@+id/btn_sign_up"
+                style="@style/VMBtn.Red"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/vm_dimen_48"
-                android:layout_marginTop="@dimen/vm_dimen_8"
+                android:layout_margin="@dimen/vm_margin_large"
                 android:alpha="0.5"
                 android:enabled="false"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:theme="@style/VMBtn.Red" />
+                android:text="@string/sign_up" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/vm_dimen_8"
+                android:layout_margin="@dimen/vm_margin_large"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textColor="@color/vm_black_54"
-                    android:textSize="@dimen/vm_size_14" />
+                    style="@style/VMText.Caption"
+                    android:text="@string/already_have_an_account" />
 
                 <Button
                     android:id="@+id/btn_sign_in_go"
-                    style="@style/VMBtn.Transparent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/vm_btn_height_normal"
-                    android:layout_margin="@dimen/vm_dimen_0"
-                    android:padding="@dimen/vm_dimen_0"
-                    android:text="@string/sign_in_go"
-                    android:textAllCaps="false"
-                    android:textColor="@color/vm_blue_87"
-                    android:theme="@style/VMBtn.Transparent" />
+                    style="@style/VMBtn.Flat"
+                    android:text="@string/sign_in_go" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

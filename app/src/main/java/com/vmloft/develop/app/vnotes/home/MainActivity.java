@@ -5,18 +5,17 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.vmloft.develop.app.vnotes.app.AppActivity;
 import com.vmloft.develop.app.vnotes.app.NavManager;
 import com.vmloft.develop.app.vnotes.R;
 import com.vmloft.develop.app.vnotes.app.SPManager;
-import com.vmloft.develop.library.tools.VMActivity;
+import com.vmloft.develop.app.vnotes.home.view.IMainView;
+import com.vmloft.develop.library.tools.utils.VMTheme;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +24,7 @@ import butterknife.OnClick;
 /**
  * 主界面
  */
-public class MainActivity extends AppActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppActivity implements IMainView, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 将主题设置为正常主题
-        setTheme(R.style.AppTheme_Default);
+        setTheme(R.style.AppTheme);
         // 判断是否登录，否则跳转到登录界面
         String token = SPManager.getInstance().getToken();
         if (TextUtils.isEmpty(token)) {
@@ -43,11 +42,13 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
 
         ButterKnife.bind(activity);
 
-        initView();
+        init();
     }
 
-
-    private void initView() {
+    /**
+     * 界面初始化
+     */
+    private void init() {
         setSupportActionBar(getToolbar());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -57,15 +58,32 @@ public class MainActivity extends AppActivity implements NavigationView.OnNaviga
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @OnClick({R.id.btn_sign_out})
+    @OnClick({R.id.btn_switch_night_theme, R.id.btn_sign_out})
     public void onClick(View view) {
         switch (view.getId()) {
+        case R.id.btn_switch_night_theme:
+            switchNightTheme();
+            break;
         case R.id.btn_sign_out:
             signOut();
             break;
         }
     }
 
+    /**
+     * 切换夜间主题
+     */
+    private void switchNightTheme() {
+        boolean isNight = SPManager.getInstance().isNight();
+        VMTheme.setNightTheme(!isNight);
+        SPManager.getInstance().putNigiht(!isNight);
+        // 重启 Activity
+        recreate();
+    }
+
+    /**
+     * 退出登录
+     */
     private void signOut() {
         SPManager.getInstance().putToken("");
         NavManager.goSignIn(activity);

@@ -8,8 +8,9 @@ import com.vmloft.develop.library.tools.utils.VMSPUtil;
  */
 public class SPManager {
 
-    final String TOKEN = "token";
     final String ACCOUNT = "account";
+    final String NIGHT = "night";
+    final String TOKEN = "token";
 
     private static SPManager instance;
 
@@ -34,6 +35,17 @@ public class SPManager {
     }
 
     /**
+     * 夜间模式
+     */
+    public boolean isNight() {
+        return (boolean) VMSPUtil.get(NIGHT, false);
+    }
+
+    public void putNigiht(boolean isNight) {
+        VMSPUtil.put(NIGHT, isNight);
+    }
+
+    /**
      * token 的获取和保存
      */
     public String getToken() {
@@ -44,3 +56,4 @@ public class SPManager {
         VMSPUtil.put(TOKEN, token);
     }
 }
+

@@ -5,7 +5,7 @@
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/vm_theme_background"
     android:clipToPadding="true"
     android:fitsSystemWindows="false"
     tools:context=".sign.SignActivity">
@@ -26,7 +26,6 @@
         android:id="@+id/layout_sign_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/vm_white_87"
         android:gravity="center"
         android:visibility="invisible">
 

@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background_light"
+    android:background="@color/vm_theme_background"
     android:fitsSystemWindows="true"
     tools:context=".home.MainActivity"
     tools:openDrawer="start">
@@ -22,11 +22,6 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name" />
-
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 
@@ -35,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/vm_theme_background_light"
+        android:background="@color/vm_theme_background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer">
@@ -44,13 +39,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/background"
+            android:background="@color/vm_theme_background"
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/btn_switch_night_theme"
+                style="@style/VMBtn.Flat"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="@string/switch_night_theme" />
+
+            <Button
                 android:id="@+id/btn_sign_out"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/VMBtn.Red"
+                android:layout_margin="@dimen/vm_margin_normal"
                 android:text="@string/sign_out" />
         </LinearLayout>
     </android.support.design.widget.NavigationView>
