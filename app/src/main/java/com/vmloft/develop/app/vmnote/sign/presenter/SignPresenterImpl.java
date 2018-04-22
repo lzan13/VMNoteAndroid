@@ -1,7 +1,7 @@
 package com.vmloft.develop.app.vmnote.sign.presenter;
 
 import com.vmloft.develop.app.vmnote.app.Callback;
-import com.vmloft.develop.app.vmnote.bean.UserBean;
+import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.sign.model.ISignModel;
 import com.vmloft.develop.app.vmnote.sign.model.SignModelImpl;
 import com.vmloft.develop.app.vmnote.sign.view.ISignInView;
@@ -26,8 +26,8 @@ public class SignPresenterImpl implements ISignPresenter {
     }
 
     @Override
-    public void doSignUp(UserBean user) {
-        signInModel.createAccount(user, new Callback() {
+    public void doSignUp(Account entity) {
+        signInModel.createAccount(entity, new Callback() {
             @Override
             public void onDone(Object object) {
                 signInView.onSignUpDone();
@@ -43,11 +43,11 @@ public class SignPresenterImpl implements ISignPresenter {
     /**
      * 处理登录操作
      *
-     * @param user 账户
+     * @param entity 账户
      */
     @Override
-    public void doSignIn(UserBean user) {
-        signInModel.authAccount(user, new Callback() {
+    public void doSignIn(Account entity) {
+        signInModel.authAccount(entity, new Callback() {
             @Override
             public void onDone(Object object) {
                 signInView.onSignInDone();

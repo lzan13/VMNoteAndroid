@@ -41,7 +41,7 @@ public class SPManager {
         return (boolean) VMSPUtil.get(NIGHT, false);
     }
 
-    public void putNigiht(boolean isNight) {
+    public void putNight(boolean isNight) {
         VMSPUtil.put(NIGHT, isNight);
     }
 

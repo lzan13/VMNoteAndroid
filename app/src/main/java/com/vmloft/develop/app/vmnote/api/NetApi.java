@@ -6,8 +6,10 @@ import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.app.Callback;
 import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.app.VError;
+import com.vmloft.develop.app.vmnote.bean.BaseResult;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.widget.VMToast;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -30,20 +32,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by lzan13 on 2017/11/24.
  * 网络请求接口管理类
  */
-public class ApiManager {
+public class NetApi {
 
-    private static ApiManager instance;
+    private static NetApi instance;
 
-    private String baseUrl = "http://api.vmnote.melove.net/api/v1/";
+    private String baseUrl = "http://vmnote.melove.net/api/v1/";
     private OkHttpClient client;
     private Retrofit retrofit;
+    private ApiService apiService;
 
     /**
      * 获取单例类实例
      */
-    public static ApiManager getInstance() {
+    public static NetApi getInstance() {
         if (instance == null) {
-            instance = new ApiManager();
+            instance = new NetApi();
         }
         return instance;
     }
@@ -51,7 +54,7 @@ public class ApiManager {
     /**
      * 私有化实例方法
      */
-    private ApiManager() {
+    NetApi() {
         // 实例化 OkHttpClient，如果不自己创建 Retrofit 也会创建一个默认的
         client = new OkHttpClient.Builder().retryOnConnectionFailure(true)
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -66,6 +69,8 @@ public class ApiManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        // 创建 Retrofit 接口实例
+        apiService = createApi(ApiService.class);
     }
 
     /**
@@ -136,29 +141,89 @@ public class ApiManager {
         return retrofit.create(clazz);
     }
 
-    public AccountApi accountApi() {
-        return createApi(AccountApi.class);
+    public ApiService accountApi() {
+        return createApi(ApiService.class);
     }
 
     /**
-     * 请求错误同意处理方法
+     * 请求结果错误的情况处理
+     *
+     * @param result 请求结果，包含错误信息
+     * @param callback 回调
+     */
+    public void parseError(BaseResult result, Callback callback) {
+        String msg = result.getMessage();
+        int code = result.getCode();
+        switch (code) {
+        case VError.UNKNOWN:
+            break;
+        case VError.SERVER:
+            break;
+        case VError.SYS_NETWORK:
+            break;
+        case VError.SYS_TIMEOUT:
+            break;
+        case VError.INVALID_PARAM:
+            break;
+        case VError.TOKEN_INVALID:
+            break;
+        case VError.TOKEN_EXPIRED:
+            break;
+        case VError.NOT_PERMISSION:
+            break;
+        case VError.ACCOUNT_EXIST:
+            break;
+        case VError.ACCOUNT_NAME_EXIST:
+            break;
+        case VError.ACCOUNT_NOT_EXIST:
+            break;
+        case VError.ACCOUNT_DELETED:
+            break;
+        case VError.ACCOUNT_NO_ACTIVATED:
+            break;
+        case VError.INVALID_ACTIVATE_LINK:
+            break;
+        case VError.INVALID_PASSWORD:
+            break;
+        default:
+            break;
+        }
+        VMLog.e(msg);
+        VMToast.make(msg).showError();
+        callback.onError(code, msg);
+    }
+
+    /**
+     * 请求出现异常错误处理
+     *
+     * @param e 异常
+     * @param callback 回调
      */
     public void parseThrowable(Throwable e, Callback callback) {
+        int code ;
+        String msg = null;
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
             //httpException.response().errorBody().string()
-            int code = httpException.code();
+            code = httpException.code();
             if (code == 500 || code == 404) {
-                callback.onError(VError.SERVER, VMStrUtil.strByResId(R.string.err_server));
+                code = VError.SERVER;
+                msg = VMStrUtil.strByResId(R.string.err_server);
             }
         } else if (e instanceof ConnectException) {
-            callback.onError(VError.SYS_NETWORK, VMStrUtil.strByResId(R.string.err_network_unusable));
+            code = VError.SYS_NETWORK;
+            msg = VMStrUtil.strByResId(R.string.err_network_unusable);
         } else if (e instanceof SocketTimeoutException) {
-            callback.onError(VError.SYS_TIMEOUT, VMStrUtil.strByResId(R.string.err_network_timeout));
+            code = VError.SYS_TIMEOUT;
+            msg = VMStrUtil.strByResId(R.string.err_network_timeout);
         } else {
-            callback.onError(VError.UNKNOWN, VMStrUtil.strByResId(R.string.err_unknown) + e.getMessage());
-            VMLog.e(e.getMessage());
+            code = VError.UNKNOWN;
+            msg = VMStrUtil.strByResId(R.string.err_unknown) + e.getMessage();
         }
+        VMLog.e(msg);
+        VMToast.make(msg).showError();
+        callback.onError(code, msg);
     }
+
 }
 

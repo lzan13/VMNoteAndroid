@@ -1,39 +1,109 @@
 package com.vmloft.develop.app.vmnote.api;
 
+import com.vmloft.develop.app.vmnote.app.Callback;
+import com.vmloft.develop.app.vmnote.app.SPManager;
+import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.bean.BaseResult;
-import com.vmloft.develop.app.vmnote.bean.UserBean;
+import com.vmloft.develop.app.vmnote.db.DBManager;
+import com.vmloft.develop.app.vmnote.utils.RXUtils;
+import com.vmloft.develop.library.tools.utils.VMLog;
 
-import io.reactivex.Observable;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
- * Created by lzan13 on 2017/11/24.
+ * Created by lzan13 on 2018/4/20.
+ * 账户相关 api 接口
  */
-public interface AccountApi {
+public class AccountApi extends NetApi {
+
+    private static AccountApi instance;
+
+    AccountApi() {
+        super();
+    }
+
+    public static AccountApi getInstance() {
+        if (instance == null) {
+            instance = new AccountApi();
+        }
+        return instance;
+    }
 
     /**
-     * 注册账户
+     * 创建账户
      */
-    @FormUrlEncoded
-    @POST("accounts/")
-    Observable<BaseResult<UserBean>> createAccount(@Field("account") String account, @Field("password") String password);
+    public void createAccount(Account entity, final Callback callback) {
+        SPManager.getInstance().putAccount(entity.getEmail());
+        NetApi.getInstance()
+                .accountApi()
+                .createAccount(entity.getEmail(), entity.getPassword())
+                .compose(RXUtils.<BaseResult<Account>>threadScheduler())
+                .subscribe(new Observer<BaseResult<Account>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResult<Account> result) {
+                        VMLog.d(result.toString());
+                        if (result.getCode() == 0) {
+                            callback.onDone(result.getData());
+                        } else {
+                            callback.onError(result.getCode(), result.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        NetApi.getInstance().parseThrowable(e, callback);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     /**
      * 认证账户
      */
-    @FormUrlEncoded
-    @POST("accounts/auth/")
-    Observable<BaseResult<UserBean>> authAccount(@Field("account") String account, @Field("password") String password);
+    public void authAccount(Account entity, final Callback callback) {
+        SPManager.getInstance().putAccount(entity.getEmail());
+        NetApi.getInstance()
+                .accountApi()
+                .authAccount(entity.getEmail(), entity.getPassword())
+                .compose(RXUtils.<BaseResult<Account>>threadScheduler())
+                .subscribe(new Observer<BaseResult<Account>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-    /**
-     * 获取账户信息
-     */
-    @GET("accounts/{name}")
-    Observable<BaseResult<UserBean>> getAccount(@Path("name") String name);
+                    }
 
+                    @Override
+                    public void onNext(BaseResult<Account> result) {
+                        VMLog.d(result.toString());
+                        if (result.getCode() == 0) {
+                            Account account = result.getData();
+                            DBManager.getInstance().saveAccount(account);
+                            SPManager.getInstance().putToken(account.getToken());
+                            callback.onDone(account);
+                        } else {
+                            NetApi.getInstance().parseError(result, callback);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        NetApi.getInstance().parseThrowable(e, callback);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        VMLog.d("authAccount complete");
+                    }
+                });
+    }
 }
-

@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.vmnote.sign.presenter;
 
-import com.vmloft.develop.app.vmnote.bean.UserBean;
+import com.vmloft.develop.app.vmnote.bean.Account;
 
 /**
  * Created by lzan13 on 2017/11/23.
@@ -8,13 +8,13 @@ import com.vmloft.develop.app.vmnote.bean.UserBean;
  */
 public interface ISignPresenter {
 
-    void doSignUp(UserBean user);
+    void doSignUp(Account entity);
 
     /**
      * 尝试登陆
      *
-     * @param user 账户
+     * @param entity 账户
      */
-    void doSignIn(UserBean user);
+    void doSignIn(Account entity);
 
 }

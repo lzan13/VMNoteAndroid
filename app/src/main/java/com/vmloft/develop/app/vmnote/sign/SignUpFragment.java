@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.bean.UserBean;
+import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.library.tools.VMFragment;
 import com.vmloft.develop.library.tools.utils.VMReg;
 import com.vmloft.develop.library.tools.widget.VMToast;
@@ -131,8 +131,8 @@ public class SignUpFragment extends VMFragment {
             VMToast.make(getString(R.string.toast_invalid_password)).showError();
             return;
         }
-        UserBean user = new UserBean(account, password);
-        listener.onAction(R.id.btn_sign_up, user);
+        Account entity = new Account(account, password);
+        listener.onAction(R.id.btn_sign_up, entity);
     }
 
     /**

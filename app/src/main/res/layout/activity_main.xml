@@ -31,9 +31,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/vm_theme_background"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer">
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/nav_header_main" />
 
         <LinearLayout
             android:layout_width="match_parent"

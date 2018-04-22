@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.vmloft.develop.app.vmnote.app.AppActivity;
 import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.app.NavManager;
-import com.vmloft.develop.app.vmnote.bean.UserBean;
+import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.sign.presenter.ISignPresenter;
 import com.vmloft.develop.app.vmnote.sign.presenter.SignPresenterImpl;
 import com.vmloft.develop.app.vmnote.sign.view.ISignInView;
@@ -65,7 +65,8 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
         // 添加 ViewPager 页面改变监听
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                    int positionOffsetPixels) {
             }
 
             @Override
@@ -83,9 +84,9 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     /**
      * 账户注册
      */
-    private void signUp(UserBean user) {
+    private void signUp(Account entity) {
         showDialog(true);
-        signPresenter.doSignUp(user);
+        signPresenter.doSignUp(entity);
     }
 
     /**
@@ -105,15 +106,14 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     @Override
     public void onSignUpError(int code, String msg) {
         showDialog(false);
-        VMToast.make(msg).showError();
     }
 
     /**
      * 账户登录
      */
-    private void signIn(UserBean user) {
+    private void signIn(Account entity) {
         showDialog(true);
-        signPresenter.doSignIn(user);
+        signPresenter.doSignIn(entity);
     }
 
     /**
@@ -131,7 +131,6 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     @Override
     public void onSignInError(int code, String msg) {
         showDialog(false);
-        VMToast.make(msg).showError();
     }
 
     /**
@@ -149,13 +148,13 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     public void onAction(int action, Object obj) {
         switch (action) {
         case R.id.btn_sign_in:
-            signIn((UserBean) obj);
+            signIn((Account) obj);
             break;
         case R.id.btn_sign_in_go:
             viewPager.setCurrentItem(0, true);
             break;
         case R.id.btn_sign_up:
-            signUp((UserBean) obj);
+            signUp((Account) obj);
             break;
         case R.id.btn_sign_up_go:
             viewPager.setCurrentItem(1, true);

@@ -9,12 +9,17 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.vmloft.develop.app.vmnote.app.AppActivity;
 import com.vmloft.develop.app.vmnote.app.NavManager;
 import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.app.SPManager;
+import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.db.DBManager;
 import com.vmloft.develop.app.vmnote.home.view.IMainView;
+import com.vmloft.develop.app.vmnote.utils.image.IMGLoader;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 
 import butterknife.BindView;
@@ -27,6 +32,13 @@ import butterknife.OnClick;
 public class MainActivity extends AppActivity implements IMainView, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.img_avatar) ImageView avatarView;
+    @BindView(R.id.text_nickname) TextView nicknameView;
+    @BindView(R.id.text_account) TextView accountView;
+
+
+    private String name;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,12 @@ public class MainActivity extends AppActivity implements IMainView, NavigationVi
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        name = SPManager.getInstance().getAccount();
+        account = DBManager.getInstance().getAccount(name);
+        IMGLoader.loadAvatar(activity, account.getAvatar(), avatarView);
+        accountView.setText(account.getEmail());
+        nicknameView.setText(TextUtils.isEmpty(account.getNickname()) ? account.getName() : account.getNickname());
     }
 
     @OnClick({R.id.btn_switch_night_theme, R.id.btn_sign_out})
@@ -76,7 +94,7 @@ public class MainActivity extends AppActivity implements IMainView, NavigationVi
     private void switchNightTheme() {
         boolean isNight = SPManager.getInstance().isNight();
         VMTheme.setNightTheme(!isNight);
-        SPManager.getInstance().putNigiht(!isNight);
+        SPManager.getInstance().putNight(!isNight);
         // 重启 Activity
         recreate();
     }
