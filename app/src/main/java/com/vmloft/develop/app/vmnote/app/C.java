@@ -17,4 +17,6 @@ public class C {
     // 图片缓存文件夹
     public static final String CACHE_IMAGES = "images";
 
+    public static final String NAV_EXT = "nav_ext";
+
 }

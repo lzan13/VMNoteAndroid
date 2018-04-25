@@ -22,7 +22,7 @@ public class SignPresenterImpl implements ISignPresenter {
 
     private void init() {
         signInModel = new SignModelImpl();
-        signInView.init(signInModel.getLastAccount());
+        signInView.initFragments(signInModel.getLastAccount());
     }
 
     @Override

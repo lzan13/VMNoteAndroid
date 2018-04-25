@@ -6,4 +6,8 @@ package com.vmloft.develop.app.vmnote.home.view;
  */
 public interface IMainView {
 
+    void syncDone();
+
+    void syncError(int code, String desc);
+
 }

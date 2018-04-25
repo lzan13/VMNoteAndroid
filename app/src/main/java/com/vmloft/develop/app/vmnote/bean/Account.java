@@ -19,14 +19,14 @@ public class Account {
     private String password;
     private String avatar;
     private String cover;
-    private String gender;
+    private Integer gender;
     private String address;
     private String nickname;
     private String description;
     @SerializedName("create_at") private String createAt;
     @SerializedName("update_at") private String updateAt;
     private String token;
-    private int code;
+    private String code;
     private boolean activated;
     private boolean deleted;
     private boolean admin;
@@ -38,12 +38,11 @@ public class Account {
         this.password = password;
     }
 
-    @Generated(hash = 170254465)
-    public Account(String id, String name, String email, String phone,
-            String password, String avatar, String cover, String gender,
-            String address, String nickname, String description, String createAt,
-            String updateAt, String token, int code, boolean activated,
-            boolean deleted, boolean admin) {
+    @Generated(hash = 1086999341)
+    public Account(String id, String name, String email, String phone, String password,
+            String avatar, String cover, Integer gender, String address, String nickname,
+            String description, String createAt, String updateAt, String token, String code,
+            boolean activated, boolean deleted, boolean admin) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -120,11 +119,11 @@ public class Account {
         this.cover = cover;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -176,11 +175,11 @@ public class Account {
         this.token = token;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -209,25 +208,25 @@ public class Account {
     }
 
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("\n\tid:" + id);
-        buffer.append("\n\tname:" + name);
-        buffer.append("\n\temail:" + email);
-        buffer.append("\n\tphones:" + phone);
-        buffer.append("\n\tavatar:" + avatar);
-        buffer.append("\n\tcover:" + cover);
-        buffer.append("\n\tgender:" + gender);
-        buffer.append("\n\taddress:" + address);
-        buffer.append("\n\tnickname:" + nickname);
-        buffer.append("\n\tdescription:" + description);
-        buffer.append("\n\tcreateAt:" + createAt);
-        buffer.append("\n\tupdateAt:" + updateAt);
-        buffer.append("\n\ttoken:" + token);
-        buffer.append("\n\tcode:" + code);
-        buffer.append("\n\tactivated:" + activated);
-        buffer.append("\n\tdeleted:" + deleted);
-        buffer.append("\n\tadmin:" + admin);
-        return buffer.toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\tid:" + id);
+        builder.append("\n\tname:" + name);
+        builder.append("\n\temail:" + email);
+        builder.append("\n\tphones:" + phone);
+        builder.append("\n\tavatar:" + avatar);
+        builder.append("\n\tcover:" + cover);
+        builder.append("\n\tgender:" + gender);
+        builder.append("\n\taddress:" + address);
+        builder.append("\n\tnickname:" + nickname);
+        builder.append("\n\tdescription:" + description);
+        builder.append("\n\tcreateAt:" + createAt);
+        builder.append("\n\tupdateAt:" + updateAt);
+        builder.append("\n\ttoken:" + token);
+        builder.append("\n\tcode:" + code);
+        builder.append("\n\tactivated:" + activated);
+        builder.append("\n\tdeleted:" + deleted);
+        builder.append("\n\tadmin:" + admin);
+        return builder.toString();
     }
 
 }

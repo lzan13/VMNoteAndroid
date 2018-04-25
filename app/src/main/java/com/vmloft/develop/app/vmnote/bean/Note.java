@@ -12,29 +12,37 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity()
 public class Note {
-
     @SerializedName("_id") @Id private String id;
-    private String authorId;
+    @SerializedName("author_id") private String authorId;
+    @SerializedName("category_id") private String categoryId;
     private String content;
-    private String tags;
     private boolean pinup;
     private boolean blog;
     private boolean deleted;
-    @SerializedName("create_at") private long createAt;
-    @SerializedName("update_at") private long updateAt;
+    private boolean isSync = true;
+    private boolean isCreate = true;
+    @SerializedName("create_at") private String createAt;
+    @SerializedName("update_at") private String updateAt;
 
     public Note() {}
 
-    @Generated(hash = 436777964)
-    public Note(String id, String authorId, String content, String tags, boolean pinup,
-            boolean blog, boolean deleted, long createAt, long updateAt) {
+    public Note(String id) {
+        this.id = id;
+    }
+
+    @Generated(hash = 1961848947)
+    public Note(String id, String authorId, String categoryId, String content,
+            boolean pinup, boolean blog, boolean deleted, boolean isSync,
+            boolean isCreate, String createAt, String updateAt) {
         this.id = id;
         this.authorId = authorId;
+        this.categoryId = categoryId;
         this.content = content;
-        this.tags = tags;
         this.pinup = pinup;
         this.blog = blog;
         this.deleted = deleted;
+        this.isSync = isSync;
+        this.isCreate = isCreate;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
@@ -55,20 +63,20 @@ public class Note {
         this.authorId = authorId;
     }
 
+    public String getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getContent() {
         return this.content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getTags() {
-        return this.tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
     }
 
     public boolean getPinup() {
@@ -95,28 +103,45 @@ public class Note {
         this.deleted = deleted;
     }
 
-    public long getCreateAt() {
+    public boolean getIsSync() {
+        return this.isSync;
+    }
+
+    public void setIsSync(boolean isSync) {
+        this.isSync = isSync;
+    }
+
+    public boolean getIsCreate() {
+        return this.isCreate;
+    }
+
+    public void setIsCreate(boolean isCreate) {
+        this.isCreate = isCreate;
+    }
+
+    public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(long createAt) {
+    public void setCreateAt(String createAt) {
         this.createAt = createAt;
     }
 
-    public long getUpdateAt() {
+    public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(long updateAt) {
+    public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
     }
+
 
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("\n\tid:" + id);
         buffer.append("\n\tauthorId:" + authorId);
+        buffer.append("\n\tcategoryId:" + categoryId);
         buffer.append("\n\tcontent:" + content);
-        buffer.append("\n\ttags:" + tags);
         buffer.append("\n\tpinup:" + pinup);
         buffer.append("\n\tblog:" + blog);
         buffer.append("\n\tdeleted:" + deleted);
@@ -124,5 +149,4 @@ public class Note {
         buffer.append("\n\tupdateAt:" + updateAt);
         return buffer.toString();
     }
-
 }

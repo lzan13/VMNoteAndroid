@@ -26,13 +26,15 @@ public class NoteDao extends AbstractDao<Note, String> {
     public static class Properties {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property AuthorId = new Property(1, String.class, "authorId", false, "AUTHOR_ID");
-        public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
-        public final static Property Tags = new Property(3, String.class, "tags", false, "TAGS");
+        public final static Property CategoryId = new Property(2, String.class, "categoryId", false, "CATEGORY_ID");
+        public final static Property Content = new Property(3, String.class, "content", false, "CONTENT");
         public final static Property Pinup = new Property(4, boolean.class, "pinup", false, "PINUP");
         public final static Property Blog = new Property(5, boolean.class, "blog", false, "BLOG");
         public final static Property Deleted = new Property(6, boolean.class, "deleted", false, "DELETED");
-        public final static Property CreateAt = new Property(7, long.class, "createAt", false, "CREATE_AT");
-        public final static Property UpdateAt = new Property(8, long.class, "updateAt", false, "UPDATE_AT");
+        public final static Property IsSync = new Property(7, boolean.class, "isSync", false, "IS_SYNC");
+        public final static Property IsCreate = new Property(8, boolean.class, "isCreate", false, "IS_CREATE");
+        public final static Property CreateAt = new Property(9, String.class, "createAt", false, "CREATE_AT");
+        public final static Property UpdateAt = new Property(10, String.class, "updateAt", false, "UPDATE_AT");
     }
 
 
@@ -50,13 +52,15 @@ public class NoteDao extends AbstractDao<Note, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"NOTE\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"AUTHOR_ID\" TEXT," + // 1: authorId
-                "\"CONTENT\" TEXT," + // 2: content
-                "\"TAGS\" TEXT," + // 3: tags
+                "\"CATEGORY_ID\" TEXT," + // 2: categoryId
+                "\"CONTENT\" TEXT," + // 3: content
                 "\"PINUP\" INTEGER NOT NULL ," + // 4: pinup
                 "\"BLOG\" INTEGER NOT NULL ," + // 5: blog
                 "\"DELETED\" INTEGER NOT NULL ," + // 6: deleted
-                "\"CREATE_AT\" INTEGER NOT NULL ," + // 7: createAt
-                "\"UPDATE_AT\" INTEGER NOT NULL );"); // 8: updateAt
+                "\"IS_SYNC\" INTEGER NOT NULL ," + // 7: isSync
+                "\"IS_CREATE\" INTEGER NOT NULL ," + // 8: isCreate
+                "\"CREATE_AT\" TEXT," + // 9: createAt
+                "\"UPDATE_AT\" TEXT);"); // 10: updateAt
     }
 
     /** Drops the underlying database table. */
@@ -79,20 +83,30 @@ public class NoteDao extends AbstractDao<Note, String> {
             stmt.bindString(2, authorId);
         }
  
-        String content = entity.getContent();
-        if (content != null) {
-            stmt.bindString(3, content);
+        String categoryId = entity.getCategoryId();
+        if (categoryId != null) {
+            stmt.bindString(3, categoryId);
         }
  
-        String tags = entity.getTags();
-        if (tags != null) {
-            stmt.bindString(4, tags);
+        String content = entity.getContent();
+        if (content != null) {
+            stmt.bindString(4, content);
         }
         stmt.bindLong(5, entity.getPinup() ? 1L: 0L);
         stmt.bindLong(6, entity.getBlog() ? 1L: 0L);
         stmt.bindLong(7, entity.getDeleted() ? 1L: 0L);
-        stmt.bindLong(8, entity.getCreateAt());
-        stmt.bindLong(9, entity.getUpdateAt());
+        stmt.bindLong(8, entity.getIsSync() ? 1L: 0L);
+        stmt.bindLong(9, entity.getIsCreate() ? 1L: 0L);
+ 
+        String createAt = entity.getCreateAt();
+        if (createAt != null) {
+            stmt.bindString(10, createAt);
+        }
+ 
+        String updateAt = entity.getUpdateAt();
+        if (updateAt != null) {
+            stmt.bindString(11, updateAt);
+        }
     }
 
     @Override
@@ -109,20 +123,30 @@ public class NoteDao extends AbstractDao<Note, String> {
             stmt.bindString(2, authorId);
         }
  
-        String content = entity.getContent();
-        if (content != null) {
-            stmt.bindString(3, content);
+        String categoryId = entity.getCategoryId();
+        if (categoryId != null) {
+            stmt.bindString(3, categoryId);
         }
  
-        String tags = entity.getTags();
-        if (tags != null) {
-            stmt.bindString(4, tags);
+        String content = entity.getContent();
+        if (content != null) {
+            stmt.bindString(4, content);
         }
         stmt.bindLong(5, entity.getPinup() ? 1L: 0L);
         stmt.bindLong(6, entity.getBlog() ? 1L: 0L);
         stmt.bindLong(7, entity.getDeleted() ? 1L: 0L);
-        stmt.bindLong(8, entity.getCreateAt());
-        stmt.bindLong(9, entity.getUpdateAt());
+        stmt.bindLong(8, entity.getIsSync() ? 1L: 0L);
+        stmt.bindLong(9, entity.getIsCreate() ? 1L: 0L);
+ 
+        String createAt = entity.getCreateAt();
+        if (createAt != null) {
+            stmt.bindString(10, createAt);
+        }
+ 
+        String updateAt = entity.getUpdateAt();
+        if (updateAt != null) {
+            stmt.bindString(11, updateAt);
+        }
     }
 
     @Override
@@ -135,13 +159,15 @@ public class NoteDao extends AbstractDao<Note, String> {
         Note entity = new Note( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // authorId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // content
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // tags
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // categoryId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // content
             cursor.getShort(offset + 4) != 0, // pinup
             cursor.getShort(offset + 5) != 0, // blog
             cursor.getShort(offset + 6) != 0, // deleted
-            cursor.getLong(offset + 7), // createAt
-            cursor.getLong(offset + 8) // updateAt
+            cursor.getShort(offset + 7) != 0, // isSync
+            cursor.getShort(offset + 8) != 0, // isCreate
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // createAt
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // updateAt
         );
         return entity;
     }
@@ -150,13 +176,15 @@ public class NoteDao extends AbstractDao<Note, String> {
     public void readEntity(Cursor cursor, Note entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setAuthorId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setContent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTags(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setCategoryId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setContent(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPinup(cursor.getShort(offset + 4) != 0);
         entity.setBlog(cursor.getShort(offset + 5) != 0);
         entity.setDeleted(cursor.getShort(offset + 6) != 0);
-        entity.setCreateAt(cursor.getLong(offset + 7));
-        entity.setUpdateAt(cursor.getLong(offset + 8));
+        entity.setIsSync(cursor.getShort(offset + 7) != 0);
+        entity.setIsCreate(cursor.getShort(offset + 8) != 0);
+        entity.setCreateAt(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setUpdateAt(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
      }
     
     @Override

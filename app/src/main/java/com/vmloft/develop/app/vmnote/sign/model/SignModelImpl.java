@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.vmnote.sign.model;
 
-import com.vmloft.develop.app.vmnote.api.AccountApi;
+import com.vmloft.develop.app.vmnote.common.api.AccountApi;
 import com.vmloft.develop.app.vmnote.app.Callback;
 import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.bean.Account;

@@ -5,7 +5,6 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background"
     android:fitsSystemWindows="true"
     tools:context=".home.MainActivity"
     tools:openDrawer="start">
@@ -16,13 +15,23 @@
 
         <include layout="@layout/widget_appbar" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:background="@color/vm_theme_background"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/vm_dimen_24"
+                android:fitsSystemWindows="false"
+                android:src="@drawable/ic_add"
+                app:fabSize="normal" />
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
@@ -30,29 +39,175 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/vm_theme_background"
         android:fitsSystemWindows="true">
 
-        <include layout="@layout/nav_header_main" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/vm_theme_background"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/btn_switch_night_theme"
-                style="@style/VMBtn.Flat"
-                android:layout_margin="@dimen/vm_margin_normal"
-                android:text="@string/switch_night_theme" />
+            <!--头部信息-->
+            <include layout="@layout/widget_drawer_header" />
 
-            <Button
-                android:id="@+id/btn_sign_out"
-                style="@style/VMBtn.Red"
-                android:layout_margin="@dimen/vm_margin_normal"
-                android:text="@string/sign_out" />
-        </LinearLayout>
+            <!--底部设置等-->
+            <LinearLayout
+                android:id="@+id/layout_menu_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/vm_theme_background"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/vm_dimen_0_5"
+                    android:background="@color/vm_decoration" />
+
+                <!--同步-->
+                <LinearLayout
+                    android:id="@+id/layout_sync"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_sync"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_cloud_sync"
+                        android:tint="@color/menu_normal" />
+
+                    <TextView
+                        android:id="@+id/text_sync_time"
+                        style="@style/VMText.Menu"
+                        android:text="@string/note_sync"
+                        android:textSize="@dimen/vm_size_14" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--菜单项-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/layout_menu_footer"
+                android:layout_below="@id/layout_drawer_header"
+                android:background="@color/vm_theme_background"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/vm_dimen_8">
+
+                <!--所有笔记-->
+                <LinearLayout
+                    android:id="@+id/layout_note_all"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_file"
+                        android:tint="@color/menu_icon_selector" />
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="@string/note_all"
+                        android:textColor="@color/menu_text_selector" />
+                </LinearLayout>
+
+                <!--标签-->
+                <LinearLayout
+                    android:id="@+id/layout_note_tags"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_tag"
+                        android:tint="@color/menu_icon_selector" />
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="@string/note_tags"
+                        android:textColor="@color/menu_text_selector" />
+                </LinearLayout>
+
+                <!--回收站-->
+                <LinearLayout
+                    android:id="@+id/layout_note_trash"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_trash"
+                        android:tint="@color/menu_icon_selector" />
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="@string/note_trash"
+                        android:textColor="@color/menu_text_selector" />
+                </LinearLayout>
+
+                <!--切换主题-->
+                <LinearLayout
+                    android:id="@+id/layout_night_theme"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_night_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_night"
+                        android:tint="@color/menu_icon_selector" />
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="@string/night_theme"
+                        android:textColor="@color/menu_text_selector" />
+                </LinearLayout>
+
+                <!--设置-->
+                <LinearLayout
+                    android:id="@+id/layout_settings"
+                    style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/vm_dimen_16"
+                        android:layout_marginRight="@dimen/vm_dimen_16"
+                        android:src="@drawable/ic_settings"
+                        android:tint="@color/menu_icon_selector" />
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="@string/settings"
+                        android:textColor="@color/menu_text_selector" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

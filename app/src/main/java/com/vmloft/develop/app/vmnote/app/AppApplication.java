@@ -2,6 +2,8 @@ package com.vmloft.develop.app.vmnote.app;
 
 import com.vmloft.develop.library.tools.VMApplication;
 import com.vmloft.develop.library.tools.VMTools;
+import com.vmloft.develop.library.tools.utils.VMCryptoUtil;
+import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 
 /**
@@ -16,11 +18,12 @@ public class AppApplication extends VMApplication {
 
         VMTools.init(context);
         checkTheme();
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        //        try {
+        //            Thread.sleep(1500);
+        //        } catch (InterruptedException e) {
+        //            e.printStackTrace();
+        //        }
     }
 
     private void checkTheme() {

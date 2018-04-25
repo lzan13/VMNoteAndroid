@@ -31,14 +31,14 @@ public class AccountDao extends AbstractDao<Account, String> {
         public final static Property Password = new Property(4, String.class, "password", false, "PASSWORD");
         public final static Property Avatar = new Property(5, String.class, "avatar", false, "AVATAR");
         public final static Property Cover = new Property(6, String.class, "cover", false, "COVER");
-        public final static Property Gender = new Property(7, String.class, "gender", false, "GENDER");
+        public final static Property Gender = new Property(7, Integer.class, "gender", false, "GENDER");
         public final static Property Address = new Property(8, String.class, "address", false, "ADDRESS");
         public final static Property Nickname = new Property(9, String.class, "nickname", false, "NICKNAME");
         public final static Property Description = new Property(10, String.class, "description", false, "DESCRIPTION");
         public final static Property CreateAt = new Property(11, String.class, "createAt", false, "CREATE_AT");
         public final static Property UpdateAt = new Property(12, String.class, "updateAt", false, "UPDATE_AT");
         public final static Property Token = new Property(13, String.class, "token", false, "TOKEN");
-        public final static Property Code = new Property(14, int.class, "code", false, "CODE");
+        public final static Property Code = new Property(14, String.class, "code", false, "CODE");
         public final static Property Activated = new Property(15, boolean.class, "activated", false, "ACTIVATED");
         public final static Property Deleted = new Property(16, boolean.class, "deleted", false, "DELETED");
         public final static Property Admin = new Property(17, boolean.class, "admin", false, "ADMIN");
@@ -64,14 +64,14 @@ public class AccountDao extends AbstractDao<Account, String> {
                 "\"PASSWORD\" TEXT," + // 4: password
                 "\"AVATAR\" TEXT," + // 5: avatar
                 "\"COVER\" TEXT," + // 6: cover
-                "\"GENDER\" TEXT," + // 7: gender
+                "\"GENDER\" INTEGER," + // 7: gender
                 "\"ADDRESS\" TEXT," + // 8: address
                 "\"NICKNAME\" TEXT," + // 9: nickname
                 "\"DESCRIPTION\" TEXT," + // 10: description
                 "\"CREATE_AT\" TEXT," + // 11: createAt
                 "\"UPDATE_AT\" TEXT," + // 12: updateAt
                 "\"TOKEN\" TEXT," + // 13: token
-                "\"CODE\" INTEGER NOT NULL ," + // 14: code
+                "\"CODE\" TEXT," + // 14: code
                 "\"ACTIVATED\" INTEGER NOT NULL ," + // 15: activated
                 "\"DELETED\" INTEGER NOT NULL ," + // 16: deleted
                 "\"ADMIN\" INTEGER NOT NULL );"); // 17: admin
@@ -122,9 +122,9 @@ public class AccountDao extends AbstractDao<Account, String> {
             stmt.bindString(7, cover);
         }
  
-        String gender = entity.getGender();
+        Integer gender = entity.getGender();
         if (gender != null) {
-            stmt.bindString(8, gender);
+            stmt.bindLong(8, gender);
         }
  
         String address = entity.getAddress();
@@ -156,7 +156,11 @@ public class AccountDao extends AbstractDao<Account, String> {
         if (token != null) {
             stmt.bindString(14, token);
         }
-        stmt.bindLong(15, entity.getCode());
+ 
+        String code = entity.getCode();
+        if (code != null) {
+            stmt.bindString(15, code);
+        }
         stmt.bindLong(16, entity.getActivated() ? 1L: 0L);
         stmt.bindLong(17, entity.getDeleted() ? 1L: 0L);
         stmt.bindLong(18, entity.getAdmin() ? 1L: 0L);
@@ -201,9 +205,9 @@ public class AccountDao extends AbstractDao<Account, String> {
             stmt.bindString(7, cover);
         }
  
-        String gender = entity.getGender();
+        Integer gender = entity.getGender();
         if (gender != null) {
-            stmt.bindString(8, gender);
+            stmt.bindLong(8, gender);
         }
  
         String address = entity.getAddress();
@@ -235,7 +239,11 @@ public class AccountDao extends AbstractDao<Account, String> {
         if (token != null) {
             stmt.bindString(14, token);
         }
-        stmt.bindLong(15, entity.getCode());
+ 
+        String code = entity.getCode();
+        if (code != null) {
+            stmt.bindString(15, code);
+        }
         stmt.bindLong(16, entity.getActivated() ? 1L: 0L);
         stmt.bindLong(17, entity.getDeleted() ? 1L: 0L);
         stmt.bindLong(18, entity.getAdmin() ? 1L: 0L);
@@ -256,14 +264,14 @@ public class AccountDao extends AbstractDao<Account, String> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // password
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // avatar
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // cover
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // gender
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // gender
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // address
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // nickname
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // description
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // createAt
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // updateAt
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // token
-            cursor.getInt(offset + 14), // code
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // code
             cursor.getShort(offset + 15) != 0, // activated
             cursor.getShort(offset + 16) != 0, // deleted
             cursor.getShort(offset + 17) != 0 // admin
@@ -280,14 +288,14 @@ public class AccountDao extends AbstractDao<Account, String> {
         entity.setPassword(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setAvatar(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setCover(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setGender(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setGender(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
         entity.setAddress(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setNickname(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setDescription(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setCreateAt(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setUpdateAt(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setToken(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setCode(cursor.getInt(offset + 14));
+        entity.setCode(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setActivated(cursor.getShort(offset + 15) != 0);
         entity.setDeleted(cursor.getShort(offset + 16) != 0);
         entity.setAdmin(cursor.getShort(offset + 17) != 0);

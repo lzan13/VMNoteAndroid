@@ -142,10 +142,10 @@ public class SignUpFragment extends VMFragment {
         if (passwordEdit.getTransformationMethod()
                 .equals(PasswordTransformationMethod.getInstance())) {
             passwordEdit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            showPasswordBtn.setImageResource(R.drawable.ic_visibility_24dp);
+            showPasswordBtn.setImageResource(R.drawable.ic_visibility);
         } else {
             passwordEdit.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            showPasswordBtn.setImageResource(R.drawable.ic_visibility_off_24dp);
+            showPasswordBtn.setImageResource(R.drawable.ic_visibility_off);
         }
     }
 

@@ -11,6 +11,7 @@ public class SPManager {
     final String ACCOUNT = "account";
     final String NIGHT = "night";
     final String TOKEN = "token";
+    final String SYNC_KEY = "sync_key";
 
     private static SPManager instance;
 
@@ -54,6 +55,17 @@ public class SPManager {
 
     public void putToken(String token) {
         VMSPUtil.put(TOKEN, token);
+    }
+
+    /**
+     * 同步时间戳的获取
+     */
+    public String getSyncKey() {
+        return (String) VMSPUtil.get(SYNC_KEY, "");
+    }
+
+    public void putSyncKey(String syncKey) {
+        VMSPUtil.put(SYNC_KEY, syncKey);
     }
 }
 

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff12b147</color>
+    <color name="colorPrimary">#ff36bd64</color>
     <color name="colorPrimaryDark">#ff237e42</color>
-    <color name="colorAccent">#ff25bf59</color>
+    <color name="colorAccent">#ff36bd64</color>
 
-    <color name="launcher_background">#ff2f2f2f</color>
+    <color name="launcher_background">#ff237e42</color>
+    <color name="menu_header">#ff36bd64</color>
+    <color name="menu_selected">#ff36bd64</color>
+    <color name="menu_normal">@color/vm_black_54</color>
 </resources>

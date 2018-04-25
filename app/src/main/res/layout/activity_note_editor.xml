@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".editor.EditorActivity">
+
+    <!--<include layout="@layout/widget_appbar" />-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/widget_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/widget_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/AppTheme.ToolbarOverlay" />
+
+        <com.vmloft.develop.library.tools.widget.VMExpandableLayout
+            android:id="@+id/layout_expandable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:vm_el_duration="@integer/vm_time_transition"
+            app:vm_el_expanded="false">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="@dimen/vm_dimen_0"
+                app:vm_el_expandable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/vm_dimen_8"
+                    android:paddingRight="@dimen/vm_dimen_8">
+                    <!--粗体-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_bold"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_bold" />
+                    <!--行内代码-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_code"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_code" />
+                    <!--代码块-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_code_block"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_code_block" />
+                    <!--表格-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_grid"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_grid" />
+                    <!--标题 H1-H5-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_header_1"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_header_1" />
+
+                    <ImageButton
+                        android:id="@id/btn_shortcut_header_2"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_header_2" />
+
+                    <ImageButton
+                        android:id="@id/btn_shortcut_header_3"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_header_3" />
+
+                    <ImageButton
+                        android:id="@id/btn_shortcut_header_4"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_header_4" />
+
+                    <ImageButton
+                        android:id="@id/btn_shortcut_header_5"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_header_5" />
+
+                    <!--斜体-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_italic"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_italic" />
+                    <!--链接-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_link"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_link" />
+                    <!--无序列表-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_list_bulleted"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_list_bulleted" />
+                    <!--有序列表-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_list_numbered"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_list_numbered" />
+                    <!--分割线-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_minus"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_minus" />
+                    <!--引用-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_quote"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_quote" />
+                    <!--图片-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_photo"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_photo" />
+                    <!--删除线-->
+                    <ImageButton
+                        android:id="@id/btn_shortcut_strikethrough"
+                        style="@style/VMBtn.Flat.Full"
+                        android:layout_width="@dimen/vm_dimen_40"
+                        android:layout_height="@dimen/vm_dimen_40"
+                        android:src="@drawable/ic_shortcut_strikethrough" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </com.vmloft.develop.library.tools.widget.VMExpandableLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!--内容输入部分-->
+        <EditText
+            android:id="@+id/edit_content"
+            style="@style/VMEdit.MultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/vm_theme_background"
+            android:hint="@string/note_hint"
+            android:text="@string/note_new_content"
+            android:minHeight="@dimen/vm_dimen_192" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

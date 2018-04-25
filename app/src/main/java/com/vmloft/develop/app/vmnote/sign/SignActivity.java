@@ -1,6 +1,5 @@
 package com.vmloft.develop.app.vmnote.sign;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,8 +9,8 @@ import android.widget.LinearLayout;
 
 import com.vmloft.develop.app.vmnote.app.AppActivity;
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.NavManager;
 import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.common.router.NavRouter;
 import com.vmloft.develop.app.vmnote.sign.presenter.ISignPresenter;
 import com.vmloft.develop.app.vmnote.sign.presenter.SignPresenterImpl;
 import com.vmloft.develop.app.vmnote.sign.view.ISignInView;
@@ -19,7 +18,6 @@ import com.vmloft.develop.library.tools.VMFragment;
 import com.vmloft.develop.library.tools.widget.VMToast;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 登录界面
@@ -36,23 +34,27 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     @BindView(R.id.view_pager) ViewPager viewPager;
     @BindView(R.id.layout_sign_progress) LinearLayout progressView;
 
+    /**
+     * 初始化界面 layout_id
+     *
+     * @return 返回布局 id
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+    protected int initLayoutId() {
+        return R.layout.activity_sign_in;
+    }
 
-        ButterKnife.bind(activity);
-
+    /**
+     * 初始化界面
+     */
+    @Override
+    protected void init() {
         signView = this;
         signPresenter = new SignPresenterImpl(signView);
     }
 
-    /**
-     * 界面初始化
-     */
     @Override
-    public void init(String account) {
-
+    public void initFragments(String account) {
         signInFragment = SignInFragment.newInstance(account);
         signUpFragment = SignUpFragment.newInstance();
 
@@ -78,7 +80,6 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
 
             }
         });
-
     }
 
     /**
@@ -122,7 +123,7 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
     @Override
     public void onSignInDone() {
         showDialog(false);
-        NavManager.goMain(activity);
+        NavRouter.goMain(activity);
     }
 
     /**
@@ -159,6 +160,13 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
         case R.id.btn_sign_up_go:
             viewPager.setCurrentItem(1, true);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        signView = null;
+        signPresenter = null;
     }
 
     /**

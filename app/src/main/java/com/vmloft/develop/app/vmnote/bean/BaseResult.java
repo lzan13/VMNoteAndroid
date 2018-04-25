@@ -61,7 +61,7 @@ public class BaseResult<T> {
         buffer.append("\n\tcode:" + code);
         buffer.append("\n\tmsg:" + message);
         if (data != null) {
-            buffer.append("\n\t\tdata:" + data.toString());
+            buffer.append("\n\n\tdata:" + data.toString());
         }
         return buffer.toString();
     }

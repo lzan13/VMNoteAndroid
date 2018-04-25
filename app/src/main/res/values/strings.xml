@@ -4,7 +4,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-
     <!--账户相关-->
     <string name="sign_in">Sign In</string>
     <string name="sign_in_go">Go sign in</string>
@@ -18,15 +17,27 @@
 
     <!--菜单相关-->
     <string name="note_all">All notes</string>
-    <string name="note_books">Notebook</string>
     <string name="note_tags">Tags</string>
+    <string name="note_trash">Trash</string>
+    <string name="night_theme">Night Theme</string>
+    <string name="note_sync">Sync time:%1$s</string>
+    <string name="note_hint">Input note content, Supports markdown syntax</string>
 
     <string name="display_config">Display config</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="sort_by">Sort by</string>
-    <string name="switch_night_theme">Switch Night Theme</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="more">More</string>
+    <string name="save">Save</string>
 
+    <!--默认内容-->
+    <string name="note_new_content">\n=====</string>
+    <string name="note_editor_title"></string>
+
+    <!--提示相关-->
+    <string name="not_null">Input content not null!</string>
     <string name="toast_invalid_email">Invalid email</string>
     <string name="toast_invalid_password">Invalid password. Password is 6-16 bits and cannot contain any special characters other than "._"</string>
 

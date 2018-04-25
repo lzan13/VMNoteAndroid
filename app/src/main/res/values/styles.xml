@@ -21,13 +21,13 @@
 
     <!--登录主题-->
     <style name="AppTheme.Sign">
-        <!--设置状态栏颜色为透明-->
+        <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/vm_black_12</item>
     </style>
 
     <!--透明主题-->
     <style name="AppTheme.Transparent">
-        <!--设置状态栏颜色为透明-->
+        <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/vm_transparent</item>
     </style>
 

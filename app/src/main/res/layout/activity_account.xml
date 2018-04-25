@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="false"
+    tools:context=".account.AccountActivity">
+
+    <include layout="@layout/widget_appbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/vm_theme_background"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layout_drawer_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_header_height">
+
+            <ImageView
+                android:id="@+id/img_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default_background"
+                android:tint="@color/vm_black_38" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:padding="@dimen/vm_dimen_16">
+
+                <ImageView
+                    android:id="@+id/img_avatar"
+                    android:layout_width="@dimen/vm_avatar_normal"
+                    android:layout_height="@dimen/vm_avatar_normal"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    app:srcCompat="@mipmap/ic_launcher_round" />
+
+                <TextView
+                    android:id="@+id/text_nickname"
+                    style="@style/VMText.Body2"
+                    android:paddingTop="@dimen/vm_dimen_8"
+                    android:text="@string/app_name"
+                    android:textColor="@color/vm_white_87" />
+
+                <TextView
+                    android:id="@+id/text_account"
+                    style="@style/VMText.Body1"
+                    android:text="lzan13@vmloft.com"
+                    android:textColor="@color/vm_white_87" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:padding="@dimen/vm_padding_normal">
+
+            <Button
+                android:id="@+id/btn_sign_out"
+                style="@style/VMBtn.Red"
+                android:layout_width="match_parent"
+                android:text="@string/sign_out" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

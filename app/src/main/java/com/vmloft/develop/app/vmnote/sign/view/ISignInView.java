@@ -6,13 +6,7 @@ package com.vmloft.develop.app.vmnote.sign.view;
  */
 public interface ISignInView {
 
-    /**
-     * 初始化方法
-     *
-     * @param account
-     */
-    void init(String account);
-
+    void initFragments(String account);
     /**
      * 注册完成
      */

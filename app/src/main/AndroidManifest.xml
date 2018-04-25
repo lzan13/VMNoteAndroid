@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vmloft.develop.app.vmnote">
 
+    <!--网络权限-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--读写存储权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.vmloft.develop.app.vmnote.app.AppApplication"
+        android:name=".app.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.vmloft.develop.app.vmnote.home.MainActivity"
+            android:name=".home.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
@@ -26,11 +30,16 @@
         </activity>
         <!--登录-->
         <activity
-            android:name="com.vmloft.develop.app.vmnote.sign.SignActivity"
+            android:name=".sign.SignActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Sign"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--笔记编辑界面-->
+        <activity android:name=".editor.EditorActivity" />
+        <!--账户信息界面-->
+        <activity
+            android:name=".account.AccountActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
-
 </manifest>

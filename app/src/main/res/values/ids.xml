@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--编辑界面快捷图标 id-->
+    <item name="btn_shortcut_bold" type="id" /><!--粗体-->
+    <item name="btn_shortcut_code" type="id" /><!--代码-->
+    <item name="btn_shortcut_code_block" type="id" /><!--代码块-->
+    <item name="btn_shortcut_grid" type="id" /><!-- 插入表格 -->
+    <item name="btn_shortcut_header_1" type="id" /><!--标题1-->
+    <item name="btn_shortcut_header_2" type="id" /><!--标题2-->
+    <item name="btn_shortcut_header_3" type="id" /><!--标题3-->
+    <item name="btn_shortcut_header_4" type="id" /><!--标题4-->
+    <item name="btn_shortcut_header_5" type="id" /><!--标题5-->
+    <item name="btn_shortcut_header_6" type="id" /><!--标题6-->
+    <item name="btn_shortcut_italic" type="id" /><!--斜体-->
+    <item name="btn_shortcut_link" type="id" /><!--链接-->
+    <item name="btn_shortcut_list_bulleted" type="id" /><!--列表-->
+    <item name="btn_shortcut_list_numbered" type="id" /><!--数字列表-->
+    <item name="btn_shortcut_minus" type="id" /><!--分割线-->
+    <item name="btn_shortcut_photo" type="id" /><!--图片-->
+    <item name="btn_shortcut_quote" type="id" /><!--引用-->
+    <item name="btn_shortcut_strikethrough" type="id" /><!--删除线-->
+</resources>

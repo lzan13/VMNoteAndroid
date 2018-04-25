@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/vm_dimen_56"
     android:background="?attr/colorPrimary"
+    android:elevation="@dimen/vm_elevation_normal"
     android:minHeight="?attr/actionBarSize"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    app:elevation="@dimen/vm_dimen_0">
+    android:theme="@style/AppTheme.AppBarOverlay">
 
     <!--公共的 Toolbar 控件-->
     <android.support.v7.widget.Toolbar
@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:elevation="@dimen/vm_elevation_high"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:theme="@style/AppTheme.ToolbarOverlay" />
 
