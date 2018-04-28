@@ -16,17 +16,21 @@ public class Category {
     private String title;
     @SerializedName("create_at") private String createAt;
     @SerializedName("update_at") private String updateAt;
+    private boolean isCreate = false;
+    private boolean sync = true;
 
     public Category() {}
 
-    @Generated(hash = 140334443)
-    public Category(String id, String authorId, String title, String createAt,
-            String updateAt) {
+    @Generated(hash = 1925110632)
+    public Category(String id, String authorId, String title, String createAt, String updateAt,
+            boolean isCreate, boolean sync) {
         this.id = id;
         this.authorId = authorId;
         this.title = title;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.isCreate = isCreate;
+        this.sync = sync;
     }
 
     public String getId() {
@@ -77,6 +81,22 @@ public class Category {
         builder.append("\n\tcreateAt:" + createAt);
         builder.append("\n\tupdateAt:" + updateAt);
         return builder.toString();
+    }
+
+    public boolean getIsCreate() {
+        return this.isCreate;
+    }
+
+    public void setIsCreate(boolean isCreate) {
+        this.isCreate = isCreate;
+    }
+
+    public boolean getSync() {
+        return this.sync;
+    }
+
+    public void setSync(boolean sync) {
+        this.sync = sync;
     }
 
 }

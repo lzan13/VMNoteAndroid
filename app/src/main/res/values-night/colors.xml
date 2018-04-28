@@ -8,4 +8,9 @@
     <color name="menu_header">#ff36bd64</color>
     <color name="menu_selected">#ff36bd64</color>
     <color name="menu_normal">@color/vm_black_54</color>
+
+    <color name="item_over_title_bg">#ff343434</color>
+    <color name="item_child_title">@color/vm_white_54</color>
+    <color name="item_child_title_bg">@color/vm_theme_background</color>
+    <color name="item_decoration">@color/vm_white_12</color>
 </resources>

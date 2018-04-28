@@ -1,9 +1,12 @@
 package com.vmloft.develop.app.vmnote.common.db;
 
-import com.vmloft.develop.app.vmnote.app.AppApplication;
+import com.vmloft.develop.app.vmnote.app.App;
+import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.bean.Category;
 import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.app.vmnote.common.db.greendao.AccountDao;
+import com.vmloft.develop.app.vmnote.common.db.greendao.CategoryDao;
 import com.vmloft.develop.app.vmnote.common.db.greendao.DaoMaster;
 import com.vmloft.develop.app.vmnote.common.db.greendao.DaoSession;
 import com.vmloft.develop.app.vmnote.common.db.greendao.NoteDao;
@@ -23,7 +26,7 @@ public class DBManager {
 
 
     private DBManager() {
-        openHelper = new DaoMaster.DevOpenHelper(AppApplication.getContext(), dbName);
+        openHelper = new DaoMaster.DevOpenHelper(App.getContext(), dbName);
         daoMaster = new DaoMaster(openHelper.getWritableDatabase());
         daoSession = daoMaster.newSession();
     }
@@ -68,15 +71,69 @@ public class DBManager {
     /**
      * 根据名称查询账户信息
      */
-    public Account getAccount(String account) {
+    public Account getAccount(String name) {
         List<Account> list = getAccountDao().queryBuilder()
-                .whereOr(AccountDao.Properties.Name.eq(account), AccountDao.Properties.Email.eq(account))
+                .whereOr(AccountDao.Properties.Name.eq(name), AccountDao.Properties.Email.eq(name))
                 .list();
         if (list.size() > 0) {
             return list.get(0);
         }
         return null;
     }
+
+    /**
+     * ---------------------- Category 相关 ----------------------
+     */
+    private CategoryDao getCategoryDao() {
+        return daoSession.getCategoryDao();
+    }
+
+    /**
+     * 保存 Category
+     */
+    public void insertCategory(Category entity) {
+        getCategoryDao().insertOrReplace(entity);
+    }
+
+    /**
+     * 保存 Category List
+     */
+    public void insertCategoryList(List<Category> categoryList) {
+        getCategoryDao().insertOrReplaceInTx(categoryList);
+    }
+
+    /**
+     * 删除 Category
+     */
+    public void deleteCategory(Category entity) {
+        getCategoryDao().delete(entity);
+    }
+
+    /**
+     * 更新笔记
+     */
+    public void updateCategory(Category entity) {
+        getCategoryDao().update(entity);
+    }
+
+    /**
+     * 根据笔记 id 获取 Category
+     */
+    public Category getCategoryById(String id) {
+        return getCategoryDao().load(id);
+    }
+
+    /**
+     * 获取所有 Category
+     */
+    public List<Category> loadAllCategory() {
+        String accountId = SPManager.getInstance().getAccountId();
+        return getCategoryDao().queryBuilder()
+                .where(CategoryDao.Properties.AuthorId.eq(accountId))
+                .orderAsc(CategoryDao.Properties.Title)
+                .list();
+    }
+
 
     /**
      * ---------------------- 笔记相关 ----------------------
@@ -133,10 +190,34 @@ public class DBManager {
     //    }
 
     /**
+     * 加载回收站笔记
+     */
+    public List<Note> loadTrashNote() {
+        return getNoteDao().queryBuilder()
+                .where(NoteDao.Properties.Deleted.eq(true))
+                .orderDesc(NoteDao.Properties.UpdateAt)
+                .list();
+    }
+
+    /**
+     * 获取所有需要同步的笔记
+     */
+    public List<Note> loadSyncNote() {
+        return getNoteDao().queryBuilder()
+                .where(NoteDao.Properties.IsSync.eq(false))
+                .orderDesc(NoteDao.Properties.UpdateAt)
+                .list();
+    }
+
+
+    /**
      * 获取所有笔记
      */
     public List<Note> loadAllNote() {
-        return getNoteDao().loadAll();
+        return getNoteDao().queryBuilder()
+                .where(NoteDao.Properties.Deleted.eq(false))
+                .orderDesc(NoteDao.Properties.UpdateAt)
+                .list();
     }
 
 

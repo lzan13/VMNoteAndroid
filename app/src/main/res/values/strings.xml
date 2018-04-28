@@ -17,24 +17,37 @@
 
     <!--菜单相关-->
     <string name="note_all">All notes</string>
-    <string name="note_tags">Tags</string>
+    <string name="note_books">Note books</string>
     <string name="note_trash">Trash</string>
     <string name="night_theme">Night Theme</string>
-    <string name="note_sync">Sync time:%1$s</string>
+    <string name="note_sync">Time: %1$s</string>
     <string name="note_hint">Input note content, Supports markdown syntax</string>
 
     <string name="display_config">Display config</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="sort_by">Sort by</string>
+    <string name="preview">Preview</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
     <string name="more">More</string>
     <string name="save">Save</string>
 
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+
     <!--默认内容-->
-    <string name="note_new_content">\n=====</string>
     <string name="note_editor_title"></string>
+    <string name="no_date">No data, you can click on the plus to create</string>
+
+    <string name="insert_link_title">Insert link</string>
+    <string name="link_title_hint">Link title</string>
+    <string name="link_url_hint">Link url</string>
+
+    <string name="insert_grid_title">Insert grid</string>
+    <string name="grid_row_hint">Grid row</string>
+    <string name="grid_col_hint">Grid col</string>
+
 
     <!--提示相关-->
     <string name="not_null">Input content not null!</string>

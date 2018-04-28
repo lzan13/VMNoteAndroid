@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.app.vmnote.app.base.AppFragment;
 import com.vmloft.develop.app.vmnote.bean.Account;
-import com.vmloft.develop.library.tools.VMFragment;
 import com.vmloft.develop.library.tools.utils.VMReg;
 import com.vmloft.develop.library.tools.widget.VMToast;
 
@@ -26,7 +26,7 @@ import butterknife.OnClick;
  * Created by lzan13 on 2018/4/16.
  * 注册 UI 界面
  */
-public class SignUpFragment extends VMFragment {
+public class SignUpFragment extends AppFragment {
 
     @BindView(R.id.edit_account) EditText accountEdit;
     @BindView(R.id.edit_password) EditText passwordEdit;

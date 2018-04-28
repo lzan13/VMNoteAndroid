@@ -18,20 +18,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/vm_theme_background"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/vm_dimen_24"
-                android:fitsSystemWindows="false"
-                android:src="@drawable/ic_add"
-                app:fabSize="normal" />
+            <RelativeLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/vm_dimen_24"
+            android:fitsSystemWindows="false"
+            android:src="@drawable/ic_add"
+            app:fabSize="normal" />
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
@@ -66,6 +69,7 @@
                 <LinearLayout
                     android:id="@+id/layout_sync"
                     style="@style/VMBtn.Flat.Full"
+                    android:layout_width="match_parent"
                     android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -121,7 +125,7 @@
 
                 <!--标签-->
                 <LinearLayout
-                    android:id="@+id/layout_note_tags"
+                    android:id="@+id/layout_note_books"
                     style="@style/VMBtn.Flat.Full"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
@@ -132,12 +136,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/vm_dimen_16"
                         android:layout_marginRight="@dimen/vm_dimen_16"
-                        android:src="@drawable/ic_tag"
+                        android:src="@drawable/ic_book"
                         android:tint="@color/menu_icon_selector" />
 
                     <TextView
                         style="@style/VMText.Menu"
-                        android:text="@string/note_tags"
+                        android:text="@string/note_books"
                         android:textColor="@color/menu_text_selector" />
                 </LinearLayout>
 

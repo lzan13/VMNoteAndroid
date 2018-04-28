@@ -10,8 +10,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by lzan13 on 2018/4/22.
  * 笔记信息实体类
  */
-@Entity()
-public class Note {
+@Entity() public class Note {
     @SerializedName("_id") @Id private String id;
     @SerializedName("author_id") private String authorId;
     @SerializedName("category_id") private String categoryId;
@@ -20,20 +19,21 @@ public class Note {
     private boolean blog;
     private boolean deleted;
     private boolean isSync = true;
-    private boolean isCreate = true;
+    private boolean isCreate = false;
     @SerializedName("create_at") private String createAt;
     @SerializedName("update_at") private String updateAt;
 
-    public Note() {}
+    public Note() {
+    }
 
     public Note(String id) {
         this.id = id;
     }
 
     @Generated(hash = 1961848947)
-    public Note(String id, String authorId, String categoryId, String content,
-            boolean pinup, boolean blog, boolean deleted, boolean isSync,
-            boolean isCreate, String createAt, String updateAt) {
+    public Note(String id, String authorId, String categoryId, String content, boolean pinup,
+        boolean blog, boolean deleted, boolean isSync, boolean isCreate, String createAt,
+        String updateAt) {
         this.id = id;
         this.authorId = authorId;
         this.categoryId = categoryId;
@@ -134,7 +134,6 @@ public class Note {
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
     }
-
 
     public String toString() {
         StringBuffer buffer = new StringBuffer();

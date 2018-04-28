@@ -3,10 +3,13 @@ package com.vmloft.develop.app.vmnote.common.api;
 import android.text.TextUtils;
 
 import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.app.vmnote.app.App;
+import com.vmloft.develop.app.vmnote.app.C;
 import com.vmloft.develop.app.vmnote.app.Callback;
 import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.app.VError;
 import com.vmloft.develop.app.vmnote.bean.BaseResult;
+import com.vmloft.develop.app.vmnote.common.router.NavRouter;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStrUtil;
 import com.vmloft.develop.library.tools.widget.VMToast;
@@ -36,7 +39,6 @@ public class NetApi {
 
     private static NetApi instance;
 
-    private String baseUrl = "http://vmnote.melove.net/api/v1/";
     private OkHttpClient client;
     private Retrofit retrofit;
     private ApiService apiService;
@@ -57,18 +59,19 @@ public class NetApi {
     NetApi() {
         // 实例化 OkHttpClient，如果不自己创建 Retrofit 也会创建一个默认的
         client = new OkHttpClient.Builder().retryOnConnectionFailure(true)
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(new RequestInterceptor())
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .build();
+            .addInterceptor(
+                new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(new RequestInterceptor())
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .build();
         // 实例化 Retrofit
         retrofit = new Retrofit.Builder().client(client)
-                .baseUrl(baseUrl)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+            .baseUrl(C.BETA_BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
         // 创建 Retrofit 接口实例
         apiService = createApi(ApiService.class);
     }
@@ -112,8 +115,7 @@ public class NetApi {
      * 自定义拦截器，用户添加公共参数操作
      */
     private class RequestInterceptor implements Interceptor {
-        @Override
-        public okhttp3.Response intercept(Chain chain) throws IOException {
+        @Override public okhttp3.Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             if (request.method().equals("POST")) {
                 // POST 请求有两种请求体形式 1.FormBody:表单形式，2.MultipartBody:多参数表单（包含文件）
@@ -128,9 +130,8 @@ public class NetApi {
             // 通过拦截器添加 token
             String token = SPManager.getInstance().getToken();
             if (!TextUtils.isEmpty(token)) {
-                request = request.newBuilder()
-                        .addHeader("Authorization", "Bearer " + token)
-                        .build();
+                request =
+                    request.newBuilder().addHeader("Authorization", "Bearer " + token).build();
             }
             return chain.proceed(request);
         }
@@ -143,14 +144,6 @@ public class NetApi {
         return retrofit.create(clazz);
     }
 
-    public ApiService accountApi() {
-        return createApi(ApiService.class);
-    }
-
-    public ApiService noteApi() {
-        return createApi(ApiService.class);
-    }
-
     /**
      * 请求结果错误的情况处理
      *
@@ -161,41 +154,42 @@ public class NetApi {
         String msg = result.getMessage();
         int code = result.getCode();
         switch (code) {
-        case VError.UNKNOWN:
-            break;
-        case VError.SERVER:
-            break;
-        case VError.SYS_NETWORK:
-            break;
-        case VError.SYS_TIMEOUT:
-            break;
-        case VError.INVALID_PARAM:
-            break;
-        case VError.TOKEN_INVALID:
-            break;
-        case VError.TOKEN_EXPIRED:
-            break;
-        case VError.NOT_PERMISSION:
-            break;
-        case VError.ACCOUNT_EXIST:
-            break;
-        case VError.ACCOUNT_NAME_EXIST:
-            break;
-        case VError.ACCOUNT_NOT_EXIST:
-            break;
-        case VError.ACCOUNT_DELETED:
-            break;
-        case VError.ACCOUNT_NO_ACTIVATED:
-            break;
-        case VError.INVALID_ACTIVATE_LINK:
-            break;
-        case VError.INVALID_PASSWORD:
-            break;
-        default:
-            break;
+            case VError.UNKNOWN:
+                break;
+            case VError.SERVER:
+                break;
+            case VError.SYS_NETWORK:
+                break;
+            case VError.SYS_TIMEOUT:
+                break;
+            case VError.INVALID_PARAM:
+                break;
+            case VError.TOKEN_INVALID:
+            case VError.TOKEN_EXPIRED:
+                SPManager.getInstance().putToken("");
+                NavRouter.goMain(App.getTopActivity());
+                break;
+            case VError.NOT_PERMISSION:
+                break;
+            case VError.ACCOUNT_EXIST:
+                break;
+            case VError.ACCOUNT_NAME_EXIST:
+                break;
+            case VError.ACCOUNT_NOT_EXIST:
+                break;
+            case VError.ACCOUNT_DELETED:
+                break;
+            case VError.ACCOUNT_NO_ACTIVATED:
+                break;
+            case VError.INVALID_ACTIVATE_LINK:
+                break;
+            case VError.INVALID_PASSWORD:
+                break;
+            default:
+                break;
         }
         VMLog.e(msg);
-        VMToast.make(msg).showError();
+        //        VMToast.make(msg).showError();
         callback.onError(code, msg);
     }
 
@@ -227,9 +221,8 @@ public class NetApi {
             msg = VMStrUtil.strByResId(R.string.err_unknown) + e.getMessage();
         }
         VMLog.e(msg);
-        VMToast.make(msg).showError();
+        //        VMToast.make(msg).showError();
         callback.onError(code, msg);
     }
-
 }
 

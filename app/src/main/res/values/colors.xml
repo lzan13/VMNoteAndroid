@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff36bd64</color>
-    <color name="colorPrimaryDark">#ff237e42</color>
-    <color name="colorAccent">#ff36bd64</color>
+    <color name="colorPrimary">#ff2cbe60</color>
+    <color name="colorPrimaryDark">#ff1e7f41</color>
+    <color name="colorAccent">#ff2cbe60</color>
 
-    <color name="launcher_background">#ff237e42</color>
-    <color name="menu_header">#ff36bd64</color>
-    <color name="menu_selected">#ff36bd64</color>
-    <color name="menu_normal">@color/vm_black_54</color>
+    <color name="launcher_background">#ff1e7f41</color>
+    <color name="menu_header">#ff2cbe60</color>
+    <color name="menu_selected">#ff2cbe60</color>
+    <color name="menu_normal">#b6212121</color>
+
+    <color name="item_over_title_bg">#ffe8e8e8</color>
+    <color name="item_child_title">@color/vm_black_54</color>
+    <color name="item_child_title_bg">@color/vm_theme_background</color>
+    <color name="item_decoration">@color/vm_black_12</color>
 </resources>

@@ -5,22 +5,17 @@
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="false"
     tools:context=".account.AccountActivity">
-
-    <include layout="@layout/widget_appbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/vm_theme_background"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/vm_theme_background">
 
-        <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <RelativeLayout
             android:id="@+id/layout_drawer_header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_header_height">
+            android:layout_height="@dimen/account_cover_height">
 
             <ImageView
                 android:id="@+id/img_cover"
@@ -33,15 +28,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
+                android:gravity="center|bottom"
                 android:orientation="vertical"
                 android:padding="@dimen/vm_dimen_16">
 
                 <ImageView
                     android:id="@+id/img_avatar"
-                    android:layout_width="@dimen/vm_avatar_normal"
-                    android:layout_height="@dimen/vm_avatar_normal"
-                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:layout_width="@dimen/vm_avatar_large"
+                    android:layout_height="@dimen/vm_avatar_large"
                     app:srcCompat="@mipmap/ic_launcher_round" />
 
                 <TextView
@@ -73,4 +67,26 @@
                 android:text="@string/sign_out" />
         </LinearLayout>
     </RelativeLayout>
+
+    <!--<include layout="@layout/widget_appbar" />-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/widget_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_56"
+        android:background="@color/vm_transparent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/vm_elevation_no">
+
+        <!--公共的 Toolbar 控件-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/widget_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/vm_transparent"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/AppTheme.ToolbarOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

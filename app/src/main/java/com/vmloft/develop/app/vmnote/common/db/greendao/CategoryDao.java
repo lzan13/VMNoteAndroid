@@ -29,6 +29,8 @@ public class CategoryDao extends AbstractDao<Category, String> {
         public final static Property Title = new Property(2, String.class, "title", false, "TITLE");
         public final static Property CreateAt = new Property(3, String.class, "createAt", false, "CREATE_AT");
         public final static Property UpdateAt = new Property(4, String.class, "updateAt", false, "UPDATE_AT");
+        public final static Property IsCreate = new Property(5, boolean.class, "isCreate", false, "IS_CREATE");
+        public final static Property Sync = new Property(6, boolean.class, "sync", false, "SYNC");
     }
 
 
@@ -48,7 +50,9 @@ public class CategoryDao extends AbstractDao<Category, String> {
                 "\"AUTHOR_ID\" TEXT," + // 1: authorId
                 "\"TITLE\" TEXT," + // 2: title
                 "\"CREATE_AT\" TEXT," + // 3: createAt
-                "\"UPDATE_AT\" TEXT);"); // 4: updateAt
+                "\"UPDATE_AT\" TEXT," + // 4: updateAt
+                "\"IS_CREATE\" INTEGER NOT NULL ," + // 5: isCreate
+                "\"SYNC\" INTEGER NOT NULL );"); // 6: sync
     }
 
     /** Drops the underlying database table. */
@@ -85,6 +89,8 @@ public class CategoryDao extends AbstractDao<Category, String> {
         if (updateAt != null) {
             stmt.bindString(5, updateAt);
         }
+        stmt.bindLong(6, entity.getIsCreate() ? 1L: 0L);
+        stmt.bindLong(7, entity.getSync() ? 1L: 0L);
     }
 
     @Override
@@ -115,6 +121,8 @@ public class CategoryDao extends AbstractDao<Category, String> {
         if (updateAt != null) {
             stmt.bindString(5, updateAt);
         }
+        stmt.bindLong(6, entity.getIsCreate() ? 1L: 0L);
+        stmt.bindLong(7, entity.getSync() ? 1L: 0L);
     }
 
     @Override
@@ -129,7 +137,9 @@ public class CategoryDao extends AbstractDao<Category, String> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // authorId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // createAt
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // updateAt
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // updateAt
+            cursor.getShort(offset + 5) != 0, // isCreate
+            cursor.getShort(offset + 6) != 0 // sync
         );
         return entity;
     }
@@ -141,6 +151,8 @@ public class CategoryDao extends AbstractDao<Category, String> {
         entity.setTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setCreateAt(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setUpdateAt(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIsCreate(cursor.getShort(offset + 5) != 0);
+        entity.setSync(cursor.getShort(offset + 6) != 0);
      }
     
     @Override

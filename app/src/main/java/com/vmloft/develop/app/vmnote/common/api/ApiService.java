@@ -2,6 +2,7 @@ package com.vmloft.develop.app.vmnote.common.api;
 
 import com.vmloft.develop.app.vmnote.bean.BaseResult;
 import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.bean.Category;
 import com.vmloft.develop.app.vmnote.bean.Note;
 
 import java.util.List;
@@ -25,13 +26,13 @@ public interface ApiService {
 
 
     /**
-     * --------------------------------- 账户相关接口 ---------------------------------
+     * --------------------------------- Account Api ---------------------------------
      */
     /**
      * 注册账户
      */
     @FormUrlEncoded
-    @POST("accounts/")
+    @POST("accounts")
     Observable<BaseResult<Account>> createAccount(@Field("account") String account,
             @Field("password") String password);
 
@@ -39,30 +40,23 @@ public interface ApiService {
      * 认证账户
      */
     @FormUrlEncoded
-    @POST("accounts/auth/")
+    @POST("accounts/auth")
     Observable<BaseResult<Account>> authAccount(@Field("account") String account,
             @Field("password") String password);
 
     /**
      * 获取账户信息
      */
-    @GET("accounts/{name}")
-    Observable<BaseResult<Account>> getAccount(@Path("name") String name);
+    @GET("accounts/{id}/info")
+    Observable<BaseResult<Account>> getAccount(@Path("id") String id);
 
     /**
-     * --------------------------------- 笔记相关接口 ---------------------------------
+     * --------------------------------- Note Api ---------------------------------
      * 发布新笔记
      */
     @FormUrlEncoded
     @POST("notes")
-    Observable<BaseResult<Note>> postNote(@Field("id") String id, @Field("content") String content);
-
-    /**
-     * 更新笔记
-     */
-    @FormUrlEncoded
-    @PUT("notes/{id}")
-    Observable<BaseResult<Note>> updateNote(@Path("id") String id,
+    Observable<BaseResult<Note>> createNote(@Field("id") String id,
             @Field("content") String content);
 
     /**
@@ -87,11 +81,11 @@ public interface ApiService {
      * 同步笔记，考虑到客户端流量问题，这里设计成增量更新方式
      */
     @GET("notes/sync")
-    Observable<BaseResult<List<Note>>> syncNote(@Query("page") int page, @Query("limit") int limit,
+    Observable<BaseResult<List<Note>>> syncNote(@Query("limit") int limit,
             @Query("syncKey") Long time);
 
     /**
-     * --------------------------------- 回收站及删除相关接口 ---------------------------------
+     * --------------------------------- Trash Api ---------------------------------
      * 将笔记移到回收站
      */
     @POST("trash/add/{id}")
@@ -120,6 +114,46 @@ public interface ApiService {
      */
     @GET("trash")
     Observable<BaseResult<List<Note>>> getTrash(@Query("page") int page, @Query("limit") int limit);
+
+
+    /**
+     * --------------------------------- Category Api ---------------------------------
+     */
+
+    /**
+     * Create category
+     */
+    @FormUrlEncoded
+    @POST("categorys")
+    Observable<BaseResult<Category>> createCategory(@Field("id") String id,
+            @Field("title") String title);
+
+    /**
+     * Update category
+     */
+    @FormUrlEncoded
+    @POST("categorys/{id}")
+    Observable<BaseResult<Category>> updateCategory(@Path("id") String id,
+            @Field("title") String title);
+
+    /**
+     * Delete category
+     */
+    @DELETE("categorys/{id}")
+    Observable<BaseResult> deleteCategory(@Path("id") String id);
+
+
+    /**
+     * Get all category
+     */
+    @DELETE("categorys}")
+    Observable<BaseResult<List<Category>>> getAllCategory();
+
+    /**
+     * Delete category
+     */
+    @DELETE("categorys/{id}")
+    Observable<BaseResult<Category>> getCategoryById(@Path("id") String id);
 
 
 }

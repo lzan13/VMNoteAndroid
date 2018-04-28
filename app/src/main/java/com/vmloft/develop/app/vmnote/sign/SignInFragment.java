@@ -13,8 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.app.vmnote.app.SPManager;
+import com.vmloft.develop.app.vmnote.app.base.AppFragment;
 import com.vmloft.develop.app.vmnote.bean.Account;
-import com.vmloft.develop.library.tools.VMFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ import butterknife.OnClick;
  * Created by lzan13 on 2018/4/16.
  * 登录 UI 界面
  */
-public class SignInFragment extends VMFragment {
+public class SignInFragment extends AppFragment {
 
     @BindView(R.id.edit_account) EditText accountEdit;
     @BindView(R.id.edit_password) EditText passwordEdit;
@@ -39,10 +40,9 @@ public class SignInFragment extends VMFragment {
     /**
      * 创建实例对象的工厂方法
      */
-    public static SignInFragment newInstance(String account) {
+    public static SignInFragment newInstance() {
         SignInFragment fragment = new SignInFragment();
         Bundle args = new Bundle();
-        args.putString("account", account);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +63,6 @@ public class SignInFragment extends VMFragment {
     @Override
     protected void initView() {
         ButterKnife.bind(this, getView());
-
         accountEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -88,9 +87,6 @@ public class SignInFragment extends VMFragment {
                 verifyInputBox();
             }
         });
-
-        account = getArguments().getString("account");
-        accountEdit.setText(account);
     }
 
     /**
@@ -98,10 +94,12 @@ public class SignInFragment extends VMFragment {
      */
     @Override
     protected void initData() {
-
+        account = SPManager.getInstance().getAccountName();
+        accountEdit.setText(account);
     }
 
-    @OnClick({R.id.btn_clear_account, R.id.btn_show_password, R.id.btn_sign_in, R.id.btn_sign_up_go})
+    @OnClick({R.id.btn_clear_account, R.id.btn_show_password, R.id.btn_sign_in,
+                     R.id.btn_sign_up_go})
     void onClick(View view) {
         switch (view.getId()) {
         case R.id.btn_clear_account:

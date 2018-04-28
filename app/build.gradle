@@ -23,7 +23,7 @@ android {
     // GreenDao 配置
     greendao {
         schemaVersion 1 // 数据库版本
-        daoPackage 'com.vmloft.develop.app.vmnote.db.greendao' // DaoMaster, DaoSession Dao包名
+        daoPackage 'com.vmloft.develop.app.vmnote.common.db.greendao' // DaoMaster, DaoSession Dao包名
         targetGenDir 'src/main/java' // 设置 DaoMaster, DaoSession Dao目录
     }
 }
@@ -57,6 +57,9 @@ dependencies {
 
     // GreenDao 数据库工具库
     implementation 'org.greenrobot:greendao:3.2.2'
+
+    // WebView 封装
+    implementation 'com.just.agentweb:agentweb:4.0.2'
 
     // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager/vmtools
     compile project(':vmtools')

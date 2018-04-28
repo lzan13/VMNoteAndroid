@@ -11,6 +11,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--界面背景色，为了优化 UI，这里设置为透明-->
         <item name="android:windowBackground">@color/vm_transparent</item>
+
+
     </style>
 
     <!--启动时的主题样式-->
@@ -23,6 +25,19 @@
     <style name="AppTheme.Sign">
         <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/vm_black_12</item>
+    </style>
+
+    <style name="AppTheme.Normal">
+        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--半透明状态栏-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!--设置状态栏颜色-->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <!--设置导航栏背景色-->
+        <item name="android:navigationBarColor">@color/vm_black_38</item>
     </style>
 
     <!--透明主题-->

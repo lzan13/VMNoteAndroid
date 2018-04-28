@@ -3,13 +3,15 @@ package com.vmloft.develop.app.vmnote.account;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.AppActivity;
+import com.vmloft.develop.app.vmnote.app.base.AppActivity;
 import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.common.db.DBManager;
-import com.vmloft.develop.app.vmnote.common.router.NavRouter;
+import com.vmloft.develop.app.vmnote.common.image.IMGLoader;
+import com.vmloft.develop.library.tools.utils.VMStrUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,10 +23,14 @@ import butterknife.OnClick;
  */
 public class AccountActivity extends AppActivity {
 
+    @BindView(R.id.img_cover) ImageView coverView;
     @BindView(R.id.img_avatar) ImageView avatarView;
+    @BindView(R.id.text_nickname) TextView nicknameView;
+    @BindView(R.id.text_account) TextView accountView;
 
     private Toolbar toolbar;
 
+    private String accountName;
     private Account account;
 
     /**
@@ -44,7 +50,15 @@ public class AccountActivity extends AppActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle(R.string.app_name);
 
-        account = DBManager.getInstance().getAccount(SPManager.getInstance().getAccount());
+        accountName = SPManager.getInstance().getAccountName();
+        account = DBManager.getInstance().getAccount(accountName);
+        if (account != null) {
+            IMGLoader.loadBigPhoto(activity, account.getCover(), coverView);
+            IMGLoader.loadAvatar(activity, account.getAvatar(), avatarView);
+            accountView.setText(account.getEmail());
+            nicknameView.setText(VMStrUtil.isEmpty(account.getNickname()) ? account.getName() : account
+                    .getNickname());
+        }
     }
 
     @OnClick({R.id.btn_sign_out})
@@ -62,6 +76,6 @@ public class AccountActivity extends AppActivity {
     private void signOut() {
         SPManager.getInstance().putToken("");
         DBManager.getInstance().deleteAccount(account);
-        NavRouter.goSign(activity);
+        onFinish();
     }
 }

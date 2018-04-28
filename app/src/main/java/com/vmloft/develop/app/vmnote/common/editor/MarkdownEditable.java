@@ -387,6 +387,9 @@ public class MarkdownEditable implements View.OnClickListener {
             return true;
         }
         source = source.substring(0, selectionStart);
+        if (source.isEmpty()) {
+            return true;
+        }
         return source.charAt(source.length() - 1) == 10;
     }
 

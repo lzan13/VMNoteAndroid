@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".app.AppApplication"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,10 +36,21 @@
             android:theme="@style/AppTheme.Sign"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--笔记编辑界面-->
-        <activity android:name=".editor.EditorActivity" />
+        <activity
+            android:name=".editor.EditorActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Normal"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--账户信息界面-->
         <activity
             android:name=".account.AccountActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Normal"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--Web页面处理界面-->
+        <activity
+            android:name=".webpage.WebActivity"
+            android:theme="@style/AppTheme.Normal"
             android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 </manifest>

@@ -7,13 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.vmloft.develop.app.vmnote.app.AppActivity;
 import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.app.vmnote.app.base.AppMVPActivity;
 import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.common.router.NavRouter;
-import com.vmloft.develop.app.vmnote.sign.presenter.ISignPresenter;
 import com.vmloft.develop.app.vmnote.sign.presenter.SignPresenterImpl;
-import com.vmloft.develop.app.vmnote.sign.view.ISignInView;
+import com.vmloft.develop.app.vmnote.sign.SignContract.ISignView;
+import com.vmloft.develop.app.vmnote.sign.SignContract.ISignPresenter;
 import com.vmloft.develop.library.tools.VMFragment;
 import com.vmloft.develop.library.tools.widget.VMToast;
 
@@ -22,10 +22,7 @@ import butterknife.BindView;
 /**
  * 登录界面
  */
-public class SignActivity extends AppActivity implements ISignInView, VMFragment.FragmentListener {
-
-    private ISignInView signView;
-    private ISignPresenter signPresenter;
+public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISignView>> implements ISignView, VMFragment.FragmentListener {
 
     private Fragment[] fragments;
     private SignInFragment signInFragment;
@@ -49,13 +46,7 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
      */
     @Override
     protected void init() {
-        signView = this;
-        signPresenter = new SignPresenterImpl(signView);
-    }
-
-    @Override
-    public void initFragments(String account) {
-        signInFragment = SignInFragment.newInstance(account);
+        signInFragment = SignInFragment.newInstance();
         signUpFragment = SignUpFragment.newInstance();
 
         fragments = new Fragment[]{signInFragment, signUpFragment};
@@ -82,12 +73,17 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
         });
     }
 
+    @Override
+    public SignContract.ISignPresenter<SignContract.ISignView> createPresenter() {
+        return new SignPresenterImpl();
+    }
+
     /**
      * 账户注册
      */
     private void signUp(Account entity) {
         showDialog(true);
-        signPresenter.doSignUp(entity);
+        presenter.doSignUp(entity);
     }
 
     /**
@@ -114,7 +110,7 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
      */
     private void signIn(Account entity) {
         showDialog(true);
-        signPresenter.doSignIn(entity);
+        presenter.doSignIn(entity);
     }
 
     /**
@@ -160,13 +156,6 @@ public class SignActivity extends AppActivity implements ISignInView, VMFragment
         case R.id.btn_sign_up_go:
             viewPager.setCurrentItem(1, true);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        signView = null;
-        signPresenter = null;
     }
 
     /**

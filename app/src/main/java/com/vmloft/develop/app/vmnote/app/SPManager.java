@@ -8,9 +8,10 @@ import com.vmloft.develop.library.tools.utils.VMSPUtil;
  */
 public class SPManager {
 
-    final String ACCOUNT = "account";
-    final String NIGHT = "night";
-    final String TOKEN = "token";
+    final String ACCOUNT_ID = "account_id";
+    final String ACCOUNT_NAME = "account_name";
+    final String ACCOUNT_TOKEN = "account_token";
+    final String NIGHT_THEME = "night_theme";
     final String SYNC_KEY = "sync_key";
 
     private static SPManager instance;
@@ -25,36 +26,44 @@ public class SPManager {
     }
 
     /**
-     * account 的获取和保存
+     * account 信息获取和保存
      */
-    public String getAccount() {
-        return (String) VMSPUtil.get(ACCOUNT, "");
+    public String getAccountId() {
+        return (String) VMSPUtil.get(ACCOUNT_ID, "");
     }
 
-    public void putAccount(String account) {
-        VMSPUtil.put(ACCOUNT, account);
+    public void putAccountId(String id) {
+        VMSPUtil.put(ACCOUNT_ID, id);
+    }
+
+    public String getAccountName() {
+        return (String) VMSPUtil.get(ACCOUNT_NAME, "");
+    }
+
+    public void putAccountName(String name) {
+        VMSPUtil.put(ACCOUNT_NAME, name);
     }
 
     /**
      * 夜间模式
      */
     public boolean isNight() {
-        return (boolean) VMSPUtil.get(NIGHT, false);
+        return (boolean) VMSPUtil.get(NIGHT_THEME, false);
     }
 
     public void putNight(boolean isNight) {
-        VMSPUtil.put(NIGHT, isNight);
+        VMSPUtil.put(NIGHT_THEME, isNight);
     }
 
     /**
      * token 的获取和保存
      */
     public String getToken() {
-        return (String) VMSPUtil.get(TOKEN, "");
+        return (String) VMSPUtil.get(ACCOUNT_TOKEN, "");
     }
 
     public void putToken(String token) {
-        VMSPUtil.put(TOKEN, token);
+        VMSPUtil.put(ACCOUNT_TOKEN, token);
     }
 
     /**

@@ -6,6 +6,7 @@
     <item name="btn_shortcut_code" type="id" /><!--代码-->
     <item name="btn_shortcut_code_block" type="id" /><!--代码块-->
     <item name="btn_shortcut_grid" type="id" /><!-- 插入表格 -->
+    <item name="btn_shortcut_header_equal" type="id" /><!--标题1-->
     <item name="btn_shortcut_header_1" type="id" /><!--标题1-->
     <item name="btn_shortcut_header_2" type="id" /><!--标题2-->
     <item name="btn_shortcut_header_3" type="id" /><!--标题3-->

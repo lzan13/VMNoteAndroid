@@ -10,6 +10,7 @@ import com.vmloft.develop.app.vmnote.app.C;
 import com.vmloft.develop.app.vmnote.editor.EditorActivity;
 import com.vmloft.develop.app.vmnote.home.MainActivity;
 import com.vmloft.develop.app.vmnote.sign.SignActivity;
+import com.vmloft.develop.app.vmnote.webpage.WebActivity;
 
 /**
  * Created by lzan13 on 2018/4/24.
@@ -44,8 +45,8 @@ public class NavRouter {
     /**
      * 去往笔记编辑界面
      */
-    public static void goNoteEditor(Context context) {
-        overlay(context, EditorActivity.class);
+    public static void goEditor(Context context, NavParams params) {
+        overlay(context, EditorActivity.class, params);
     }
 
     /**
@@ -55,8 +56,18 @@ public class NavRouter {
         overlay(context, AccountActivity.class);
     }
 
+
     /**
-     * ---------------------------- 正常跳转，直接跳到下一个界面，当前界面处于 stop 状态 ----------------------------
+     * ------------------- 公共跳转界面 -------------------
+     *
+     * 处理网页
+     */
+    public static void goWebPage(Context context, Parcelable parcelable) {
+        overlay(context, WebActivity.class, parcelable);
+    }
+
+    /**
+     * ------------------- 正常跳转，直接跳到下一个界面，当前界面处于 stop 状态 -------------------
      *
      * 最普通的跳转
      *

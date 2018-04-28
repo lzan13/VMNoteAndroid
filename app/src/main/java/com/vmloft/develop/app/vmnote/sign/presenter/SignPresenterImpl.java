@@ -2,40 +2,34 @@ package com.vmloft.develop.app.vmnote.sign.presenter;
 
 import com.vmloft.develop.app.vmnote.app.Callback;
 import com.vmloft.develop.app.vmnote.bean.Account;
-import com.vmloft.develop.app.vmnote.sign.model.ISignModel;
+import com.vmloft.develop.app.vmnote.sign.SignContract.ISignModel;
+import com.vmloft.develop.app.vmnote.sign.SignContract.ISignView;
+import com.vmloft.develop.app.vmnote.sign.SignContract.ISignPresenter;
 import com.vmloft.develop.app.vmnote.sign.model.SignModelImpl;
-import com.vmloft.develop.app.vmnote.sign.view.ISignInView;
 
 
 /**
  * Created by lzan13 on 2017/11/23.
  * 登录处理实现
  */
-public class SignPresenterImpl implements ISignPresenter {
-    private ISignModel signInModel;
-    private ISignInView signInView;
+public class SignPresenterImpl extends ISignPresenter<ISignView> {
+    private ISignModel signModel;
 
-    public SignPresenterImpl(ISignInView view) {
-        signInView = view;
-        init();
-    }
-
-    private void init() {
-        signInModel = new SignModelImpl();
-        signInView.initFragments(signInModel.getLastAccount());
+    public SignPresenterImpl() {
+        signModel = new SignModelImpl();
     }
 
     @Override
     public void doSignUp(Account entity) {
-        signInModel.createAccount(entity, new Callback() {
+        signModel.createAccount(entity, new Callback() {
             @Override
             public void onDone(Object object) {
-                signInView.onSignUpDone();
+                obtainView().onSignUpDone();
             }
 
             @Override
             public void onError(int code, String desc) {
-                signInView.onSignUpError(code, desc);
+                obtainView().onSignUpError(code, desc);
             }
         });
     }
@@ -47,15 +41,15 @@ public class SignPresenterImpl implements ISignPresenter {
      */
     @Override
     public void doSignIn(Account entity) {
-        signInModel.authAccount(entity, new Callback() {
+        signModel.authAccount(entity, new Callback() {
             @Override
             public void onDone(Object object) {
-                signInView.onSignInDone();
+                obtainView().onSignInDone();
             }
 
             @Override
             public void onError(int code, String desc) {
-                signInView.onSignInError(code, desc);
+                obtainView().onSignInError(code, desc);
             }
         });
     }
