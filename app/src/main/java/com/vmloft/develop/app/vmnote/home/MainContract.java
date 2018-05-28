@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class MainContract {
 
-
     /**
      * -------------------- 主界面 MVP 接口定义 --------------------
      */
@@ -90,6 +89,11 @@ public class MainContract {
      */
     public interface IDisplayModel {
         /**
+         * 移动笔记到回收站
+         */
+        void moveToTrash(List<Note> list, Callback callback);
+
+        /**
          * 加载笔记列表
          */
         List<Note> loadAllNote();
@@ -103,6 +107,14 @@ public class MainContract {
     }
 
     public static abstract class IDisplayPresenter<V> extends BPresenter<V> {
+        /**
+         * 移动笔记到回收站
+         */
+        public abstract void onMoveToTrash(List<Note> list);
+
+        /**
+         * 加载全部笔记
+         */
         public abstract void onLoadAllNote();
     }
 

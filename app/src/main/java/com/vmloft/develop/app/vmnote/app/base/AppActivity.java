@@ -27,7 +27,7 @@ public abstract class AppActivity extends VMActivity {
 
         ButterKnife.bind(activity);
 
-        init();
+        initView();
     }
 
     @Override
@@ -68,6 +68,6 @@ public abstract class AppActivity extends VMActivity {
     /**
      * 初始化界面
      */
-    protected abstract void init();
+    protected abstract void initView();
 
 }

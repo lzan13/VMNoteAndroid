@@ -11,7 +11,7 @@ import com.vmloft.develop.app.vmnote.app.SPManager;
 import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.common.db.DBManager;
 import com.vmloft.develop.app.vmnote.common.image.IMGLoader;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +45,7 @@ public class AccountActivity extends AppActivity {
      * 初始化界面
      */
     @Override
-    protected void init() {
+    protected void initView() {
         toolbar = getToolbar();
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle(R.string.app_name);
@@ -56,7 +56,7 @@ public class AccountActivity extends AppActivity {
             IMGLoader.loadBigPhoto(activity, account.getCover(), coverView);
             IMGLoader.loadAvatar(activity, account.getAvatar(), avatarView);
             accountView.setText(account.getEmail());
-            nicknameView.setText(VMStrUtil.isEmpty(account.getNickname()) ? account.getName() : account
+            nicknameView.setText(VMStr.isEmpty(account.getNickname()) ? account.getName() : account
                     .getNickname());
         }
     }

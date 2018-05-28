@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by lzan13 on 2018/4/22.
@@ -20,6 +21,7 @@ import org.greenrobot.greendao.annotation.Generated;
     private boolean deleted;
     private boolean isSync = true;
     private boolean isCreate = false;
+    @Transient private boolean isSelected = false;
     @SerializedName("create_at") private String createAt;
     @SerializedName("update_at") private String updateAt;
 
@@ -125,6 +127,14 @@ import org.greenrobot.greendao.annotation.Generated;
 
     public void setCreateAt(String createAt) {
         this.createAt = createAt;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getUpdateAt() {

@@ -99,7 +99,9 @@ public class SignUpFragment extends AppFragment {
 
     }
 
-    @OnClick({R.id.btn_clear_account, R.id.btn_show_password, R.id.btn_sign_up, R.id.btn_sign_in_go})
+    @OnClick({
+        R.id.btn_clear_account, R.id.btn_show_password, R.id.btn_sign_up, R.id.btn_go_sign_in
+    })
     void onClick(View view) {
         switch (view.getId()) {
         case R.id.btn_clear_account:
@@ -111,8 +113,8 @@ public class SignUpFragment extends AppFragment {
         case R.id.btn_sign_up:
             signUp();
             break;
-        case R.id.btn_sign_in_go:
-            listener.onAction(R.id.btn_sign_in_go, null);
+        case R.id.btn_go_sign_in:
+            listener.onAction(R.id.btn_go_sign_in, null);
             break;
         }
     }
@@ -140,7 +142,7 @@ public class SignUpFragment extends AppFragment {
      */
     private void controlPassHide() {
         if (passwordEdit.getTransformationMethod()
-                .equals(PasswordTransformationMethod.getInstance())) {
+            .equals(PasswordTransformationMethod.getInstance())) {
             passwordEdit.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             showPasswordBtn.setImageResource(R.drawable.ic_visibility);
         } else {

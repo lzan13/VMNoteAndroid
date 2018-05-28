@@ -8,18 +8,21 @@
     android:background="@color/vm_theme_background"
     android:clipToPadding="true"
     android:fitsSystemWindows="false"
-    tools:context=".sign.SignActivity">
+    tools:context=".sign.SignActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -27,10 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        >
 
         <ProgressBar
             android:layout_width="@dimen/vm_dimen_96"
-            android:layout_height="@dimen/vm_dimen_96" />
+            android:layout_height="@dimen/vm_dimen_96"
+            />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

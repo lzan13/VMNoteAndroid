@@ -1,13 +1,11 @@
 package com.vmloft.develop.app.vmnote.sign;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.app.vmnote.app.base.AppFragment;
 import com.vmloft.develop.app.vmnote.app.base.AppMVPActivity;
 import com.vmloft.develop.app.vmnote.bean.Account;
 import com.vmloft.develop.app.vmnote.common.router.NavRouter;
@@ -24,12 +22,13 @@ import butterknife.BindView;
  */
 public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISignView>> implements ISignView, VMFragment.FragmentListener {
 
-    private Fragment[] fragments;
+    @BindView(R.id.layout_sign_progress) LinearLayout progressView;
+
+    private AppFragment[] fragments;
     private SignInFragment signInFragment;
     private SignUpFragment signUpFragment;
 
-    @BindView(R.id.view_pager) ViewPager viewPager;
-    @BindView(R.id.layout_sign_progress) LinearLayout progressView;
+    private int currIndex = 0;
 
     /**
      * 初始化界面 layout_id
@@ -38,39 +37,23 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
      */
     @Override
     protected int initLayoutId() {
-        return R.layout.activity_sign_in;
+        return R.layout.activity_sign;
     }
 
     /**
      * 初始化界面
      */
     @Override
-    protected void init() {
+    protected void initView() {
         signInFragment = SignInFragment.newInstance();
         signUpFragment = SignUpFragment.newInstance();
-
-        fragments = new Fragment[]{signInFragment, signUpFragment};
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        // 设置 ViewPager 缓存个数
-        viewPager.setOffscreenPageLimit(1);
-        // 添加 ViewPager 页面改变监听
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                    int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        fragments = new AppFragment[] { signInFragment, signUpFragment };
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, signInFragment);
+        ft.add(R.id.fragment_container, signUpFragment);
+        ft.show(signInFragment);
+        ft.hide(signUpFragment);
+        ft.commit();
     }
 
     @Override
@@ -93,8 +76,7 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     public void onSignUpDone() {
         showDialog(false);
         VMToast.make("Sign up success!").showDone();
-        // 切换到登录界面
-        viewPager.setCurrentItem(0, true);
+        switchFragment(0);
     }
 
     /**
@@ -143,38 +125,36 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
 
     @Override
     public void onAction(int action, Object obj) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch (action) {
         case R.id.btn_sign_in:
             signIn((Account) obj);
             break;
-        case R.id.btn_sign_in_go:
-            viewPager.setCurrentItem(0, true);
+        case R.id.btn_go_sign_in:
+            switchFragment(0);
             break;
         case R.id.btn_sign_up:
             signUp((Account) obj);
             break;
-        case R.id.btn_sign_up_go:
-            viewPager.setCurrentItem(1, true);
+        case R.id.btn_go_sign_up:
+            switchFragment(1);
+            break;
         }
     }
 
-    /**
-     * ViewPager 适配器实现类
-     */
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
+    private void switchFragment(int index) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (index == 0) {
+            ft.setCustomAnimations(R.animator.vm_top_in_animator, R.animator.vm_down_out_animator);
+        } else {
+            ft.setCustomAnimations(R.animator.vm_down_in_animator, R.animator.vm_top_out_animator);
         }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments[position];
+        if (!fragments[index].isAdded()) {
+            ft.add(R.id.fragment_container, fragments[index]);
         }
-
-        @Override
-        public int getCount() {
-            return fragments.length;
-        }
+        ft.hide(fragments[currIndex]);
+        ft.show(fragments[index]);
+        ft.commit();
+        currIndex = index;
     }
 }

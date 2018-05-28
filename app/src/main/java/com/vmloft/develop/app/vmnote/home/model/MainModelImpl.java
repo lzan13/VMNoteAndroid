@@ -8,7 +8,7 @@ import com.vmloft.develop.app.vmnote.bean.BaseResult;
 import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.app.vmnote.common.db.DBManager;
 import com.vmloft.develop.app.vmnote.home.MainContract.IMainModel;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
+import com.vmloft.develop.library.tools.utils.VMDate;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class MainModelImpl implements IMainModel {
 
     @Override public void syncData(Callback callback) {
         String syncKey = SPManager.getInstance().getSyncKey();
-        syncTime = VMDateUtil.milliFormUTC(syncKey);
+        syncTime = VMDate.milliFormUTC(syncKey);
         sync(callback);
     }
 
@@ -65,7 +65,7 @@ public class MainModelImpl implements IMainModel {
                     Note note = list.get(list.size() - 1);
                     DBManager.getInstance().insertNoteList(list);
                     SPManager.getInstance().putSyncKey(note.getUpdateAt());
-                    syncTime = VMDateUtil.milliFormUTC(note.getUpdateAt());
+                    syncTime = VMDate.milliFormUTC(note.getUpdateAt());
                     if (result.getResultCount() < result.getTotalCount() && list.size() == limit) {
                         sync(callback);
                     } else {

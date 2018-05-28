@@ -1,10 +1,13 @@
 package com.vmloft.develop.app.vmnote.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.app.base.AppMVPFragment;
 import com.vmloft.develop.app.vmnote.bean.Note;
@@ -38,8 +41,11 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
     private LayoutManager layoutManager;
     private DisplayAdapter adapter;
     private VMEmptyWrapper emptyWrapper;
+    private ActionMode actionMode;
 
     private List<Note> noteList;
+    private List<Note> selectedList;
+    private boolean isEditable = false;
 
     /**
      * 初始化 Fragment 界面 layout_id
@@ -74,13 +80,17 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
             @Override public void onItemAction(int action, Object object) {
                 Note note = (Note) object;
                 VMLog.d("clickItem %d, %s", action, note.getContent());
-                NavParams params = new NavParams();
-                params.str0 = note.getId();
-                NavRouter.goEditor(activity, params);
+                if (isEditable) {
+                    selectNote(note);
+                } else {
+                    NavParams params = new NavParams();
+                    params.str0 = note.getId();
+                    NavRouter.goEditor(activity, params);
+                }
             }
 
             @Override public void onItemLongAction(int action, Object object) {
-
+                startActionMode((Note) object);
             }
         });
 
@@ -118,6 +128,106 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
         refreshLayout.setRefreshing(false);
         noteList.clear();
         noteList.addAll(list);
+        refresh();
+    }
+
+    private void refresh() {
         emptyWrapper.refresh();
     }
+
+    /**
+     * 编辑模式中，点击选中或取消
+     */
+    private void selectNote(Note note) {
+        if (isEditable && actionMode != null) {
+            note.setSelected(!note.isSelected());
+            if (note.isSelected()) {
+                selectedList.add(note);
+            } else {
+                selectedList.remove(note);
+            }
+        }
+        if (selectedList.size() == 0) {
+            stopActionMode();
+            return;
+        }
+        actionMode.setTitle(String.format(getString(R.string.note_selected), selectedList.size()));
+        refresh();
+    }
+
+    /**
+     * 开启 ActionMode 编辑模式
+     */
+    private void startActionMode(Note note) {
+        if (actionMode != null) {
+            selectNote(note);
+            return;
+        }
+        actionMode = activity.startSupportActionMode(actionCallback);
+        isEditable = true;
+        note.setSelected(true);
+        if (selectedList == null) {
+            selectedList = new ArrayList<>();
+        }
+        selectedList.clear();
+        selectedList.add(note);
+        actionMode.setTitle(String.format(getString(R.string.note_selected), selectedList.size()));
+        refresh();
+    }
+
+    /**
+     * 停止 ActionMode 模式
+     */
+    private void stopActionMode() {
+        VMLog.e("stopActionMode");
+        isEditable = false;
+        actionMode.finish();
+        actionMode = null;
+    }
+
+    /**
+     * 清除选中的数据
+     */
+    private void clearSelected() {
+        for (Note note : selectedList) {
+            note.setSelected(false);
+        }
+        selectedList.clear();
+        selectedList = null;
+    }
+
+    private void moveToTrash() {
+        presenter.onMoveToTrash(selectedList);
+    }
+
+    /**
+     * ActionMode 回调
+     */
+    private ActionMode.Callback actionCallback = new ActionMode.Callback() {
+        @Override public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.display_action, menu);
+            return true;
+        }
+
+        @Override public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+            case R.id.action_trash:
+                moveToTrash();
+                break;
+            }
+            return false;
+        }
+
+        @Override public void onDestroyActionMode(ActionMode mode) {
+            VMLog.e("ActionMode destroy");
+            clearSelected();
+            refresh();
+            actionMode = null;
+            isEditable = false;
+        }
+    };
 }

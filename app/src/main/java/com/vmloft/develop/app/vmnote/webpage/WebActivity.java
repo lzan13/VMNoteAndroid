@@ -33,7 +33,7 @@ public class WebActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initView() {
         toolbar = getToolbar();
         toolbar.setTitle(R.string.agentweb_loading);
         toolbar.setNavigationIcon(R.drawable.ic_close);
@@ -51,15 +51,15 @@ public class WebActivity extends AppActivity {
 
     private void initWebView() {
         agentWeb = AgentWeb.with(activity)
-                .setAgentWebParent(webViewContainer, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()
-                .setWebChromeClient(chromeClient)
-                .setWebViewClient(viewClient)
-                .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
-                .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
-                .createAgentWeb()
-                .ready()
-                .go(url);
+            .setAgentWebParent(webViewContainer, new LinearLayout.LayoutParams(-1, -1))
+            .useDefaultIndicator()
+            .setWebChromeClient(chromeClient)
+            .setWebViewClient(viewClient)
+            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
+            .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
+            .createAgentWeb()
+            .ready()
+            .go(url);
     }
 
     /**
@@ -72,7 +72,6 @@ public class WebActivity extends AppActivity {
     private WebViewClient viewClient = new WebViewClient() {
 
     };
-
 
     /**
      * WebView 浏览器相关回调
@@ -89,7 +88,6 @@ public class WebActivity extends AppActivity {
             toolbar.setTitle(title);
         }
     };
-
 
     @Override
     public void onBackPressed() {

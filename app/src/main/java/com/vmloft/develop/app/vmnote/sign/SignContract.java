@@ -13,6 +13,7 @@ public final class SignContract {
     private SignContract() {}
 
     public interface ISignModel {
+
         /**
          * 创建账户
          */
@@ -57,6 +58,5 @@ public final class SignContract {
          * @param entity 账户
          */
         public abstract void doSignIn(Account entity);
-
     }
 }

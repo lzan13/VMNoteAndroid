@@ -22,7 +22,6 @@ import butterknife.ButterKnife;
  */
 public class CategoryAdapter extends VMAdapter<Category, CategoryAdapter.CategoryHolder> {
 
-
     public CategoryAdapter(Context context, List<Category> list) {
         super(context, list);
     }
@@ -40,8 +39,8 @@ public class CategoryAdapter extends VMAdapter<Category, CategoryAdapter.Categor
         holder.titleView.setText(category.getTitle());
     }
 
-
     static class CategoryHolder extends VMHolder {
+
         @BindView(R.id.text_title) TextView titleView;
 
         public CategoryHolder(View itemView) {
@@ -49,5 +48,4 @@ public class CategoryAdapter extends VMAdapter<Category, CategoryAdapter.Categor
             ButterKnife.bind(this, itemView);
         }
     }
-
 }

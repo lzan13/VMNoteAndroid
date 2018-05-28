@@ -24,7 +24,7 @@ import com.vmloft.develop.app.vmnote.common.router.NavRouter;
 import com.vmloft.develop.app.vmnote.common.editor.MarkdownEditable;
 import com.vmloft.develop.library.tools.editor.VMEditor;
 import com.vmloft.develop.library.tools.utils.VMLog;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMExpandableLayout;
 
 import butterknife.BindView;
@@ -67,7 +67,7 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
     /**
      * 初始化界面
      */
-    @Override public void init() {
+    @Override public void initView() {
         toolbar = getToolbar();
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
      * 加载笔记完成
      */
     @Override public void loadNoteDone(Note entity) {
-        if (VMStrUtil.isEmpty(entity.getContent())) {
+        if (VMStr.isEmpty(entity.getContent())) {
             editNote();
         } else {
             inputView.setText(entity.getContent());
@@ -103,7 +103,7 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
                 presenter.onTextChanged();
             }
         };
-        editor.setDefaultText(VMStrUtil.isEmpty(entity.getContent()) ? "" : entity.getContent());
+        editor.setDefaultText(VMStr.isEmpty(entity.getContent()) ? "" : entity.getContent());
 
         // 初始化 Markdown 快捷输入
         markdownEditable = new MarkdownEditable(inputView);
@@ -223,11 +223,11 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
                 String titleStr = titleEdit.getText().toString().trim();
                 String urlStr = urlEdit.getText().toString().trim();
 
-                if (VMStrUtil.isEmpty(titleStr)) {
+                if (VMStr.isEmpty(titleStr)) {
                     titleHint.setError(getString(R.string.not_null));
                     return;
                 }
-                if (VMStrUtil.isEmpty(urlStr)) {
+                if (VMStr.isEmpty(urlStr)) {
                     urlHint.setError(getString(R.string.not_null));
                     return;
                 }
@@ -270,11 +270,11 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
                 String rowStr = rowEdit.getText().toString().trim();
                 String colStr = colEdit.getText().toString().trim();
 
-                if (VMStrUtil.isEmpty(rowStr)) {
+                if (VMStr.isEmpty(rowStr)) {
                     rowNumberHint.setError(getString(R.string.not_null));
                     return;
                 }
-                if (VMStrUtil.isEmpty(colStr)) {
+                if (VMStr.isEmpty(colStr)) {
                     colNumberHint.setError(getString(R.string.not_null));
                     return;
                 }

@@ -61,6 +61,6 @@ dependencies {
     // WebView 封装
     implementation 'com.just.agentweb:agentweb:4.0.2'
 
-    // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager/vmtools
-    compile project(':vmtools')
+    // 引用自己封装的工具类库，GitHub：https://github.com/lzan13/VMLibrary
+    implementation 'com.vmloft.library:vmtools:0.0.2'
 }

@@ -1,6 +1,8 @@
 package com.vmloft.develop.app.vmnote.home.presenter;
 
+import com.vmloft.develop.app.vmnote.app.Callback;
 import com.vmloft.develop.app.vmnote.bean.Note;
+import com.vmloft.develop.app.vmnote.common.db.DBManager;
 import com.vmloft.develop.app.vmnote.home.model.DisplayModelImpl;
 import com.vmloft.develop.app.vmnote.home.MainContract.IDisplayModel;
 import com.vmloft.develop.app.vmnote.home.MainContract.IDisplayView;
@@ -20,8 +22,19 @@ public class DisplayPresenterImpl extends IDisplayPresenter<IDisplayView> {
         displayModel = new DisplayModelImpl();
     }
 
-    @Override
-    public void onLoadAllNote() {
+    @Override public void onMoveToTrash(List<Note> list) {
+        displayModel.moveToTrash(list, new Callback() {
+            @Override public void onDone(Object object) {
+                DBManager.getInstance().insertNoteList((List<Note>) object);
+                onLoadAllNote();
+            }
+
+            @Override public void onError(int code, String desc) {
+            }
+        });
+    }
+
+    @Override public void onLoadAllNote() {
         List<Note> list = displayModel.loadAllNote();
         obtainView().loadNoteDone(list);
     }

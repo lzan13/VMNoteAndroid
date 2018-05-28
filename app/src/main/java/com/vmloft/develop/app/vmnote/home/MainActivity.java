@@ -1,7 +1,6 @@
 package com.vmloft.develop.app.vmnote.home;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,8 +24,8 @@ import com.vmloft.develop.app.vmnote.home.MainContract.IMainView;
 import com.vmloft.develop.app.vmnote.home.MainContract.IMainPresenter;
 import com.vmloft.develop.app.vmnote.common.router.NavRouter;
 import com.vmloft.develop.app.vmnote.common.image.IMGLoader;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMDate;
+import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 import com.vmloft.develop.library.tools.widget.VMToast;
 
@@ -50,23 +49,20 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     @BindView(R.id.text_sync_time) TextView syncTimeView;
     private Toolbar toolbar;
 
-    private int[] menus = {R.string.note_all, R.string.note_books, R.string.note_trash};
+    private int[] menus = { R.string.note_all, R.string.note_books, R.string.note_trash };
     private int currIndex = 0;
-    private FragmentManager fragmentManager;
     private AppFragment[] fragments;
     private DisplayFragment displayFragment;
     private CategoryFragment categoryFragment;
     private TrashFragment trashFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         // 将主题设置为正常主题
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void onResume() {
+    @Override protected void onResume() {
         super.onResume();
         // 判断是否登录，否则跳转到登录界面
         String token = SPManager.getInstance().getToken();
@@ -75,26 +71,24 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
         }
     }
 
-    @Override
-    public IMainPresenter<IMainView> createPresenter() {
+    @Override public IMainPresenter<IMainView> createPresenter() {
         return new MainPresenterImpl();
     }
 
     /**
      * 初始化界面 layout_id
      */
-    @Override
-    protected int initLayoutId() {
+    @Override protected int initLayoutId() {
         return R.layout.activity_main;
     }
 
     /**
      * 初始化界面控件
      */
-    @Override
-    protected void init() {
+    @Override protected void initView() {
         toolbar = getToolbar();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, getToolbar(),
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -112,11 +106,8 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
         displayFragment = new DisplayFragment();
         categoryFragment = new CategoryFragment();
         trashFragment = new TrashFragment();
-        fragments = new AppFragment[]{displayFragment, categoryFragment, trashFragment};
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        //        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.setCustomAnimations(R.anim.vm_fade_in, 0, 0, R.anim.vm_fade_out);
+        fragments = new AppFragment[] { displayFragment, categoryFragment, trashFragment };
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, displayFragment);
         ft.add(R.id.fragment_container, categoryFragment);
         ft.add(R.id.fragment_container, trashFragment);
@@ -126,20 +117,20 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
         ft.commit();
     }
 
-    @Override
-    public void loadAccountDone(Account entity) {
+    @Override public void loadAccountDone(Account entity) {
         if (entity != null) {
             IMGLoader.loadBigPhoto(activity, entity.getCover(), coverView);
             IMGLoader.loadAvatar(activity, entity.getAvatar(), avatarView);
             accountView.setText(entity.getEmail());
-            nicknameView.setText(TextUtils.isEmpty(entity.getNickname()) ? entity.getName() : entity
-                    .getNickname());
+            nicknameView.setText(
+                TextUtils.isEmpty(entity.getNickname()) ? entity.getName() : entity.getNickname());
         }
     }
 
-    @OnClick({R.id.img_avatar, R.id.layout_note_all, R.id.layout_note_books, R.id.layout_note_trash,
-                     R.id.layout_night_theme, R.id.layout_settings, R.id.layout_sync, R.id.fab_add})
-    public void onClick(View view) {
+    @OnClick({
+        R.id.img_avatar, R.id.layout_note_all, R.id.layout_note_books, R.id.layout_note_trash,
+        R.id.layout_night_theme, R.id.layout_settings, R.id.layout_sync, R.id.fab_add
+    }) public void onClick(View view) {
         switch (view.getId()) {
         case R.id.img_avatar:
             NavRouter.goAccount(activity);
@@ -178,8 +169,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     /**
      * 同步完成
      */
-    @Override
-    public void syncDataDone() {
+    @Override public void syncDataDone() {
         VMToast.make(syncState()).showDone();
     }
 
@@ -188,8 +178,8 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
      */
     private String syncState() {
         String syncKey = SPManager.getInstance().getSyncKey();
-        String syncTime = VMDateUtil.long2NormalNoYear(VMDateUtil.milliFormUTC(syncKey));
-        String syncState = String.format(VMStrUtil.strByResId(R.string.note_sync), syncTime);
+        String syncTime = VMDate.long2NormalNoYear(VMDate.milliFormUTC(syncKey));
+        String syncState = String.format(VMStr.strByResId(R.string.note_sync), syncTime);
         syncTimeView.setText(syncState);
         return syncState;
     }
@@ -197,8 +187,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     /**
      * 同步失败
      */
-    @Override
-    public void syncDataError(int code, String desc) {
+    @Override public void syncDataError(int code, String desc) {
         VMToast.make(desc).showError();
     }
 
@@ -211,7 +200,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
             return;
         }
 
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (!fragments[index].isAdded()) {
             ft.add(R.id.fragment_container, fragments[index]);
         }
@@ -262,8 +251,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     /**
      * 菜单布局
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -271,8 +259,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     /**
      * 菜单事件
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -281,8 +268,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

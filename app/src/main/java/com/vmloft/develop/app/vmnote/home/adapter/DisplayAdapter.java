@@ -15,7 +15,7 @@ import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;
 import com.vmloft.develop.library.tools.utils.VMColor;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
+import com.vmloft.develop.library.tools.utils.VMDate;
 
 import java.util.List;
 
@@ -44,6 +44,7 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
         super.onBindViewHolder(holder, position);
 
         final Note note = getItemData(position);
+        holder.itemView.setSelected(note.isSelected());
         int indexEnter = note.getContent().indexOf("\n");
         if (indexEnter == -1) {
             indexEnter = note.getContent().length();
@@ -54,8 +55,8 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
         String title = note.getContent().substring(0, indexEnter);
         holder.titleView.setText(title);
 
-        long milliTime = VMDateUtil.milliFormUTC(note.getUpdateAt());
-        String dateTime = VMDateUtil.getRelativeTime(milliTime);
+        long milliTime = VMDate.milliFormUTC(note.getUpdateAt());
+        String dateTime = VMDate.getRelativeTime(milliTime);
         String content = dateTime + " " + note.getContent().replace("\n", " ");
         SpannableString ss = new SpannableString(content);
         ss.setSpan(new ForegroundColorSpan(VMColor.colorByResId(R.color.colorAccent)), 0, dateTime.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -69,6 +70,7 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
     }
 
     static class DisplayHolder extends VMHolder {
+
         @BindView(R.id.text_title) TextView titleView;
         @BindView(R.id.text_content) TextView contentView;
         @BindView(R.id.img_sync_icon) ImageView syncIcon;
@@ -78,5 +80,4 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
             ButterKnife.bind(this, itemView);
         }
     }
-
 }

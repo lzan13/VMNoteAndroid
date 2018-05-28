@@ -11,7 +11,7 @@ import com.vmloft.develop.app.vmnote.app.VError;
 import com.vmloft.develop.app.vmnote.bean.BaseResult;
 import com.vmloft.develop.app.vmnote.common.router.NavRouter;
 import com.vmloft.develop.library.tools.utils.VMLog;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMToast;
 
 import java.io.IOException;
@@ -208,17 +208,17 @@ public class NetApi {
             code = httpException.code();
             if (code == 500 || code == 404) {
                 code = VError.SERVER;
-                msg = VMStrUtil.strByResId(R.string.err_server);
+                msg = VMStr.strByResId(R.string.err_server);
             }
         } else if (e instanceof ConnectException) {
             code = VError.SYS_NETWORK;
-            msg = VMStrUtil.strByResId(R.string.err_network_unusable);
+            msg = VMStr.strByResId(R.string.err_network_unusable);
         } else if (e instanceof SocketTimeoutException) {
             code = VError.SYS_TIMEOUT;
-            msg = VMStrUtil.strByResId(R.string.err_network_timeout);
+            msg = VMStr.strByResId(R.string.err_network_timeout);
         } else {
             code = VError.UNKNOWN;
-            msg = VMStrUtil.strByResId(R.string.err_unknown) + e.getMessage();
+            msg = VMStr.strByResId(R.string.err_unknown) + e.getMessage();
         }
         VMLog.e(msg);
         //        VMToast.make(msg).showError();

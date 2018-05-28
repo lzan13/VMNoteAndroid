@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.vmloft.develop.app.vmnote.common.router.NavParams;
 import com.vmloft.develop.app.vmnote.common.router.NavRouter;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
  * Markdown View
@@ -69,7 +69,7 @@ public class MDPreviewView extends NestedScrollView {
      */
     private WebViewClient viewClient = new WebViewClient() {
         public final boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            if (!VMStrUtil.isEmpty(url)) {
+            if (!VMStr.isEmpty(url)) {
                 NavParams params = new NavParams();
                 params.str0 = url;
                 NavRouter.goWebPage(context, params);

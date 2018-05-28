@@ -10,8 +10,8 @@ import android.view.View;
 import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.library.tools.utils.VMColor;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
-import com.vmloft.develop.library.tools.utils.VMDimenUtil;
+import com.vmloft.develop.library.tools.utils.VMDate;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 
 import java.util.List;
 
@@ -38,7 +38,6 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
     private float titleTextHeight;
     private int itemPadding;
 
-
     public NotesItemDecoration(List<Note> list) {
         super();
         notes = list;
@@ -47,15 +46,15 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
         overTitleBackground = VMColor.colorByResId(R.color.item_over_title_bg);
         childTitleBackground = VMColor.colorByResId(R.color.item_child_title_bg);
         titleColor = VMColor.colorByResId(R.color.item_child_title);
-        titleSize = VMDimenUtil.getDimenPixel(R.dimen.vm_size_12);
-        titleHeight = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_32);
-        itemPadding = VMDimenUtil.getDimenPixel(R.dimen.vm_padding_large);
+        titleSize = VMDimen.getDimenPixel(R.dimen.vm_size_12);
+        titleHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_32);
+        itemPadding = VMDimen.getDimenPixel(R.dimen.vm_padding_large);
 
         paint = new Paint();
         paint.setTextSize(titleSize);
         paint.setAntiAlias(true);
 
-        titleTextHeight = VMDimenUtil.getTextHeight(paint);
+        titleTextHeight = VMDimen.getTextHeight(paint);
     }
 
     @Override
@@ -76,9 +75,8 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
                 } else {
                     Note previousNote = notes.get(position - 1);
                     Note nextNote = notes.get(position);
-                    String previousDate = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(previousNote
-                            .getUpdateAt()));
-                    String nextDate = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(nextNote.getUpdateAt()));
+                    String previousDate = VMDate.long2DateNoDay(VMDate.milliFormUTC(previousNote.getUpdateAt()));
+                    String nextDate = VMDate.long2DateNoDay(VMDate.milliFormUTC(nextNote.getUpdateAt()));
                     if (!nextDate.equals(previousDate)) {
                         drawItemTitle(c, parent, child);
                     }
@@ -102,7 +100,7 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
                 paint.setColor(overTitleBackground);
             }
             Note note = notes.get(position);
-            String dateStr = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(note.getUpdateAt()));
+            String dateStr = VMDate.long2DateNoDay(VMDate.milliFormUTC(note.getUpdateAt()));
             c.drawRect(0, 0, parent.getRight(), parent.getPaddingTop() + titleHeight, paint);
             paint.setColor(titleColor);
             c.drawText(dateStr, itemPadding, titleHeight - titleHeight / 2 + titleTextHeight / 3, paint);
@@ -110,8 +108,7 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-            RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (notes.size() == 0) {
             return;
@@ -123,9 +120,8 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
             } else {
                 Note previousNote = notes.get(position - 1);
                 Note nextNote = notes.get(position);
-                String previousDate = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(previousNote
-                        .getUpdateAt()));
-                String nextDate = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(nextNote.getUpdateAt()));
+                String previousDate = VMDate.long2DateNoDay(VMDate.milliFormUTC(previousNote.getUpdateAt()));
+                String nextDate = VMDate.long2DateNoDay(VMDate.milliFormUTC(nextNote.getUpdateAt()));
                 if (!nextDate.equals(previousDate)) {
                     outRect.set(0, titleHeight, 0, 0);
                 } else {
@@ -141,7 +137,7 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
         int position = params.getViewLayoutPosition();
         Note note = notes.get(position);
-        String dateStr = VMDateUtil.long2DateNoDay(VMDateUtil.milliFormUTC(note.getUpdateAt()));
+        String dateStr = VMDate.long2DateNoDay(VMDate.milliFormUTC(note.getUpdateAt()));
 
         // 绘制 title 背景
         paint.setColor(childTitleBackground);
@@ -159,6 +155,6 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
         paint.setColor(decorationColor);
         paint.setStrokeWidth(2.0f);
         canvas.drawLine(left + itemPadding, child.getTop() - params.topMargin, right - itemPadding, child
-                .getTop() - params.topMargin, paint);
+            .getTop() - params.topMargin, paint);
     }
 }

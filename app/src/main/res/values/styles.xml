@@ -12,7 +12,9 @@
         <!--界面背景色，为了优化 UI，这里设置为透明-->
         <item name="android:windowBackground">@color/vm_transparent</item>
 
-
+        <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_close</item>
+        <item name="android:actionModeSplitBackground">@color/colorPrimaryDark</item>
     </style>
 
     <!--启动时的主题样式-->
@@ -47,12 +49,12 @@
     </style>
 
     <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
-    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay" />
+    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay"/>
 
     <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
-    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay" />
+    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay"/>
 
     <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
-    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay" />
+    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay"/>
 
 </resources>

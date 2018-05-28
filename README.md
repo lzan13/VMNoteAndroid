@@ -18,4 +18,6 @@ VMNote
 [Retrofit](http://square.github.io/retrofit) 网络请求
 [RxJava](https://github.com/ReactiveX/RxJava) 异步处理框架
 [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+[GreenDao](https://github.com/greenrobot/greenDAO) 数据库操作
+[AgentWeb](https://github.com/Justson/AgentWeb) WebView 封装
 [VMTools](https://github.com/lzan13/VMLibraryManager/vmtools) 自己封装的工具库

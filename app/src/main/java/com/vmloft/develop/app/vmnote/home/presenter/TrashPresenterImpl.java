@@ -25,4 +25,6 @@ public class TrashPresenterImpl extends ITrashPresenter<ITrashView> {
         List<Note> list = trashModel.loadTrashNote();
         obtainView().loadTrashNoteDone(list);
     }
+
+
 }
