@@ -1,8 +1,6 @@
 package com.vmloft.develop.app.vmnote.home.model;
 
 import com.vmloft.develop.app.vmnote.bean.Category;
-import com.vmloft.develop.app.vmnote.bean.Note;
-import com.vmloft.develop.app.vmnote.common.db.DBManager;
 import com.vmloft.develop.app.vmnote.home.MainContract;
 
 import java.util.List;
@@ -18,6 +16,7 @@ public class CategoryModelImpl implements MainContract.ICategoryModel {
      */
     @Override
     public List<Category> loadAllCategory() {
-        return DBManager.getInstance().loadAllCategory();
+//        return DBManager.getInstance().loadAllCategory();
+        return null;
     }
 }

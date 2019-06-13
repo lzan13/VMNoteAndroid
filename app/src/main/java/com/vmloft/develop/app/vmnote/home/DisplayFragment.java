@@ -9,10 +9,9 @@ import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.base.AppMVPFragment;
+import com.vmloft.develop.app.vmnote.base.AppMVPFragment;
 import com.vmloft.develop.app.vmnote.bean.Note;
-import com.vmloft.develop.app.vmnote.common.router.NavParams;
-import com.vmloft.develop.app.vmnote.common.router.NavRouter;
+import com.vmloft.develop.app.vmnote.common.router.ARouter;
 import com.vmloft.develop.app.vmnote.home.adapter.DisplayAdapter;
 import com.vmloft.develop.app.vmnote.home.adapter.NotesItemDecoration;
 import com.vmloft.develop.app.vmnote.home.presenter.DisplayPresenterImpl;
@@ -20,20 +19,20 @@ import com.vmloft.develop.app.vmnote.home.MainContract.IDisplayView;
 import com.vmloft.develop.app.vmnote.home.MainContract.IDisplayPresenter;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMEmptyWrapper;
+import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by lzan13 on 2018/4/25.
  * Note 列表展示界面
  */
-public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresenter<IDisplayView>>
-    implements IDisplayView {
+public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresenter<IDisplayView>> implements IDisplayView {
 
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
@@ -52,7 +51,7 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
      *
      * @return 返回布局 id
      */
-    @Override protected int initLayoutId() {
+    @Override protected int layoutId() {
         return R.layout.fragment_note_all;
     }
 
@@ -63,43 +62,43 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
     /**
      * 初始化界面控件，将 Fragment 变量和 View 建立起映射关系
      */
-    @Override protected void initView() {
-        ButterKnife.bind(this, getView());
+    @Override protected void init() {
+        super.init();
 
-        layoutManager = new LinearLayoutManager(activity);
+        layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         noteList = new ArrayList<>();
-        adapter = new DisplayAdapter(activity, noteList);
+        adapter = new DisplayAdapter(mContext, noteList);
 
         emptyWrapper = new VMEmptyWrapper(adapter);
         emptyWrapper.setEmptyView(R.layout.widget_empty_common_layout);
         recyclerView.addItemDecoration(new NotesItemDecoration(noteList));
         recyclerView.setAdapter(emptyWrapper);
 
-        adapter.setItemClickListener(new VMAdapter.ICListener() {
-            @Override public void onItemAction(int action, Object object) {
+        adapter.setClickListener(new VMAdapter.IClickListener<Note>() {
+            @Override public void onItemAction(int action, Note object) {
                 Note note = (Note) object;
                 VMLog.d("clickItem %d, %s", action, note.getContent());
                 if (isEditable) {
                     selectNote(note);
                 } else {
-                    NavParams params = new NavParams();
+                    VMParams params = new VMParams();
                     params.str0 = note.getId();
-                    NavRouter.goEditor(activity, params);
+                    ARouter.goEditor(mContext, params);
                 }
             }
 
-            @Override public void onItemLongAction(int action, Object object) {
-                startActionMode((Note) object);
+            @Override
+            public boolean onItemLongAction(int action, Note note) {
+                startActionMode(note);
+                return false;
             }
+
         });
 
         initRefreshLayout();
-        /**
-         * 本身这个方法是为了实现 Fragment 数据的懒加载而自动调用的，
-         * 但是 Fragment 没有和 ViewPager 一起使用的情况下，不会执行，所以这里主动调用下
-         */
-        initData();
+
+        presenter.onLoadAllNote();
     }
 
     /**
@@ -115,19 +114,14 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
     }
 
     /**
-     * 加载数据
-     */
-    @Override protected void initData() {
-        presenter.onLoadAllNote();
-    }
-
-    /**
      * 加载数据完成
      */
     @Override public void loadNoteDone(List<Note> list) {
         refreshLayout.setRefreshing(false);
-        noteList.clear();
-        noteList.addAll(list);
+        if (list != null) {
+            noteList.clear();
+            noteList.addAll(list);
+        }
         refresh();
     }
 
@@ -151,7 +145,7 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
             stopActionMode();
             return;
         }
-        actionMode.setTitle(String.format(getString(R.string.note_selected), selectedList.size()));
+        actionMode.setTitle(VMStr.byResArgs(R.string.note_selected, selectedList.size()));
         refresh();
     }
 
@@ -163,7 +157,7 @@ public class DisplayFragment extends AppMVPFragment<IDisplayView, IDisplayPresen
             selectNote(note);
             return;
         }
-        actionMode = activity.startSupportActionMode(actionCallback);
+//        actionMode = mContext.startSupportActionMode(actionCallback);
         isEditable = true;
         note.setSelected(true);
         if (selectedList == null) {

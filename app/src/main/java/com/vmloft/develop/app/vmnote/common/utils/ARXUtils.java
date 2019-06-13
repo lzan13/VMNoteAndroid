@@ -1,4 +1,4 @@
-package com.vmloft.develop.app.vmnote.common;
+package com.vmloft.develop.app.vmnote.common.utils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -8,9 +8,10 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by lzan13 on 2018/4/16.
+ *
  * RxJava 相关工具类
  */
-public class RXUtils {
+public class ARXUtils {
 
     /**
      * 封装 RxJava 线程切换

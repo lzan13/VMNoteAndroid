@@ -42,10 +42,10 @@ public class NotesItemDecoration extends RecyclerView.ItemDecoration {
         super();
         notes = list;
 
-        decorationColor = VMColor.colorByResId(R.color.item_decoration);
-        overTitleBackground = VMColor.colorByResId(R.color.item_over_title_bg);
-        childTitleBackground = VMColor.colorByResId(R.color.item_child_title_bg);
-        titleColor = VMColor.colorByResId(R.color.item_child_title);
+        decorationColor = VMColor.byRes(R.color.item_decoration);
+        overTitleBackground = VMColor.byRes(R.color.item_over_title_bg);
+        childTitleBackground = VMColor.byRes(R.color.item_child_title_bg);
+        titleColor = VMColor.byRes(R.color.item_child_title);
         titleSize = VMDimen.getDimenPixel(R.dimen.vm_size_12);
         titleHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_32);
         itemPadding = VMDimen.getDimenPixel(R.dimen.vm_padding_large);

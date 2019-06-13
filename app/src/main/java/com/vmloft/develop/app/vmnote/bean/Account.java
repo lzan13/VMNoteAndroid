@@ -1,18 +1,12 @@
 package com.vmloft.develop.app.vmnote.bean;
 
-import com.google.gson.annotations.SerializedName;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by lzan13 on 2017/11/24.
  * 账户实体类
  */
-@Entity
 public class Account {
-    @SerializedName("_id") @Id private String id;
+    private String id;
     private String name;
     private String email;
     private String phone;
@@ -23,8 +17,8 @@ public class Account {
     private String address;
     private String nickname;
     private String description;
-    @SerializedName("create_at") private String createAt;
-    @SerializedName("update_at") private String updateAt;
+    private String createAt;
+    private String updateAt;
     private String token;
     private String code;
     private boolean activated;
@@ -38,7 +32,6 @@ public class Account {
         this.password = password;
     }
 
-    @Generated(hash = 1086999341)
     public Account(String id, String name, String email, String phone, String password,
             String avatar, String cover, Integer gender, String address, String nickname,
             String description, String createAt, String updateAt, String token, String code,

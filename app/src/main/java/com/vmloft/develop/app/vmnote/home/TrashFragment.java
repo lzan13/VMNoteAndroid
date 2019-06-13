@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.base.AppMVPFragment;
+import com.vmloft.develop.app.vmnote.base.AppMVPFragment;
 import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.app.vmnote.home.MainContract.ITrashView;
 import com.vmloft.develop.app.vmnote.home.MainContract.ITrashPresenter;
@@ -24,8 +24,7 @@ import butterknife.ButterKnife;
  * Created by lzan13 on 2018/4/25.
  * Note 列表展示界面
  */
-public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<ITrashView>>
-    implements ITrashView {
+public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<ITrashView>> implements ITrashView {
 
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
@@ -41,7 +40,7 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
      *
      * @return 返回布局 id
      */
-    @Override protected int initLayoutId() {
+    @Override protected int layoutId() {
         return R.layout.fragment_note_trash;
     }
 
@@ -52,12 +51,13 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
     /**
      * 初始化界面控件，将 Fragment 变量和 View 建立起映射关系
      */
-    @Override protected void initView() {
-        ButterKnife.bind(this, getView());
+    @Override
+    protected void init() {
+        super.init();
 
-        layoutManager = new LinearLayoutManager(activity);
+        layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new DisplayAdapter(activity, notes);
+        adapter = new DisplayAdapter(mContext, notes);
 
         emptyWrapper = new VMEmptyWrapper(adapter);
         emptyWrapper.setEmptyView(R.layout.widget_empty_common_layout);
@@ -66,17 +66,6 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
 
         initRefreshListener();
 
-        /**
-         * 本身这个方法是为了实现 Fragment 数据的懒加载而自动调用的，
-         * 但是 Fragment 没有和 ViewPager 一起使用的情况下，不会执行，所以这里主动调用下
-         */
-        initData();
-    }
-
-    /**
-     * 加载数据
-     */
-    @Override protected void initData() {
         presenter.onLoadTrashNote();
     }
 
@@ -85,19 +74,17 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
      */
     @Override public void loadTrashNoteDone(List<Note> list) {
         refreshLayout.setRefreshing(false);
-        notes.clear();
-        notes.addAll(list);
-        refresh();
+        refresh(list);
     }
 
-    private void refresh() {
+    private void refresh(List<Note> list) {
         if (adapter == null) {
-            adapter = new DisplayAdapter(activity, notes);
+            adapter = new DisplayAdapter(mContext, notes);
             emptyWrapper = new VMEmptyWrapper(adapter);
             emptyWrapper.setEmptyView(R.layout.widget_empty_common_layout);
             recyclerView.setAdapter(emptyWrapper);
         }
-        adapter.refresh();
+        adapter.refresh(list);
     }
 
     /**

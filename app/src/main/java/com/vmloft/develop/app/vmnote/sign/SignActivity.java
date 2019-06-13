@@ -5,24 +5,24 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.base.AppFragment;
-import com.vmloft.develop.app.vmnote.app.base.AppMVPActivity;
-import com.vmloft.develop.app.vmnote.bean.Account;
-import com.vmloft.develop.app.vmnote.common.router.NavRouter;
+import com.vmloft.develop.app.vmnote.base.AppFragment;
+import com.vmloft.develop.app.vmnote.base.AppMVPActivity;
+import com.vmloft.develop.app.vmnote.common.router.ARouter;
+import com.vmloft.develop.app.vmnote.common.utils.AUtils;
 import com.vmloft.develop.app.vmnote.sign.presenter.SignPresenterImpl;
 import com.vmloft.develop.app.vmnote.sign.SignContract.ISignView;
 import com.vmloft.develop.app.vmnote.sign.SignContract.ISignPresenter;
-import com.vmloft.develop.library.tools.VMFragment;
-import com.vmloft.develop.library.tools.widget.VMToast;
+import com.vmloft.develop.library.tools.widget.toast.VMToast;
 
 import butterknife.BindView;
 
 /**
  * 登录界面
  */
-public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISignView>> implements ISignView, VMFragment.FragmentListener {
+public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISignView>> implements ISignView {
 
-    @BindView(R.id.layout_sign_progress) LinearLayout progressView;
+    @BindView(R.id.layout_sign_progress)
+    LinearLayout progressView;
 
     private AppFragment[] fragments;
     private SignInFragment signInFragment;
@@ -36,7 +36,7 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
      * @return 返回布局 id
      */
     @Override
-    protected int initLayoutId() {
+    protected int layoutId() {
         return R.layout.activity_sign;
     }
 
@@ -44,13 +44,21 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
      * 初始化界面
      */
     @Override
-    protected void initView() {
+    protected void initUI() {
+        super.initUI();
+
+        // 设置深色状态栏
+        AUtils.setDarkStatusBar(mActivity, true);
+    }
+
+    @Override
+    protected void initData() {
         signInFragment = SignInFragment.newInstance();
         signUpFragment = SignUpFragment.newInstance();
-        fragments = new AppFragment[] { signInFragment, signUpFragment };
+        fragments = new AppFragment[]{signInFragment, signUpFragment};
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fragment_container, signInFragment);
-        ft.add(R.id.fragment_container, signUpFragment);
+        ft.add(R.id.main_fragment_container, signInFragment);
+        ft.add(R.id.main_fragment_container, signUpFragment);
         ft.show(signInFragment);
         ft.hide(signUpFragment);
         ft.commit();
@@ -64,9 +72,9 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     /**
      * 账户注册
      */
-    private void signUp(Account entity) {
+    public void signUp(String account, String password) {
         showDialog(true);
-        presenter.doSignUp(entity);
+        mPresenter.doSignUp(account, password);
     }
 
     /**
@@ -75,7 +83,6 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     @Override
     public void onSignUpDone() {
         showDialog(false);
-        VMToast.make("Sign up success!").showDone();
         switchFragment(0);
     }
 
@@ -85,14 +92,15 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     @Override
     public void onSignUpError(int code, String msg) {
         showDialog(false);
+        VMToast.make(mActivity, msg).error();
     }
 
     /**
      * 账户登录
      */
-    private void signIn(Account entity) {
+    public void signIn(String account, String password) {
         showDialog(true);
-        presenter.doSignIn(entity);
+        mPresenter.doSignIn(account, password);
     }
 
     /**
@@ -101,7 +109,7 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     @Override
     public void onSignInDone() {
         showDialog(false);
-        NavRouter.goMain(activity);
+        ARouter.goMain(mActivity);
     }
 
     /**
@@ -110,6 +118,7 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
     @Override
     public void onSignInError(int code, String msg) {
         showDialog(false);
+        VMToast.make(mActivity, msg).error();
     }
 
     /**
@@ -123,26 +132,11 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
         }
     }
 
-    @Override
-    public void onAction(int action, Object obj) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        switch (action) {
-        case R.id.btn_sign_in:
-            signIn((Account) obj);
-            break;
-        case R.id.btn_go_sign_in:
-            switchFragment(0);
-            break;
-        case R.id.btn_sign_up:
-            signUp((Account) obj);
-            break;
-        case R.id.btn_go_sign_up:
-            switchFragment(1);
-            break;
-        }
-    }
 
-    private void switchFragment(int index) {
+    /**
+     * 切换登录与注册
+     */
+    public void switchFragment(int index) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (index == 0) {
             ft.setCustomAnimations(R.animator.vm_top_in_animator, R.animator.vm_down_out_animator);
@@ -150,7 +144,7 @@ public class SignActivity extends AppMVPActivity<ISignView, ISignPresenter<ISign
             ft.setCustomAnimations(R.animator.vm_down_in_animator, R.animator.vm_top_out_animator);
         }
         if (!fragments[index].isAdded()) {
-            ft.add(R.id.fragment_container, fragments[index]);
+            ft.add(R.id.main_fragment_container, fragments[index]);
         }
         ft.hide(fragments[currIndex]);
         ft.show(fragments[index]);

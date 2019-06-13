@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.vmnote.editor.presenter;
 
-import com.vmloft.develop.app.vmnote.app.Callback;
+import com.vmloft.develop.app.vmnote.common.ACallback;
 import com.vmloft.develop.app.vmnote.bean.Note;
 import com.vmloft.develop.app.vmnote.editor.EditorContract.IEditorModel;
 import com.vmloft.develop.app.vmnote.editor.EditorContract.IEditorView;
@@ -36,9 +36,9 @@ public class EditorPresenterImpl extends IEditorPresenter<IEditorView> {
     @Override
     public void onSaveNote(String content) {
         note.setContent(content);
-        noteModel.saveNote(note, new Callback() {
+        noteModel.saveNote(note, new ACallback() {
             @Override
-            public void onDone(Object object) {
+            public void onSuccess(Object object) {
                 obtainView().saveNoteDone((Note) object);
             }
 

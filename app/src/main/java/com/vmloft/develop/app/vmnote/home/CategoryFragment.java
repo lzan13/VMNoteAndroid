@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.base.AppMVPFragment;
+import com.vmloft.develop.app.vmnote.base.AppMVPFragment;
 import com.vmloft.develop.app.vmnote.bean.Category;
 import com.vmloft.develop.app.vmnote.home.MainContract.ICategoryPresenter;
 import com.vmloft.develop.app.vmnote.home.MainContract.ICategoryView;
@@ -18,15 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by lzan13 on 2018/4/25.
  * Note 列表展示界面
  */
-public class CategoryFragment
-    extends AppMVPFragment<ICategoryView, ICategoryPresenter<ICategoryView>>
-    implements ICategoryView {
+public class CategoryFragment extends AppMVPFragment<ICategoryView, ICategoryPresenter<ICategoryView>> implements ICategoryView {
 
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
@@ -42,7 +39,7 @@ public class CategoryFragment
      *
      * @return 返回布局 id
      */
-    @Override protected int initLayoutId() {
+    @Override protected int layoutId() {
         return R.layout.fragment_note_books;
     }
 
@@ -53,29 +50,18 @@ public class CategoryFragment
     /**
      * 初始化界面控件，将 Fragment 变量和 View 建立起映射关系
      */
-    @Override protected void initView() {
-        ButterKnife.bind(this, getView());
+    @Override protected void init() {
+        super.init();
 
-        layoutManager = new LinearLayoutManager(activity);
+        layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new CategoryAdapter(activity, categoryList);
+        adapter = new CategoryAdapter(mContext, categoryList);
         emptyWrapper = new VMEmptyWrapper(adapter);
         emptyWrapper.setEmptyView(R.layout.widget_empty_common_layout);
         recyclerView.setAdapter(emptyWrapper);
 
         initRefreshListener();
 
-        /**
-         * 本身这个方法是为了实现 Fragment 数据的懒加载而自动调用的，
-         * 但是 Fragment 没有和 ViewPager 一起使用的情况下，不会执行，所以这里主动调用下
-         */
-        initData();
-    }
-
-    /**
-     * 加载数据
-     */
-    @Override protected void initData() {
         presenter.onLoadAllCategory();
     }
 
@@ -84,19 +70,17 @@ public class CategoryFragment
      */
     @Override public void loadCategoryDone(List<Category> list) {
         refreshLayout.setRefreshing(false);
-        categoryList.clear();
-        categoryList.addAll(list);
-        refresh();
+        refresh(list);
     }
 
-    private void refresh() {
+    private void refresh(List<Category> list) {
         if (adapter == null) {
-            adapter = new CategoryAdapter(activity, categoryList);
+            adapter = new CategoryAdapter(mContext, categoryList);
             emptyWrapper = new VMEmptyWrapper(adapter);
             emptyWrapper.setEmptyView(R.layout.widget_empty_common_layout);
             recyclerView.setAdapter(emptyWrapper);
         }
-        adapter.refresh();
+        adapter.refresh(list);
     }
 
     /**

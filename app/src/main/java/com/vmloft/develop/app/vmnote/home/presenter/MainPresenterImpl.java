@@ -1,8 +1,8 @@
 package com.vmloft.develop.app.vmnote.home.presenter;
 
-import com.vmloft.develop.app.vmnote.app.Callback;
-import com.vmloft.develop.app.vmnote.app.SPManager;
-import com.vmloft.develop.app.vmnote.common.db.DBManager;
+import com.vmloft.develop.app.vmnote.bean.AUser;
+import com.vmloft.develop.app.vmnote.common.ACallback;
+import com.vmloft.develop.app.vmnote.common.ASignManager;
 import com.vmloft.develop.app.vmnote.home.MainContract;
 import com.vmloft.develop.app.vmnote.home.model.MainModelImpl;
 import com.vmloft.develop.app.vmnote.home.MainContract.IMainView;
@@ -14,45 +14,17 @@ import com.vmloft.develop.app.vmnote.home.MainContract.IMainPresenter;
  */
 public class MainPresenterImpl extends IMainPresenter<IMainView> {
 
-    private MainContract.IMainModel mainModel;
+    private MainContract.IMainModel mMainModel;
 
     public MainPresenterImpl() {
-        mainModel = new MainModelImpl();
+        mMainModel = new MainModelImpl();
     }
 
-    @Override public void loadAccount() {
-        String accountName = SPManager.getInstance().getAccountName();
-        obtainView().loadAccountDone(DBManager.getInstance().getAccount(accountName));
-    }
-
-    /**
-     * 同步处理
-     */
-    @Override public void syncData() {
-        mainModel.syncAccount(new Callback() {
-            @Override public void onDone(Object object) {
-                loadAccount();
-            }
-        });
-        mainModel.syncData(new Callback() {
-            @Override public void onDone(Object object) {
-                obtainView().syncDataDone();
-            }
-
-            @Override public void onError(int code, String desc) {
-                obtainView().syncDataError(code, desc);
-            }
-        });
-    }
-
-    @Override public void syncLocalToServer() {
-        mainModel.syncLocalToServer(new Callback() {
-            @Override public void onDone(Object object) {
-                obtainView().syncDataDone();
-            }
-
-            @Override public void onError(int code, String desc) {
-                obtainView().syncDataDone();
+    @Override public void onLoadAccount() {
+        mMainModel.loadAccount(new ACallback<AUser>(){
+            @Override
+            public void onSuccess(AUser user) {
+                obtainView().loadAccountDone(user);
             }
         });
     }

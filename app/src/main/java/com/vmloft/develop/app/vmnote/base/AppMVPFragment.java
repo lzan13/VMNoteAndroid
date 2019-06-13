@@ -1,13 +1,13 @@
-package com.vmloft.develop.app.vmnote.app.base;
+package com.vmloft.develop.app.vmnote.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 /**
  * Created by lzan13 on 2018/4/25.
- * 当前项目 Fragment 的基类，做一些子类公共的工作
+ * 当前项目 Fragment 的 MVP 基类，做一些子类公共的工作
  */
-public abstract class AppMVPFragment<V, P extends BPresenter<V>> extends AppFragment {
+public abstract class AppMVPFragment<V, P extends APresenter<V>> extends AppFragment {
     protected P presenter;
 
     @Override

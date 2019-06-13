@@ -1,72 +1,68 @@
 package com.vmloft.develop.app.vmnote.webpage;
 
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.app.base.AppActivity;
-import com.vmloft.develop.app.vmnote.common.router.NavParams;
-import com.vmloft.develop.app.vmnote.common.router.NavRouter;
+import com.vmloft.develop.app.vmnote.base.AppActivity;
+import com.vmloft.develop.app.vmnote.common.router.ARouter;
+import com.vmloft.develop.library.tools.router.VMParams;
 
 import butterknife.BindView;
 
 /**
  * Created by lzan13 on 2018/4/27.
+ *
  * 项目处理 web 页面界面
  */
 public class WebActivity extends AppActivity {
 
-    @BindView(R.id.web_view_container) LinearLayout webViewContainer;
-    private Toolbar toolbar;
+    @BindView(R.id.web_view_container)
+    RelativeLayout mWebContainer;
 
-    private AgentWeb agentWeb;
-    private String url;
+    private AgentWeb mAgentWeb;
+    private String mUrl;
 
     @Override
-    protected int initLayoutId() {
+    protected int layoutId() {
         return R.layout.activity_web_page;
     }
 
     @Override
-    protected void initView() {
-        toolbar = getToolbar();
-        toolbar.setTitle(R.string.agentweb_loading);
-        toolbar.setNavigationIcon(R.drawable.ic_close);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFinish();
-            }
-        });
+    protected void initUI() {
+        super.initUI();
+        getTopBar().setTitle(R.string.agentweb_loading);
 
-        NavParams params = NavRouter.getParcelableExtra(activity);
-        url = params.str0;
+    }
+
+    @Override
+    protected void initData() {
+        VMParams params = ARouter.getParams(mActivity);
+        mUrl = params.str0;
         initWebView();
     }
 
     private void initWebView() {
-        agentWeb = AgentWeb.with(activity)
-            .setAgentWebParent(webViewContainer, new LinearLayout.LayoutParams(-1, -1))
-            .useDefaultIndicator()
-            .setWebChromeClient(chromeClient)
-            .setWebViewClient(viewClient)
-            .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
-            .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
-            .createAgentWeb()
-            .ready()
-            .go(url);
+        mAgentWeb = AgentWeb.with(mActivity)
+                .setAgentWebParent(mWebContainer, new RelativeLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()
+                .setWebChromeClient(chromeClient)
+                .setWebViewClient(viewClient)
+                .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
+                .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
+                .createAgentWeb()
+                .ready()
+                .go(mUrl);
     }
 
     /**
      * 刷新页面
      */
     private void refresh() {
-        agentWeb.getUrlLoader().reload();
+        mAgentWeb.getUrlLoader().reload();
     }
 
     private WebViewClient viewClient = new WebViewClient() {
@@ -85,32 +81,32 @@ public class WebActivity extends AppActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-            toolbar.setTitle(title);
+            getTopBar().setTitle(title);
         }
     };
 
     @Override
     public void onBackPressed() {
-        if (!agentWeb.back()) {
+        if (!mAgentWeb.back()) {
             onFinish();
         }
     }
 
     @Override
     protected void onResume() {
-        agentWeb.getWebLifeCycle().onResume();
+        mAgentWeb.getWebLifeCycle().onResume();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        agentWeb.getWebLifeCycle().onPause();
+        mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
-        agentWeb.getWebLifeCycle().onDestroy();
+        mAgentWeb.getWebLifeCycle().onDestroy();
         super.onDestroy();
     }
 }

@@ -1,8 +1,7 @@
 package com.vmloft.develop.app.vmnote.sign.model;
 
-import com.vmloft.develop.app.vmnote.common.api.AccountApi;
-import com.vmloft.develop.app.vmnote.app.Callback;
-import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.common.ACallback;
+import com.vmloft.develop.app.vmnote.common.ASignManager;
 import com.vmloft.develop.app.vmnote.sign.SignContract;
 
 /**
@@ -12,18 +11,18 @@ import com.vmloft.develop.app.vmnote.sign.SignContract;
 public class SignModelImpl implements SignContract.ISignModel {
 
     /**
-     * 创建账户
+     * 注册账户
      */
     @Override
-    public void createAccount(Account entity, Callback callback) {
-        AccountApi.getInstance().createAccount(entity, callback);
+    public void signUp(String account, String password, ACallback callback) {
+        ASignManager.getInstance().signUp(account, password, callback);
     }
 
     /**
-     * 认证账户
+     * 登录账户
      */
     @Override
-    public void authAccount(Account entity, final Callback callback) {
-        AccountApi.getInstance().authAccount(entity, callback);
+    public void signIn(String account, String password, final ACallback callback) {
+        ASignManager.getInstance().signIn(account, password, callback);
     }
 }

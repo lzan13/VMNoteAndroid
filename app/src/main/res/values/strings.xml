@@ -48,6 +48,8 @@
     <string name="insert_grid_title">Insert grid</string>
     <string name="grid_row_hint">Grid row</string>
     <string name="grid_col_hint">Grid col</string>
+    <string name="nickname_default">昵称，不存在的</string>
+    <string name="signature_default">无个性，不签名！</string>
 
 
     <!--提示相关-->
@@ -55,11 +57,18 @@
     <string name="toast_invalid_email">Invalid email</string>
     <string name="toast_invalid_password">Invalid password. Password is 6-16 bits and cannot contain any special characters other than "._"</string>
 
-    <!--VError described-->
+    <!--AError described-->
     <string name="err_unknown">Unknown error</string>
     <string name="err_server">Server error</string>
     <string name="err_network_unusable">Network unusable</string>
     <string name="err_network_timeout">Connection timeout</string>
+    <!--错误相关描述-->
+    <string name="unknown">未知错误: %1$s，可将错误码反馈给我们，感谢</string>
+    <string name="account_username_already_exist">用户名已被占用</string>
+    <string name="account_email_already_exist">邮箱已被占用</string>
+    <string name="account_phone_already_exist">手机号已被占用</string>
+    <string name="account_username_password_mismatch">用户名密码不匹配</string>
+    <string name="account_user_doesnot_exist">用户不存在</string>
 
 
     <string name="copyright">©️2018 VMLoft. All rights reserved</string>

@@ -1,7 +1,6 @@
 package com.vmloft.develop.app.vmnote.home.model;
 
 import com.vmloft.develop.app.vmnote.bean.Note;
-import com.vmloft.develop.app.vmnote.common.db.DBManager;
 import com.vmloft.develop.app.vmnote.home.MainContract;
 
 import java.util.List;
@@ -13,6 +12,7 @@ public class TrashModelImpl implements MainContract.ITrashModel {
 
     @Override
     public List<Note> loadTrashNote() {
-        return DBManager.getInstance().loadTrashNote();
+//        return DBManager.getInstance().loadTrashNote();
+        return null;
     }
 }

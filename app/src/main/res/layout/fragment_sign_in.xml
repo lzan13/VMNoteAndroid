@@ -1,136 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sign.SignInFragment"
-    >
+    android:padding="@dimen/vm_padding_large"
+    tools:context=".sign.SignInFragment">
 
-    <LinearLayout
-        android:id="@+id/layout_sign_in_form"
+    <TextView
+        android:id="@+id/sign_welcome_title"
+        style="@style/VMText.Headline"
+        android:layout_marginStart="@dimen/vm_margin_large"
+        android:layout_marginTop="@dimen/vm_dimen_56"
+        android:text="@string/sign_in"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.vmloft.develop.library.tools.widget.VMEditView
+        android:id="@+id/sign_account_et"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_margin_large"
+        android:layout_marginTop="@dimen/vm_dimen_56"
+        android:layout_marginEnd="@dimen/vm_margin_large"
+        android:background="@drawable/fillet_white_bg_selector"
+        android:elevation="@dimen/vm_elevation_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_welcome_title"
+        app:vm_edit_hint="@string/account_name"
+        app:vm_edit_mode="account" />
+
+    <com.vmloft.develop.library.tools.widget.VMEditView
+        android:id="@+id/sign_password_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_margin_large"
+        android:layout_marginTop="@dimen/vm_margin_large"
+        android:layout_marginEnd="@dimen/vm_margin_large"
+        android:background="@drawable/fillet_white_bg_selector"
+        android:elevation="@dimen/vm_elevation_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_account_et"
+        app:vm_edit_hint="@string/account_password"
+        app:vm_edit_mode="password" />
+
+    <Button
+        android:id="@+id/sign_in_btn"
+        style="@style/VMBtn.Fillet.Green"
+        android:layout_marginStart="@dimen/vm_margin_large"
+        android:layout_marginTop="@dimen/vm_margin_large"
+        android:enabled="false"
+        android:text="@string/sign_in"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_password_et" />
+
+
+    <TextView
+        android:id="@+id/sign_up_go_hint"
+        style="@style/VMText.Caption"
+        android:layout_marginStart="@dimen/vm_margin_large"
         android:layout_marginTop="@dimen/vm_dimen_24"
-        android:gravity="left"
-        android:orientation="vertical"
-        android:padding="@dimen/vm_dimen_36"
-        >
+        android:text="@string/no_account_yet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_btn" />
 
-        <TextView
-            android:layout_marginBottom="@dimen/vm_dimen_24"
-            android:text="@string/sign_in"
-            style="@style/VMText.Display1"
-            />
+    <Button
+        android:id="@+id/sign_up_go_btn"
+        style="@style/VMBtn.Flat"
+        android:text="@string/sign_up_go"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_up_go_hint"
+        app:layout_constraintStart_toEndOf="@+id/sign_up_go_hint"
+        app:layout_constraintTop_toTopOf="@+id/sign_up_go_hint" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vm_margin_normal"
-            >
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/text_input_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <EditText
-                    android:id="@+id/edit_account"
-                    android:hint="@string/account_name"
-                    style="@style/VMEdit"
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageButton
-                android:id="@+id/btn_clear_account"
-                android:layout_width="@dimen/vm_dimen_36"
-                android:layout_height="@dimen/vm_dimen_36"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/vm_dimen_8"
-                android:background="@drawable/vm_click_full_transparent"
-                android:src="@drawable/ic_close"
-                android:tint="@color/vm_black_54"
-                android:visibility="invisible"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/text_input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <EditText
-                    android:id="@+id/edit_password"
-                    android:hint="@string/account_password"
-                    android:inputType="textPassword|textImeMultiLine"
-                    style="@style/VMEdit"
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <ImageButton
-                android:id="@+id/btn_show_password"
-                android:layout_width="@dimen/vm_dimen_36"
-                android:layout_height="@dimen/vm_dimen_36"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/vm_dimen_8"
-                android:background="@drawable/vm_click_full_transparent"
-                android:src="@drawable/ic_visibility_off"
-                android:tint="@color/vm_black_54"
-                android:visibility="visible"
-                />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_sign_in"
-            android:layout_marginTop="@dimen/vm_margin_large"
-            android:alpha="0.5"
-            android:enabled="false"
-            android:text="@string/sign_in"
-            style="@style/VMBtn.Red.Fillet"
-            />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/vm_margin_large"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:text="@string/no_account_yet"
-                style="@style/VMText.Caption"
-                />
-
-            <Button
-                android:id="@+id/btn_go_sign_up"
-                android:text="@string/sign_up_go"
-                style="@style/VMBtn.Flat"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vm_margin_large"
-            android:gravity="center|bottom"
-            android:orientation="horizontal"
-            >
-
-            <TextView
-                android:text="@string/copyright"
-                style="@style/VMText.Caption"
-                />
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    <TextView
+        style="@style/VMText.Caption"
+        android:text="@string/copyright"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

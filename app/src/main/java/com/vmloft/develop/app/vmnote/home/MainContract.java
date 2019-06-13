@@ -1,8 +1,8 @@
 package com.vmloft.develop.app.vmnote.home;
 
-import com.vmloft.develop.app.vmnote.app.Callback;
-import com.vmloft.develop.app.vmnote.app.base.BPresenter;
-import com.vmloft.develop.app.vmnote.bean.Account;
+import com.vmloft.develop.app.vmnote.bean.AUser;
+import com.vmloft.develop.app.vmnote.common.ACallback;
+import com.vmloft.develop.app.vmnote.base.APresenter;
 import com.vmloft.develop.app.vmnote.bean.Category;
 import com.vmloft.develop.app.vmnote.bean.Note;
 
@@ -21,45 +21,19 @@ public class MainContract {
         /**
          * 同步账户信息
          */
-        void syncAccount(Callback callback);
+        void loadAccount(ACallback<AUser> callback);
 
-        /**
-         * 同步笔记
-         */
-        void syncData(Callback callback);
-
-        /**
-         * 同步本地数据到服务器
-         */
-        void syncLocalToServer(Callback callback);
     }
 
     public interface IMainView {
-        void loadAccountDone(Account entity);
-
-        /**
-         * 同步完成
-         */
-        void syncDataDone();
-
-        /**
-         * 同步出错
-         */
-        void syncDataError(int code, String desc);
+        void loadAccountDone(AUser user);
     }
 
-    public static abstract class IMainPresenter<V> extends BPresenter<V> {
-        public abstract void loadAccount();
-
+    public static abstract class IMainPresenter<V> extends APresenter<V> {
         /**
-         * 同步远端数据到本地
+         * 加载账户信息
          */
-        public abstract void syncData();
-
-        /**
-         * 同步本地数据到服务器
-         */
-        public abstract void syncLocalToServer();
+        public abstract void onLoadAccount();
     }
 
     /**
@@ -80,7 +54,7 @@ public class MainContract {
         void loadCategoryDone(List<Category> list);
     }
 
-    public static abstract class ICategoryPresenter<V> extends BPresenter<V> {
+    public static abstract class ICategoryPresenter<V> extends APresenter<V> {
         public abstract void onLoadAllCategory();
     }
 
@@ -91,7 +65,7 @@ public class MainContract {
         /**
          * 移动笔记到回收站
          */
-        void moveToTrash(List<Note> list, Callback callback);
+        void moveToTrash(List<Note> list, ACallback callback);
 
         /**
          * 加载笔记列表
@@ -106,7 +80,7 @@ public class MainContract {
         void loadNoteDone(List<Note> list);
     }
 
-    public static abstract class IDisplayPresenter<V> extends BPresenter<V> {
+    public static abstract class IDisplayPresenter<V> extends APresenter<V> {
         /**
          * 移动笔记到回收站
          */
@@ -119,7 +93,7 @@ public class MainContract {
     }
 
     /**
-     * -------------------- 数据列表展示界面 MVP 接口定义 --------------------
+     * -------------------- 回收站 MVP 接口定义 --------------------
      */
     public interface ITrashModel {
         List<Note> loadTrashNote();
@@ -129,7 +103,7 @@ public class MainContract {
         void loadTrashNoteDone(List<Note> list);
     }
 
-    public static abstract class ITrashPresenter<V> extends BPresenter<V> {
+    public static abstract class ITrashPresenter<V> extends APresenter<V> {
         public abstract void onLoadTrashNote();
     }
 }

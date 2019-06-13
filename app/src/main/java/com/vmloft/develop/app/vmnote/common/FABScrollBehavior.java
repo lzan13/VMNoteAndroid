@@ -13,6 +13,7 @@ import android.view.animation.Interpolator;
 
 /**
  * Created by lzan13 on 2018/4/28.
+ *
  * 悬浮按钮相对于同布局控件关联实现
  */
 public class FABScrollBehavior extends FloatingActionButton.Behavior {

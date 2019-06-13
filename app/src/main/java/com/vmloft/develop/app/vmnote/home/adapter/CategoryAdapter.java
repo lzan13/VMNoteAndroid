@@ -29,7 +29,7 @@ public class CategoryAdapter extends VMAdapter<Category, CategoryAdapter.Categor
     @NonNull
     @Override
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_note_layout, parent, false);
+        View view = mInflater.inflate(R.layout.item_note_layout, parent, false);
         return new CategoryHolder(view);
     }
 

@@ -9,24 +9,8 @@
     android:fitsSystemWindows="true"
     tools:context=".editor.EditorActivity">
 
-    <!--<include layout="@layout/widget_appbar" />-->
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/widget_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/widget_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:theme="@style/AppTheme.ToolbarOverlay" />
-    </android.support.design.widget.AppBarLayout>
+    <!--定义顶部 TopBar-->
+    <include layout="@layout/widget_common_top_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"

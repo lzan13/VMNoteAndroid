@@ -25,6 +25,7 @@
             android:layout_width="@dimen/vm_avatar_normal"
             android:layout_height="@dimen/vm_avatar_normal"
             android:paddingTop="@dimen/vm_padding_normal"
+            android:scaleType="centerCrop"
             app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView

@@ -1,27 +1,19 @@
 package com.vmloft.develop.app.vmnote.bean;
 
-import com.google.gson.annotations.SerializedName;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
-
 /**
  * Created by lzan13 on 2018/4/25.
  */
-@Entity
 public class Category {
-    @SerializedName("_id") @Id private String id;
-    @SerializedName("author_id") private String authorId;
+    private String id;
+    private String authorId;
     private String title;
-    @SerializedName("create_at") private String createAt;
-    @SerializedName("update_at") private String updateAt;
+    private String createAt;
+    private String updateAt;
     private boolean isCreate = false;
     private boolean sync = true;
 
     public Category() {}
 
-    @Generated(hash = 1925110632)
     public Category(String id, String authorId, String title, String createAt, String updateAt,
             boolean isCreate, boolean sync) {
         this.id = id;

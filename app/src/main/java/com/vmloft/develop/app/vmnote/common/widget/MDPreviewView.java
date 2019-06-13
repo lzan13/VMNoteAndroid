@@ -10,8 +10,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.vmloft.develop.app.vmnote.common.router.NavParams;
-import com.vmloft.develop.app.vmnote.common.router.NavRouter;
+import com.vmloft.develop.app.vmnote.common.router.ARouter;
+import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
@@ -38,7 +38,7 @@ public class MDPreviewView extends NestedScrollView {
 
     private void init() {
         webView = new WebView(context);
-        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setWebViewClient(viewClient);
@@ -70,9 +70,9 @@ public class MDPreviewView extends NestedScrollView {
     private WebViewClient viewClient = new WebViewClient() {
         public final boolean shouldOverrideUrlLoading(WebView webView, String url) {
             if (!VMStr.isEmpty(url)) {
-                NavParams params = new NavParams();
+                VMParams params = new VMParams();
                 params.str0 = url;
-                NavRouter.goWebPage(context, params);
+                ARouter.goWebPage(context, params);
             }
             return true;
         }

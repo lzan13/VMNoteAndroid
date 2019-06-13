@@ -11,6 +11,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--界面背景色，为了优化 UI，这里设置为透明-->
         <item name="android:windowBackground">@color/vm_transparent</item>
+        <!--半透明状态栏-->
+        <item name="android:windowTranslucentStatus">true</item>
 
         <item name="android:actionModeBackground">@color/colorPrimary</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_close</item>

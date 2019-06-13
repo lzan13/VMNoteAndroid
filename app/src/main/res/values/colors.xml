@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff2cbe60</color>
-    <color name="colorPrimaryDark">#ff1e7f41</color>
+    <color name="colorPrimary">#fff8f8f8</color>
+    <color name="colorPrimaryDark">#fff8f8f8</color>
     <color name="colorAccent">#ff2cbe60</color>
 
-    <color name="launcher_background">#ff1e7f41</color>
+    <color name="launcher_background">#fff8f8f8</color>
     <color name="menu_header">#ff2cbe60</color>
     <color name="menu_selected">#ff2cbe60</color>
     <color name="menu_normal">#b6212121</color>
+
+    <color name="app_bg">@color/vm_white</color>
 
     <color name="item_over_title_bg">#ffe8e8e8</color>
     <color name="item_child_title">@color/vm_black_54</color>

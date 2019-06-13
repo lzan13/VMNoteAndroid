@@ -35,7 +35,7 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
     @NonNull
     @Override
     public DisplayHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_note_layout, parent, false);
+        View view = mInflater.inflate(R.layout.item_note_layout, parent, false);
         return new DisplayHolder(view);
     }
 
@@ -59,7 +59,7 @@ public class DisplayAdapter extends VMAdapter<Note, DisplayAdapter.DisplayHolder
         String dateTime = VMDate.getRelativeTime(milliTime);
         String content = dateTime + " " + note.getContent().replace("\n", " ");
         SpannableString ss = new SpannableString(content);
-        ss.setSpan(new ForegroundColorSpan(VMColor.colorByResId(R.color.colorAccent)), 0, dateTime.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(VMColor.byRes(R.color.colorAccent)), 0, dateTime.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         holder.contentView.setText(ss);
         // 设置同步图标
         if (note.getIsSync()) {

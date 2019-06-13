@@ -1,29 +1,23 @@
 package com.vmloft.develop.app.vmnote.bean;
 
-import com.google.gson.annotations.SerializedName;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by lzan13 on 2018/4/22.
  * 笔记信息实体类
  */
-@Entity() public class Note {
-    @SerializedName("_id") @Id private String id;
-    @SerializedName("author_id") private String authorId;
-    @SerializedName("category_id") private String categoryId;
+public class Note {
+    private String id;
+    private String authorId;
+    private String categoryId;
     private String content;
     private boolean pinup;
     private boolean blog;
     private boolean deleted;
     private boolean isSync = true;
     private boolean isCreate = false;
-    @Transient private boolean isSelected = false;
-    @SerializedName("create_at") private String createAt;
-    @SerializedName("update_at") private String updateAt;
+    private boolean isSelected = false;
+    private String createAt;
+    private String updateAt;
 
     public Note() {
     }
@@ -32,7 +26,6 @@ import org.greenrobot.greendao.annotation.Transient;
         this.id = id;
     }
 
-    @Generated(hash = 1961848947)
     public Note(String id, String authorId, String categoryId, String content, boolean pinup,
         boolean blog, boolean deleted, boolean isSync, boolean isCreate, String createAt,
         String updateAt) {

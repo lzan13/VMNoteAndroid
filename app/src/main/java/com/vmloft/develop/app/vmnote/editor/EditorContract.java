@@ -1,7 +1,7 @@
 package com.vmloft.develop.app.vmnote.editor;
 
-import com.vmloft.develop.app.vmnote.app.Callback;
-import com.vmloft.develop.app.vmnote.app.base.BPresenter;
+import com.vmloft.develop.app.vmnote.common.ACallback;
+import com.vmloft.develop.app.vmnote.base.APresenter;
 import com.vmloft.develop.app.vmnote.bean.Note;
 
 /**
@@ -16,7 +16,7 @@ public class EditorContract {
         /**
          * 保存 Note
          */
-        void saveNote(Note entity, Callback callback);
+        void saveNote(Note entity, ACallback callback);
 
         /**
          * 加载 Note
@@ -31,7 +31,7 @@ public class EditorContract {
         void saveNoteDone(Note entity);
     }
 
-    public abstract static class IEditorPresenter<V> extends BPresenter<V> {
+    public abstract static class IEditorPresenter<V> extends APresenter<V> {
 
         public abstract void onTextChanged();
         /**
