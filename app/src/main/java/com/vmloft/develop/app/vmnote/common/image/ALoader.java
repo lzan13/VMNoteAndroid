@@ -2,19 +2,17 @@ package com.vmloft.develop.app.vmnote.common.image;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.vmloft.develop.app.vmnote.R;
-import com.vmloft.develop.app.vmnote.common.AConstants;
 
-import java.io.File;
+import com.vmloft.develop.app.vmnote.R;
+import com.vmloft.develop.library.tools.picker.IPictureLoader;
+
 
 /**
  * Created by lzan13 on 2017/11/30.
@@ -29,7 +27,7 @@ public class ALoader {
      * @param options   加载图片配置
      * @param imageView 目标 view
      */
-    public static void load(Context context, Options options, ImageView imageView) {
+    public static void load(Context context, IPictureLoader.Options options, ImageView imageView) {
         RequestOptions requestOptions = new RequestOptions();
         if (options.isCircle) {
             requestOptions.circleCrop();
@@ -53,8 +51,8 @@ public class ALoader {
      * @param options 加载配置
      * @return
      */
-    private static RequestBuilder<Drawable> placeholder(Context context, Options options) {
-        int resId = R.drawable.img_default_background;
+    private static RequestBuilder<Drawable> placeholder(Context context, IPictureLoader.Options options) {
+        int resId = R.drawable.img_default_note;
         RequestOptions requestOptions = new RequestOptions();
         if (options.isCircle) {
             requestOptions.circleCrop();
@@ -72,32 +70,4 @@ public class ALoader {
         GlideApp.with(context).clear(imageView);
     }
 
-
-    /**
-     * 图片加载相关参数类
-     */
-    public static class Options {
-
-        public Options(String url) {
-            this.url = url;
-        }
-
-        // 图片地址
-        public String url;
-
-        // 是否为圆形
-        public boolean isCircle;
-
-        // 是否为圆角
-        public boolean isRadius;
-        // 圆角大小，需配合上个参数一起使用
-        public int radiusSize;
-        public int radiusLTSize; // 左上角
-        public int radiusLBSize; // 左下角
-        public int radiusRTSize; // 右上角
-        public int radiusRBSize; // 右下角
-
-        // 是否模糊
-        public boolean isBlur;
-    }
 }

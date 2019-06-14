@@ -1,13 +1,15 @@
 package com.vmloft.develop.app.vmnote.common.router;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 
-import com.vmloft.develop.app.vmnote.account.AccountActivity;
-import com.vmloft.develop.app.vmnote.editor.EditorActivity;
-import com.vmloft.develop.app.vmnote.home.MainActivity;
-import com.vmloft.develop.app.vmnote.sign.SignActivity;
-import com.vmloft.develop.app.vmnote.webpage.WebActivity;
+import com.vmloft.develop.app.vmnote.ui.editor.EditorActivity;
+import com.vmloft.develop.app.vmnote.ui.home.MainActivity;
+import com.vmloft.develop.app.vmnote.ui.settings.MeSettingsActivity;
+import com.vmloft.develop.app.vmnote.ui.settings.SettingsActivity;
+import com.vmloft.develop.app.vmnote.ui.sign.SignActivity;
+import com.vmloft.develop.app.vmnote.ui.web.WebActivity;
 import com.vmloft.develop.library.tools.router.VMRouter;
 
 /**
@@ -20,7 +22,8 @@ public class ARouter extends VMRouter {
      * 主界面
      */
     public static void goMain(Context context) {
-        forward(context, MainActivity.class);
+        int flags = Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK;
+        forward(context, MainActivity.class, flags);
     }
 
     /**
@@ -38,12 +41,18 @@ public class ARouter extends VMRouter {
     }
 
     /**
-     * 去往用户信息界面
+     * 去往用户信息设置界面
      */
-    public static void goAccount(Context context) {
-        overlay(context, AccountActivity.class);
+    public static void goMeSettings(Context context) {
+        overlay(context, MeSettingsActivity.class);
     }
 
+    /**
+     * 设置界面
+     */
+    public static void goSettings(Context context) {
+        overlay(context, SettingsActivity.class);
+    }
 
     /**
      * ------------------- 公共跳转界面 -------------------

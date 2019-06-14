@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".editor.EditorActivity">
+    tools:context=".ui.editor.EditorActivity">
 
     <!--定义顶部 TopBar-->
     <include layout="@layout/widget_common_top_bar" />

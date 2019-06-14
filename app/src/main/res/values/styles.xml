@@ -4,45 +4,32 @@
     <style name="AppTheme" parent="VMTheme">
         <!-- 在这里自定义自己的主题 -->
         <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/app_primary</item>
         <!-- 深一些的主要色，一般是状态栏等颜色 -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/app_primary_dark</item>
         <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/app_accent</item>
         <!--界面背景色，为了优化 UI，这里设置为透明-->
         <item name="android:windowBackground">@color/vm_transparent</item>
         <!--半透明状态栏-->
         <item name="android:windowTranslucentStatus">true</item>
 
-        <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <item name="android:actionModeBackground">@color/app_primary</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_close</item>
-        <item name="android:actionModeSplitBackground">@color/colorPrimaryDark</item>
+        <item name="android:actionModeSplitBackground">@color/app_primary_dark</item>
     </style>
 
     <!--启动时的主题样式-->
     <style name="AppTheme.Launcher">
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
-        <item name="android:windowBackground">@drawable/bg_launcher_splash</item>
+        <item name="android:windowBackground">@drawable/launcher_shape</item>
     </style>
 
     <!--登录主题-->
-    <style name="AppTheme.Sign">
-        <!--设置状态栏颜色-->
-        <item name="android:statusBarColor">@color/vm_black_12</item>
-    </style>
+    <style name="AppTheme.Sign"></style>
 
-    <style name="AppTheme.Normal">
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">false</item>
-        <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">false</item>
-        <!--设置状态栏颜色-->
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <!--设置导航栏背景色-->
-        <item name="android:navigationBarColor">@color/vm_black_38</item>
-    </style>
+    <!--正常主题-->
+    <style name="AppTheme.Normal"></style>
 
     <!--透明主题-->
     <style name="AppTheme.Transparent">
@@ -51,12 +38,12 @@
     </style>
 
     <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
-    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay"/>
+    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay" />
 
     <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
-    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay"/>
+    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay" />
 
     <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
-    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay"/>
+    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay" />
 
 </resources>

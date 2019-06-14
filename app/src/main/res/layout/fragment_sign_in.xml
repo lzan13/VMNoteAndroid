@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_bg"
     android:orientation="vertical"
     android:padding="@dimen/vm_padding_large"
-    tools:context=".sign.SignInFragment">
+    tools:context=".ui.sign.SignInFragment">
 
     <TextView
         android:id="@+id/sign_welcome_title"
@@ -25,7 +26,7 @@
         android:layout_marginStart="@dimen/vm_margin_large"
         android:layout_marginTop="@dimen/vm_dimen_56"
         android:layout_marginEnd="@dimen/vm_margin_large"
-        android:background="@drawable/fillet_white_bg_selector"
+        android:background="@drawable/input_fillet_shape"
         android:elevation="@dimen/vm_elevation_normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_welcome_title"
@@ -39,7 +40,7 @@
         android:layout_marginStart="@dimen/vm_margin_large"
         android:layout_marginTop="@dimen/vm_margin_large"
         android:layout_marginEnd="@dimen/vm_margin_large"
-        android:background="@drawable/fillet_white_bg_selector"
+        android:background="@drawable/input_fillet_shape"
         android:elevation="@dimen/vm_elevation_normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_account_et"
@@ -70,6 +71,8 @@
         android:id="@+id/sign_up_go_btn"
         style="@style/VMBtn.Flat"
         android:text="@string/sign_up_go"
+        android:textColor="@color/vm_blue_87"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/sign_up_go_hint"
         app:layout_constraintStart_toEndOf="@+id/sign_up_go_hint"
         app:layout_constraintTop_toTopOf="@+id/sign_up_go_hint" />

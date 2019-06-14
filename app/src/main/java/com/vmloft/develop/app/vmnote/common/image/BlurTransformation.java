@@ -21,7 +21,7 @@ public class BlurTransformation extends BitmapTransformation {
 
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        Bitmap blurBitmap = VMBlur.stackBlurBitmap(toTransform, 20, 8, false);
+        Bitmap blurBitmap = VMBlur.stackBlurBitmap(toTransform, 8, 8, false);
         return blurBitmap;
     }
 

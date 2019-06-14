@@ -8,8 +8,10 @@ import com.avos.avoscloud.AVUser;
 import com.vmloft.develop.app.vmnote.bean.AUser;
 import com.vmloft.develop.app.vmnote.common.AConstants;
 import com.vmloft.develop.app.vmnote.common.ASPManager;
+import com.vmloft.develop.app.vmnote.common.image.APictureLoader;
 import com.vmloft.develop.library.tools.VMTools;
 import com.vmloft.develop.library.tools.base.VMApp;
+import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 
 /**
@@ -27,6 +29,7 @@ public class App extends VMApp {
 
     private void init() {
         VMTools.init(context);
+        VMPicker.getInstance().setPictureLoader(new APictureLoader());
 
         checkTheme();
 

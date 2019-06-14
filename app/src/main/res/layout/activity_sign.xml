@@ -5,8 +5,7 @@
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg"
-    tools:context=".sign.SignActivity">
+    tools:context=".ui.sign.SignActivity">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -23,6 +22,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:visibility="invisible"
+        android:background="@color/app_mask"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

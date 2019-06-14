@@ -31,6 +31,6 @@
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/vm_margin_small"
         android:src="@drawable/ic_cloud_sync"
-        android:tint="@color/colorAccent"
+        android:tint="@color/app_accent"
         android:visibility="gone" />
 </RelativeLayout>

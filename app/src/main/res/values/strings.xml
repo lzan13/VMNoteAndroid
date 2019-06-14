@@ -1,19 +1,16 @@
 <resources>
     <string name="app_name">VMNote</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <!--账户相关-->
-    <string name="sign_in">Sign In</string>
-    <string name="sign_in_go">Go sign in</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="sign_up_go">Go sign up</string>
-    <string name="sign_out">Sign Out</string>
-    <string name="account_name">Account name</string>
-    <string name="account_password">Password</string>
-    <string name="no_account_yet">No account yet?</string>
-    <string name="already_have_an_account">Already have an account!</string>
+    <string name="sign_in">登录</string>
+    <string name="sign_in_go">去登录</string>
+    <string name="sign_up">注册</string>
+    <string name="sign_up_go">去注册</string>
+    <string name="sign_out">退出登录</string>
+    <string name="account_name">邮箱</string>
+    <string name="account_password">密码</string>
+    <string name="no_account_yet">还没有账户？</string>
+    <string name="already_have_an_account">已经有账户！</string>
 
     <!--菜单相关-->
     <string name="note_all">All notes</string>
@@ -22,46 +19,70 @@
     <string name="night_theme">Night Theme</string>
     <string name="note_sync">Time: %1$s</string>
     <string name="note_selected">Selected %1$d</string>
-    <string name="note_hint">Input note content, Supports markdown syntax</string>
 
     <string name="display_config">Display config</string>
-    <string name="search">Search</string>
-    <string name="settings">Settings</string>
-    <string name="sort_by">Sort by</string>
-    <string name="preview">Preview</string>
-    <string name="undo">Undo</string>
-    <string name="redo">Redo</string>
-    <string name="more">More</string>
-    <string name="save">Save</string>
+    <string name="search">搜索</string>
+    <string name="sort_by">排序</string>
+    <string name="preview">预览</string>
+    <string name="undo">撤销</string>
+    <string name="redo">恢复</string>
+    <string name="more">更多</string>
+    <string name="save">保存</string>
 
-    <string name="ok">Ok</string>
-    <string name="cancel">Cancel</string>
+    <string name="link_insert_title">插入链接</string>
+    <string name="link_title_hint">链接标题</string>
+    <string name="link_url_hint">链接地址</string>
+
+    <string name="grid_insert_title">插入表格</string>
+    <string name="grid_row_hint">表格行</string>
+    <string name="grid_col_hint">表格列</string>
+    <string name="note_hint">输入内容，支持 Markdown 语法</string>
+
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="finish">完成</string>
 
     <!--默认内容-->
-    <string name="note_editor_title"></string>
-    <string name="no_date">No data, you can click on the plus to create</string>
+    <string name="no_date">~ 没有数据 ~</string>
 
-    <string name="insert_link_title">Insert link</string>
-    <string name="link_title_hint">Link title</string>
-    <string name="link_url_hint">Link url</string>
-
-    <string name="insert_grid_title">Insert grid</string>
-    <string name="grid_row_hint">Grid row</string>
-    <string name="grid_col_hint">Grid col</string>
     <string name="nickname_default">昵称，不存在的</string>
     <string name="signature_default">无个性，不签名！</string>
 
+    <!--我的-->
+    <string name="me_info">个人信息</string>
+    <string name="me_avatar">头像</string>
+    <string name="me_username">用户名</string>
+    <string name="me_nickname">昵称</string>
+    <string name="me_nickname_default">昵称，不存在的</string>
+    <string name="me_signature">签名</string>
+    <string name="me_signature_hint">@string/signature_default</string>
+    <string name="me_gender">性别</string>
+    <string name="me_gender_unknown">神秘</string>
+    <string name="me_gender_man">帅</string>
+    <string name="me_gender_woman">美</string>
+    <string name="me_birthday">生日</string>
+    <string name="me_qr_code">二维码</string>
+    <string name="me_address">地址</string>
 
     <!--提示相关-->
-    <string name="not_null">Input content not null!</string>
-    <string name="toast_invalid_email">Invalid email</string>
-    <string name="toast_invalid_password">Invalid password. Password is 6-16 bits and cannot contain any special characters other than "._"</string>
+    <string name="not_null">输入内容不可为空</string>
+    <string name="toast_invalid_email">无效的邮箱地址</string>
+    <string name="toast_invalid_password">密码必须为 6-16 位，不能包含除了 \"._\" 以外的特殊字符</string>
+
+    <!--设置-->
+    <string name="settings">设置</string>
+    <string name="settings_me">个人信息设置</string>
+    <string name="help">帮助与反馈</string>
+    <string name="about">关于</string>
+    <string name="about_check_new">检查更新</string>
+    <string name="sign_out_hint_title">确认退出登录？</string>
+    <string name="sign_out_hint_content">退出登录后将无法继续使用应用保存内容</string>
 
     <!--AError described-->
-    <string name="err_unknown">Unknown error</string>
-    <string name="err_server">Server error</string>
-    <string name="err_network_unusable">Network unusable</string>
-    <string name="err_network_timeout">Connection timeout</string>
+    <string name="err_unknown">位置错误</string>
+    <string name="err_server">服务器错误</string>
+    <string name="err_network_unusable">网络不可用</string>
+    <string name="err_network_timeout">链接超时</string>
     <!--错误相关描述-->
     <string name="unknown">未知错误: %1$s，可将错误码反馈给我们，感谢</string>
     <string name="account_username_already_exist">用户名已被占用</string>

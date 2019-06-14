@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    tools:context=".editor.EditorActivity">
+    tools:context=".ui.editor.EditorActivity">
 
     <!--定义顶部 TopBar-->
     <include layout="@layout/widget_common_top_bar" />
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/app_primary_dark"
             android:orientation="vertical"
             app:vm_el_duration="@integer/vm_time_transition"
             app:vm_el_expanded="false">

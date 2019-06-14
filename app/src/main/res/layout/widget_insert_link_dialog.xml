@@ -45,12 +45,12 @@
             android:id="@+id/btn_cancel"
             style="@style/VMBtn.Flat"
             android:text="@string/cancel"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/app_accent" />
 
         <Button
             android:id="@+id/btn_ok"
             style="@style/VMBtn.Flat"
             android:text="@string/ok"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/app_accent" />
     </LinearLayout>
 </LinearLayout>
