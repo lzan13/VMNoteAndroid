@@ -51,8 +51,10 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
     LinearLayout mTrashMenu;
     @BindView(R.id.main_drawer_theme_icon)
     ImageView mThemeIconView;
+    @BindView(R.id.main_drawer_theme_name_tv)
+    TextView mThemeNameView;
 
-    private int[] mMenus = {R.string.note_all, R.string.note_books, R.string.note_trash};
+    private int[] mMenus = {R.string.note_all, R.string.note_category, R.string.note_trash};
     private int mCurrIndex = 0;
     private AppFragment[] fragments;
     private DisplayFragment displayFragment;
@@ -154,7 +156,7 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
 
     @OnClick({
             R.id.main_drawer_cover_iv, R.id.main_drawer_avatar_iv, R.id.main_drawer_all_ll, R.id.main_drawer_category_ll, R.id.main_drawer_trash_ll,
-            R.id.main_drawer_theme_ll, R.id.main_drawer_settings_ll
+            R.id.main_drawer_theme_ll, R.id.main_drawer_settings_ll, R.id.main_add_btn
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -176,6 +178,9 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
                 break;
             case R.id.main_drawer_theme_ll:
                 changeTheme();
+                break;
+            case R.id.main_add_btn:
+                ARouter.goEditor(mActivity, null);
                 break;
         }
     }
@@ -233,8 +238,10 @@ public class MainActivity extends AppMVPActivity<IMainView, IMainPresenter<IMain
         boolean isNight = ASPManager.getInstance().isNight();
         if (isNight) {
             mThemeIconView.setImageResource(R.drawable.ic_theme_night);
+            mThemeNameView.setText(R.string.theme_sunny);
         } else {
             mThemeIconView.setImageResource(R.drawable.ic_theme_sunny);
+            mThemeNameView.setText(R.string.theme_night);
         }
     }
 

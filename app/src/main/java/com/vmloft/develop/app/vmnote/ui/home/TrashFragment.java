@@ -65,13 +65,13 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
 
         initRefreshListener();
 
-        presenter.onLoadTrashNote();
+        presenter.onLoadData();
     }
 
     /**
      * 加载数据完成
      */
-    @Override public void loadTrashNoteDone(List<Note> list) {
+    @Override public void loadDataDone(List<Note> list) {
         refreshLayout.setRefreshing(false);
         refresh(list);
     }
@@ -93,7 +93,7 @@ public class TrashFragment extends AppMVPFragment<ITrashView, ITrashPresenter<IT
         refreshLayout.setColorSchemeResources(R.color.app_accent);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
-                presenter.onLoadTrashNote();
+                presenter.onLoadData();
             }
         });
     }

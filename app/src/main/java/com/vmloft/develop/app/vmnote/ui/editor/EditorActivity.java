@@ -3,13 +3,13 @@ package com.vmloft.develop.app.vmnote.ui.editor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.vmloft.develop.app.vmnote.R;
 import com.vmloft.develop.app.vmnote.base.AppMVPActivity;
@@ -22,9 +22,9 @@ import com.vmloft.develop.app.vmnote.common.router.ARouter;
 import com.vmloft.develop.app.vmnote.common.editor.MarkdownEditable;
 import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.utils.VMEditor;
-import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMExpandableLayout;
+import com.vmloft.develop.library.tools.widget.toast.VMToast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,20 +35,26 @@ import butterknife.OnClick;
  */
 public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter<IEditorView>> implements IEditorView {
 
-    @BindView(R.id.layout_expandable)
-    VMExpandableLayout expandableLayout;
-    @BindView(R.id.preview_markdown)
-    MDPreviewView previewView;
-    @BindView(R.id.edit_content)
-    EditText inputView;
-    @BindView(R.id.fab_edit)
-    FloatingActionButton editFab;
+    @BindView(R.id.editor_action_preview)
+    ImageButton mPreviewBtn;
+    @BindView(R.id.editor_action_undo)
+    ImageButton mUndoBtn;
+    @BindView(R.id.editor_action_redo)
+    ImageButton mRedoBtn;
+    @BindView(R.id.editor_action_more)
+    ImageButton mMoreBtn;
 
-    private Toolbar toolbar;
-    private MenuItem moreItem;
+    @BindView(R.id.editor_expand_layout)
+    VMExpandableLayout mExpandableLayout;
+    @BindView(R.id.editor_markdown_preview)
+    MDPreviewView mPreviewView;
+    @BindView(R.id.editor_content_et)
+    EditText mInputView;
+    @BindView(R.id.editor_edit_btn)
+    FloatingActionButton mEditBtn;
 
-    private VMEditor editor;
-    private MarkdownEditable markdownEditable;
+    private VMEditor mEditor;
+    private MarkdownEditable mMarkdownEditable;
 
     // 当前状态，预览时不可编辑，默认为展示状态
     private boolean isEditor = false;
@@ -74,15 +80,9 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
     @Override
     public void initUI() {
         super.initUI();
+        setTopIcon(R.drawable.ic_done);
 
-        VMParams params = ARouter.getParams(mActivity);
-        if (params != null) {
-            mPresenter.onLoadNote(params.str0);
-        } else {
-            mPresenter.onLoadNote(null);
-        }
-
-        checkCommonUI();
+        refreshUI();
     }
 
     /**
@@ -90,44 +90,49 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
      */
     @Override
     protected void initData() {
-
+        VMParams params = ARouter.getParams(mActivity);
+        if (params != null) {
+            mPresenter.onLoadData(params.str0);
+        } else {
+            mPresenter.onLoadData(null);
+        }
     }
 
     /**
      * 加载笔记完成
      */
     @Override
-    public void loadNoteDone(Note entity) {
-        if (VMStr.isEmpty(entity.getContent())) {
+    public void loadDataDone(Note note) {
+        if (VMStr.isEmpty(note.getContent())) {
             editNote();
         } else {
-            inputView.setText(entity.getContent());
+            mInputView.setText(note.getContent());
         }
 
         // 初始化编辑框撤销和恢复
-        editor = new VMEditor(inputView) {
+        mEditor = new VMEditor(mInputView) {
             @Override
             protected void onTextChanged(Editable editable) {
                 isSave = false;
                 mPresenter.onTextChanged();
             }
         };
-        editor.setDefaultText(VMStr.isEmpty(entity.getContent()) ? "" : entity.getContent());
+        mEditor.setDefaultText(VMStr.isEmpty(note.getContent()) ? "" : note.getContent());
 
         // 初始化 Markdown 快捷输入
-        markdownEditable = new MarkdownEditable(inputView);
+        mMarkdownEditable = new MarkdownEditable(mInputView);
     }
 
     /**
-     * 保存笔记，逻辑给 P 层处理
+     * 保存笔记
      */
     private void saveNote() {
         isSave = true;
         isEditor = false;
-        String content = inputView.getText().toString();
-        mPresenter.onSaveNote(content);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        checkCommonUI();
+        String content = mInputView.getText().toString();
+        mPresenter.onSaveData(content);
+        setTopIcon(R.drawable.vm_ic_arrow_left);
+        refreshUI();
     }
 
     /**
@@ -136,8 +141,8 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
     private void editNote() {
         isEditor = true;
         isPreview = false;
-        toolbar.setNavigationIcon(R.drawable.ic_done);
-        checkCommonUI();
+        setTopIcon(R.drawable.ic_done);
+        refreshUI();
     }
 
     private void previewNote() {
@@ -145,17 +150,17 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
             isPreview = false;
         } else {
             isPreview = true;
-            previewView.parseMarkdown(inputView.getText().toString());
+            mPreviewView.parseMarkdown(mInputView.getText().toString());
         }
-        checkCommonUI();
+        refreshUI();
     }
 
     /**
      * 保存 Note 完成结果
      */
     @Override
-    public void saveNoteDone(Note entity) {
-        if (entity == null) {
+    public void saveDataDone(Note note) {
+        if (note == null) {
             // 同步到服务器失败，只保存在本地
         } else {
             // 同步到服务器成功
@@ -165,22 +170,28 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
     /**
      * 根据不同的状态，检测公共 UI 部分设置
      */
-    private void checkCommonUI() {
-        supportInvalidateOptionsMenu();
-        inputView.setEnabled(isEditor);
+    private void refreshUI() {
+        mInputView.setEnabled(isEditor);
         if (isEditor) {
-            editFab.setVisibility(View.GONE);
+            setTopIcon(R.drawable.ic_done);
+            mEditBtn.setVisibility(View.INVISIBLE);
+            mExpandableLayout.collapse();
         } else {
-            editFab.setVisibility(View.VISIBLE);
-            expandableLayout.collapse();
+            setTopIcon(R.drawable.vm_ic_arrow_left);
+            mEditBtn.setVisibility(View.VISIBLE);
         }
-
         if (isPreview) {
-            previewView.setVisibility(View.VISIBLE);
-            inputView.setVisibility(View.GONE);
+            mPreviewView.setVisibility(View.VISIBLE);
+            mInputView.setVisibility(View.GONE);
+            mPreviewBtn.setImageResource(R.drawable.ic_edit_eye_off);
+            mUndoBtn.setVisibility(View.GONE);
+            mRedoBtn.setVisibility(View.GONE);
         } else {
-            previewView.setVisibility(View.GONE);
-            inputView.setVisibility(View.VISIBLE);
+            mPreviewView.setVisibility(View.GONE);
+            mInputView.setVisibility(View.VISIBLE);
+            mPreviewBtn.setImageResource(R.drawable.ic_edit_eye);
+            mUndoBtn.setVisibility(View.VISIBLE);
+            mRedoBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -188,26 +199,63 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
      * 界面控件点击事件
      */
     @OnClick({
-            R.id.btn_shortcut_bold, R.id.btn_shortcut_italic, R.id.btn_shortcut_link,
-            R.id.btn_shortcut_list_bulleted, R.id.btn_shortcut_list_numbered, R.id.btn_shortcut_minus,
-            R.id.btn_shortcut_quote, R.id.btn_shortcut_code, R.id.btn_shortcut_code_block,
-            R.id.btn_shortcut_grid, R.id.btn_shortcut_header_2, R.id.btn_shortcut_header_3,
-            R.id.btn_shortcut_header_4, R.id.btn_shortcut_photo, R.id.btn_shortcut_strikethrough,
-            R.id.fab_edit
+            R.id.editor_action_preview,
+            R.id.editor_action_undo,
+            R.id.editor_action_redo,
+            R.id.editor_action_more,
+            R.id.editor_shortcut_header_equal_btn,
+            R.id.editor_shortcut_header_1_btn,
+            R.id.editor_shortcut_header_2_btn,
+            R.id.editor_shortcut_header_3_btn,
+            R.id.editor_shortcut_header_4_btn,
+            R.id.editor_shortcut_header_5_btn,
+            R.id.editor_shortcut_bold_btn,
+            R.id.editor_shortcut_italic_btn,
+            R.id.editor_shortcut_unordered_list_btn,
+            R.id.editor_shortcut_ordered_list_btn,
+            R.id.editor_shortcut_minus_btn,
+            R.id.editor_shortcut_quote_btn,
+            R.id.editor_shortcut_code_btn,
+            R.id.editor_shortcut_code_block_btn,
+            R.id.editor_shortcut_link_btn,
+            R.id.editor_shortcut_grid_btn,
+            R.id.editor_shortcut_photo_btn,
+            R.id.editor_shortcut_strickout_btn,
+            R.id.editor_edit_btn
     })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_shortcut_link:
+            case R.id.editor_action_preview:
+                previewNote();
+                break;
+            case R.id.editor_action_undo:
+                mEditor.undo();
+                break;
+            case R.id.editor_action_redo:
+                mEditor.redo();
+                break;
+            case R.id.editor_action_more:
+                if (mExpandableLayout.isExpanded()) {
+                    mMoreBtn.setImageResource(R.drawable.ic_expand_more);
+                } else {
+                    mMoreBtn.setImageResource(R.drawable.ic_expand_less);
+                }
+                mExpandableLayout.toggle();
+                break;
+            case R.id.editor_shortcut_link_btn:
                 shortcutLink();
                 return;
-            case R.id.btn_shortcut_grid:
+            case R.id.editor_shortcut_grid_btn:
                 shortcutGrid();
                 return;
-            case R.id.fab_edit:
+            case R.id.editor_shortcut_photo_btn:
+                shortcutPicture();
+                break;
+            case R.id.editor_edit_btn:
                 editNote();
                 break;
         }
-        markdownEditable.onClick(view);
+        mMarkdownEditable.onClick(view);
     }
 
     /**
@@ -246,7 +294,7 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
             if (urlHint.isErrorEnabled()) {
                 urlHint.setErrorEnabled(false);
             }
-            markdownEditable.perform(R.id.btn_shortcut_link, titleStr, urlStr);
+            mMarkdownEditable.perform(R.id.editor_shortcut_link_btn, titleStr, urlStr);
             dialog.dismiss();
         });
         dialog.show();
@@ -289,67 +337,17 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
             if (colNumberHint.isErrorEnabled()) {
                 colNumberHint.setErrorEnabled(false);
             }
-            markdownEditable.perform(R.id.btn_shortcut_grid, rowStr, colStr);
+            mMarkdownEditable.perform(R.id.editor_shortcut_grid_btn, rowStr, colStr);
             dialog.dismiss();
         });
         dialog.show();
     }
 
     /**
-     * 菜单布局
+     * 快捷插入图片
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        VMLog.d("onCreateOptionsMenu");
-        getMenuInflater().inflate(R.menu.editor_normal, menu);
-        return true;
-    }
-
-    /**
-     * 根据不同的状态切换菜单布局
-     */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        if (isPreview) {
-            getMenuInflater().inflate(R.menu.editor_preview, menu);
-        } else {
-            if (isEditor) {
-                getMenuInflater().inflate(R.menu.editor_editing, menu);
-                moreItem = menu.findItem(R.id.action_more);
-            } else {
-                getMenuInflater().inflate(R.menu.editor_normal, menu);
-            }
-        }
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    /**
-     * 菜单事件
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_preview:
-                previewNote();
-                break;
-            case R.id.action_undo:
-                editor.undo();
-                break;
-            case R.id.action_redo:
-                editor.redo();
-                break;
-            case R.id.action_more:
-                if (expandableLayout.isExpanded()) {
-                    moreItem.setIcon(R.drawable.ic_expand_more);
-                } else {
-                    moreItem.setIcon(R.drawable.ic_expand_less);
-                }
-                expandableLayout.toggle();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+    private void shortcutPicture() {
+        VMToast.make(mActivity, "暂不支持插入图片").error();
     }
 
     /**

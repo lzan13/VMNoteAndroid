@@ -21,8 +21,8 @@ public class CategoryPresenterImpl extends ICategoryPresenter<ICategoryView> {
     }
 
     @Override
-    public void onLoadAllCategory() {
-        List<Category> list = categoryModel.loadAllCategory();
-        obtainView().loadCategoryDone(list);
+    public void onLoadData() {
+        List<Category> list = categoryModel.loadData();
+        obtainView().loadDataDone(list);
     }
 }

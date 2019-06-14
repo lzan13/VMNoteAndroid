@@ -13,7 +13,9 @@
     <color name="app_title">@color/vm_white_87</color>
 
     <!--输入框背景-->
-    <color name="input_bg">@color/vm_white_54</color>
+    <color name="input_bg">@color/vm_white_38</color>
+    <color name="input_hint">@color/vm_white_54</color>
+    <color name="input_text">@color/vm_white_87</color>
 
     <color name="item_over_title_bg">#ff343434</color>
     <color name="item_child_title">@color/vm_white_54</color>

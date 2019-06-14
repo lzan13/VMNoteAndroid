@@ -21,9 +21,9 @@ public class TrashPresenterImpl extends ITrashPresenter<ITrashView> {
     }
 
     @Override
-    public void onLoadTrashNote() {
-        List<Note> list = trashModel.loadTrashNote();
-        obtainView().loadTrashNoteDone(list);
+    public void onLoadData() {
+        List<Note> list = trashModel.loadData();
+        obtainView().loadDataDone(list);
     }
 
 

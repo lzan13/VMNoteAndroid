@@ -24,7 +24,7 @@ public class DisplayPresenterImpl extends IDisplayPresenter<IDisplayView> {
     @Override public void onMoveToTrash(List<Note> list) {
         displayModel.moveToTrash(list, new ACallback() {
             @Override public void onSuccess(Object object) {
-                onLoadAllNote();
+                onLoadData();
             }
 
             @Override public void onError(int code, String desc) {
@@ -32,8 +32,8 @@ public class DisplayPresenterImpl extends IDisplayPresenter<IDisplayView> {
         });
     }
 
-    @Override public void onLoadAllNote() {
-        List<Note> list = displayModel.loadAllNote();
-        obtainView().loadNoteDone(list);
+    @Override public void onLoadData() {
+        List<Note> list = displayModel.loadData();
+        obtainView().loadDataDone(list);
     }
 }

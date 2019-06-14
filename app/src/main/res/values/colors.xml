@@ -15,6 +15,8 @@
 
     <!--输入框背景-->
     <color name="input_bg">@color/vm_white_87</color>
+    <color name="input_hint">@color/vm_black_54</color>
+    <color name="input_text">@color/vm_black_87</color>
 
     <color name="item_over_title_bg">#ffe8e8e8</color>
     <color name="item_child_title">@color/vm_black_54</color>

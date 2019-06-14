@@ -9,7 +9,7 @@
     tools:context=".ui.home.MainActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,8 +18,20 @@
         <RelativeLayout
             android:id="@+id/main_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/common_top_bar_rl" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/main_add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/vm_margin_large"
+            android:src="@drawable/ic_add"
+            app:fabSize="normal"
+            app:layout_behavior="com.vmloft.develop.app.vmnote.common.FABScrollBehavior" />
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -98,8 +110,9 @@
                         android:tint="@color/menu_icon_selector" />
 
                     <TextView
+                        android:id="@+id/main_drawer_theme_name_tv"
                         style="@style/VMText.Menu"
-                        android:text="@string/night_theme"
+                        android:text="@string/theme_night"
                         android:textColor="@color/menu_text_selector" />
                 </LinearLayout>
             </android.support.constraint.ConstraintLayout>
@@ -153,7 +166,7 @@
 
                     <TextView
                         style="@style/VMText.Menu"
-                        android:text="@string/note_books"
+                        android:text="@string/note_category"
                         android:textColor="@color/menu_text_selector" />
                 </LinearLayout>
 

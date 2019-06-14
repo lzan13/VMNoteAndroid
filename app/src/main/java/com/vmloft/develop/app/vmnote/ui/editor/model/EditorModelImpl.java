@@ -11,7 +11,7 @@ import com.vmloft.develop.app.vmnote.ui.editor.EditorContract;
 public class EditorModelImpl implements EditorContract.IEditorModel {
 
     @Override
-    public void saveNote(final Note entity, ACallback callback) {
+    public void saveData(final Note entity, ACallback callback) {
 //        NoteApi.getInstance().postNote(entity, new ACallback() {
 //            @Override
 //            public void onDone(Object object) {
@@ -32,7 +32,7 @@ public class EditorModelImpl implements EditorContract.IEditorModel {
     }
 
     @Override
-    public Note loadNote(String noteId) {
+    public Note loadData(String noteId) {
 //        return DBManager.getInstance().getNoteById(noteId);
         return null;
     }

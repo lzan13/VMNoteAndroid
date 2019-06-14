@@ -44,18 +44,18 @@ public class MainContract {
         /**
          * 加载分类列表
          */
-        List<Category> loadAllCategory();
+        List<Category> loadData();
     }
 
     public interface ICategoryView {
         /**
          * 加载数据完成
          */
-        void loadCategoryDone(List<Category> list);
+        void loadDataDone(List<Category> list);
     }
 
     public static abstract class ICategoryPresenter<V> extends APresenter<V> {
-        public abstract void onLoadAllCategory();
+        public abstract void onLoadData();
     }
 
     /**
@@ -70,14 +70,14 @@ public class MainContract {
         /**
          * 加载笔记列表
          */
-        List<Note> loadAllNote();
+        List<Note> loadData();
     }
 
     public interface IDisplayView {
         /**
          * 加载数据完成
          */
-        void loadNoteDone(List<Note> list);
+        void loadDataDone(List<Note> list);
     }
 
     public static abstract class IDisplayPresenter<V> extends APresenter<V> {
@@ -87,23 +87,23 @@ public class MainContract {
         public abstract void onMoveToTrash(List<Note> list);
 
         /**
-         * 加载全部笔记
+         * 处理加载数据
          */
-        public abstract void onLoadAllNote();
+        public abstract void onLoadData();
     }
 
     /**
      * -------------------- 回收站 MVP 接口定义 --------------------
      */
     public interface ITrashModel {
-        List<Note> loadTrashNote();
+        List<Note> loadData();
     }
 
     public interface ITrashView {
-        void loadTrashNoteDone(List<Note> list);
+        void loadDataDone(List<Note> list);
     }
 
     public static abstract class ITrashPresenter<V> extends APresenter<V> {
-        public abstract void onLoadTrashNote();
+        public abstract void onLoadData();
     }
 }

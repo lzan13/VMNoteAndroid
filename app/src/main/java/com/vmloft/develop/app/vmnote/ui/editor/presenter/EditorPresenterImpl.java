@@ -34,17 +34,17 @@ public class EditorPresenterImpl extends IEditorPresenter<IEditorView> {
      * 保存笔记逻辑处理，这里将数据交给 M 层处理
      */
     @Override
-    public void onSaveNote(String content) {
+    public void onSaveData(String content) {
         note.setContent(content);
-        noteModel.saveNote(note, new ACallback() {
+        noteModel.saveData(note, new ACallback() {
             @Override
             public void onSuccess(Object object) {
-                obtainView().saveNoteDone((Note) object);
+                obtainView().saveDataDone((Note) object);
             }
 
             @Override
             public void onError(int code, String desc) {
-                obtainView().saveNoteDone(null);
+                obtainView().saveDataDone(null);
             }
         });
     }
@@ -53,9 +53,9 @@ public class EditorPresenterImpl extends IEditorPresenter<IEditorView> {
      * 加载数据逻辑处理，如果加载为空，这直接创建
      */
     @Override
-    public void onLoadNote(String noteId) {
+    public void onLoadData(String noteId) {
         if (!VMStr.isEmpty(noteId)) {
-            note = noteModel.loadNote(noteId);
+            note = noteModel.loadData(noteId);
         }
         if (note == null) {
             this.note = new Note(VMCrypto.getObjectId());
@@ -64,6 +64,6 @@ public class EditorPresenterImpl extends IEditorPresenter<IEditorView> {
             note.setIsCreate(true);
             note.setIsSync(false);
         }
-        obtainView().loadNoteDone(note);
+        obtainView().loadDataDone(note);
     }
 }

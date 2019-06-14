@@ -13,14 +13,14 @@
     <string name="already_have_an_account">已经有账户！</string>
 
     <!--菜单相关-->
-    <string name="note_all">All notes</string>
-    <string name="note_books">Note books</string>
-    <string name="note_trash">Trash</string>
-    <string name="night_theme">Night Theme</string>
-    <string name="note_sync">Time: %1$s</string>
-    <string name="note_selected">Selected %1$d</string>
+    <string name="note_all">全部笔记</string>
+    <string name="note_category">笔记分类</string>
+    <string name="note_trash">回收站</string>
+    <string name="theme_night">夜间</string>
+    <string name="theme_sunny">白天</string>
+    <string name="note_selected">选中 %1$d</string>
 
-    <string name="display_config">Display config</string>
+    <string name="display_config">配置</string>
     <string name="search">搜索</string>
     <string name="sort_by">排序</string>
     <string name="preview">预览</string>

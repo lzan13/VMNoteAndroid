@@ -42,7 +42,7 @@ public class DisplayModelImpl implements IDisplayModel {
     /**
      * 加载笔记列表
      */
-    @Override public List<Note> loadAllNote() {
+    @Override public List<Note> loadData() {
         return null;
     }
 }

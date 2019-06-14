@@ -15,8 +15,8 @@ public class CategoryModelImpl implements MainContract.ICategoryModel {
      * 加载笔记列表
      */
     @Override
-    public List<Category> loadAllCategory() {
-//        return DBManager.getInstance().loadAllCategory();
+    public List<Category> loadData() {
+//        return DBManager.getInstance().loadData();
         return null;
     }
 }

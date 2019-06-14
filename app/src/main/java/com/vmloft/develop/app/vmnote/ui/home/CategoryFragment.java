@@ -40,7 +40,7 @@ public class CategoryFragment extends AppMVPFragment<ICategoryView, ICategoryPre
      * @return 返回布局 id
      */
     @Override protected int layoutId() {
-        return R.layout.fragment_note_books;
+        return R.layout.fragment_note_category;
     }
 
     @Override public ICategoryPresenter<ICategoryView> createPresenter() {
@@ -62,13 +62,13 @@ public class CategoryFragment extends AppMVPFragment<ICategoryView, ICategoryPre
 
         initRefreshListener();
 
-        presenter.onLoadAllCategory();
+        presenter.onLoadData();
     }
 
     /**
      * 加载数据完成
      */
-    @Override public void loadCategoryDone(List<Category> list) {
+    @Override public void loadDataDone(List<Category> list) {
         refreshLayout.setRefreshing(false);
         refresh(list);
     }
@@ -90,7 +90,7 @@ public class CategoryFragment extends AppMVPFragment<ICategoryView, ICategoryPre
         refreshLayout.setColorSchemeResources(R.color.app_accent);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
-                presenter.onLoadAllCategory();
+                presenter.onLoadData();
             }
         });
     }

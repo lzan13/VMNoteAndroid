@@ -16,19 +16,19 @@ public class EditorContract {
         /**
          * 保存 Note
          */
-        void saveNote(Note entity, ACallback callback);
+        void saveData(Note note, ACallback callback);
 
         /**
          * 加载 Note
          */
-        Note loadNote(String noteId);
+        Note loadData(String noteId);
     }
 
     public interface IEditorView {
 
-        void loadNoteDone(Note entity);
+        void loadDataDone(Note note);
 
-        void saveNoteDone(Note entity);
+        void saveDataDone(Note note);
     }
 
     public abstract static class IEditorPresenter<V> extends APresenter<V> {
@@ -37,12 +37,12 @@ public class EditorContract {
         /**
          * 保存处理
          */
-        public abstract void onSaveNote(String content);
+        public abstract void onSaveData(String content);
 
         /**
          * 加载
          */
-        public abstract void onLoadNote(String noteId);
+        public abstract void onLoadData(String noteId);
 
     }
 

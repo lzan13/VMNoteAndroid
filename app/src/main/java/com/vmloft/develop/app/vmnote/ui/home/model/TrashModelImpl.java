@@ -11,8 +11,8 @@ import java.util.List;
 public class TrashModelImpl implements MainContract.ITrashModel {
 
     @Override
-    public List<Note> loadTrashNote() {
-//        return DBManager.getInstance().loadTrashNote();
+    public List<Note> loadData() {
+//        return DBManager.getInstance().loadData();
         return null;
     }
 }
