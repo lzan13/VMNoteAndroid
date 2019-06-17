@@ -81,6 +81,9 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
     public void initUI() {
         super.initUI();
         setTopIcon(R.drawable.ic_done);
+        if (mTopSpaceView != null) {
+            mTopSpaceView.setVisibility(View.GONE);
+        }
 
         refreshUI();
     }
@@ -175,10 +178,11 @@ public class EditorActivity extends AppMVPActivity<IEditorView, IEditorPresenter
         if (isEditor) {
             setTopIcon(R.drawable.ic_done);
             mEditBtn.setVisibility(View.INVISIBLE);
-            mExpandableLayout.collapse();
+            mExpandableLayout.setVisibility(View.GONE);
         } else {
             setTopIcon(R.drawable.vm_ic_arrow_left);
             mEditBtn.setVisibility(View.VISIBLE);
+            mExpandableLayout.setVisibility(View.VISIBLE);
         }
         if (isPreview) {
             mPreviewView.setVisibility(View.VISIBLE);

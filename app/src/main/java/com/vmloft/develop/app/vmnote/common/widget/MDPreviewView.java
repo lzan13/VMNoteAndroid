@@ -54,7 +54,7 @@ public class MDPreviewView extends NestedScrollView {
      * 因为参数传递到 javascript 层转义字符会直接转为实际效果，所以要进行下替换
      * 还有一点比较坑的地方就是，这里只能调用 loadUrl 去调用 javascript 方法
      *
-     * @param str markdown 内容
+     * @param str Markdown 格式内容
      */
     public void parseMarkdown(String str) {
         str = str.replace("\n", "\\n");
